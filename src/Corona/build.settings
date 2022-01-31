@@ -14,7 +14,7 @@ settings =
           -- Array of strings
           [[
 
-          	<meta-data android:name="applovin.sdk.key" android:value="8QVo7i2GF4SZpHglJPwUblnpMtoqFkwN8QAF7DVNHzx4FcpZ1k2cTqQqgCexwTI3-SJ6fqTxoO020qb1Xee0S3"/>
+          	<meta-data android:name="applovin.sdk.key" android:value="replace with your own"/>
           ]],
       },
   },
@@ -24,8 +24,8 @@ settings =
 		plist =
 		{
             NSUserTrackingUsageDescription = "This would allow the app to advertise better.",
-            AppLovinSdkKey = "8QVo7i2GF4SZpHglJPwUblnpMtoqFkwN8QAF7DVNHzx4FcpZ1k2cTqQqgCexwTI3-SJ6fqTxoO020qb1Xee0S3", --replace
-			UILaunchStoryboardName = "LaunchScreen",
+            AppLovinSdkKey = "replace with your own",
+						UILaunchStoryboardName = "LaunchScreen",
 		},
 	},
 }
