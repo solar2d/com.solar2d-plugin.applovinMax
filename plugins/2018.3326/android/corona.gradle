@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'com.applovin:applovin-sdk:10.3.1'
+}

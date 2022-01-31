@@ -1,0 +1,31 @@
+settings =
+{
+	orientation =
+	{
+		default = "portrait",
+		supported = { "portrait" },
+	},
+	android =
+  {
+			 minSdkVersion = "19",
+
+      applicationChildElements =
+      {
+          -- Array of strings
+          [[
+
+          	<meta-data android:name="applovin.sdk.key" android:value="8QVo7i2GF4SZpHglJPwUblnpMtoqFkwN8QAF7DVNHzx4FcpZ1k2cTqQqgCexwTI3-SJ6fqTxoO020qb1Xee0S3"/>
+          ]],
+      },
+  },
+	iphone =
+	{
+		xcassets = "Images.xcassets",
+		plist =
+		{
+            NSUserTrackingUsageDescription = "This would allow the app to advertise better.",
+            AppLovinSdkKey = "8QVo7i2GF4SZpHglJPwUblnpMtoqFkwN8QAF7DVNHzx4FcpZ1k2cTqQqgCexwTI3-SJ6fqTxoO020qb1Xee0S3", --replace
+			UILaunchStoryboardName = "LaunchScreen",
+		},
+	},
+}
