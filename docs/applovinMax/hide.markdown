@@ -1,14 +1,14 @@
-# applovin.hide()
+# applovinMax.hide()
 
 > --------------------- ------------------------------------------------------------------------------------------
 > __Type__              [Function][api.type.Function]
 > __Return value__      none
 > __Revision__          [REVISION_LABEL](REVISION_URL)
-> __Keywords__          ads, advertising, AppLovin, hide
-> __See also__          [applovin.init()][plugin.applovin.init]
->						[applovin.load()][plugin.applovin.load]
->						[applovin.isLoaded()][plugin.applovin.isLoaded]
->						[applovin.*][plugin.applovin]
+> __Keywords__          ads, advertising, AppLovin, AppLovin Max, hide
+> __See also__          [applovinMax.init()][plugin.applovinMax.init]
+>						[applovinMax.load()][plugin.applovinMax.load]
+>						[applovinMax.isLoaded()][plugin.applovinMax.isLoaded]
+>						[applovinMax.*][plugin.applovinMax]
 > --------------------- ------------------------------------------------------------------------------------------
 
 
@@ -26,20 +26,20 @@ For now only `"banner"` ads are supported in this method.
 
 ## Syntax
 
-	applovin.hide( "banner" )
+	applovinMax.hide( "banner" )
 
 
 ## Example
 
 ``````lua
-local applovin = require( "plugin.applovin" )
+local applovinMax = require( "plugin.applovinMax" )
 
 local function adListener( event )
 
 	if ( event.phase == "init" ) then  -- Successful initialization
 		print( event.isError )
 		-- Load an AppLovin ad
-		applovin.load( "interstitial" )
+		applovinMax.load( "banner", {iOSUnitId ="replace with your own", androidUnitId="replace with your own"} )
 
 	elseif ( event.phase == "loaded" ) then  -- The ad was successfully loaded
 		print( event.type )
@@ -61,14 +61,14 @@ local function adListener( event )
 end
 
 -- Initialize the AppLovin plugin
-applovin.init( adListener, { sdkKey="YOUR_SDK_KEY" } )
+applovinMax.init( adListener)
 
 -- Sometime later, show the ad
-local isAdLoaded = applovin.isLoaded( "interstitial" )
+local isAdLoaded = applovinMax.isLoaded( "banner" )
 if ( isAdLoaded == true ) then
-	applovin.show( "interstitial" )
+	applovinMax.show( "banner" )
 end
 
 -- Sometime later, hide the ad
-applovin.hide( "banner" )
+applovinMax.hide( "banner" )
 ``````

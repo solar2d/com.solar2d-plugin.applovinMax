@@ -1,15 +1,15 @@
-# applovin.setIsAgeRestrictedUser()
+# applovinMax.setIsAgeRestrictedUser()
 
 > --------------------- ------------------------------------------------------------------------------------------
 > __Type__              [Function][api.type.Function]
 > __Return value__      none
 > __Revision__          [REVISION_LABEL](REVISION_URL)
-> __Keywords__          ads, advertising, AppLovin, setHasUserConsent
-> __See also__          [applovin.init()][plugin.applovin.init]
->						[applovin.load()][plugin.applovin.load]
->						[applovin.isLoaded()][plugin.applovin.isLoaded]
->						[applovin.setHasUserConsent()][plugin.applovin.setHasUserConsent]
->						[applovin.*][plugin.applovin]
+> __Keywords__          ads, advertising, AppLovin, setHasUserConsent, AppLovin Max
+> __See also__          [applovinMax.init()][plugin.applovinMax.init]
+>						[applovinMax.load()][plugin.applovin.load]
+>						[applovinMax.isLoaded()][plugin.applovinMax.isLoaded]
+>						[applovinMax.setHasUserConsent()][plugin.applovinMax.setHasUserConsent]
+>						[applovinMax.*][plugin.applovinMax]
 > --------------------- ------------------------------------------------------------------------------------------
 
 
@@ -28,16 +28,16 @@ _[Boolean][api.type.Boolean]._ If the user is underage, please set the following
 ## Example
 
 ``````lua
-local applovin = require( "plugin.applovin" )
+local applovinMax = require( "plugin.applovinMax" )
 
 local function adListener( event )
 
 	if ( event.phase == "init" ) then  -- Successful initialization
 		-- Set age restriction
-		applovin.setIsAgeRestrictedUser( true )
+		applovinMax.setIsAgeRestrictedUser( true )
 	end
 end
 
 -- Initialize the AppLovin plugin
-applovin.init( adListener, { sdkKey="YOUR_SDK_KEY" } )
+applovinMax.init( adListener )
 ``````

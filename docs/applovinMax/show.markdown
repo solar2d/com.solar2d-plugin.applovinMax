@@ -1,25 +1,25 @@
-# applovin.show()
+# applovinMax.show()
 
 > --------------------- ------------------------------------------------------------------------------------------
 > __Type__              [Function][api.type.Function]
 > __Return value__      none
 > __Revision__          [REVISION_LABEL](REVISION_URL)
 > __Keywords__          ads, advertising, AppLovin, show
-> __See also__          [applovin.init()][plugin.applovin.init]
->						[applovin.load()][plugin.applovin.load]
->						[applovin.isLoaded()][plugin.applovin.isLoaded]
->						[applovin.*][plugin.applovin]
+> __See also__          [applovinMax.init()][plugin.applovinMax.init]
+>						[applovinMax.load()][plugin.applovinMax.load]
+>						[applovinMax.isLoaded()][plugin.applovinMax.isLoaded]
+>						[applovinMax.*][plugin.applovinMax]
 > --------------------- ------------------------------------------------------------------------------------------
 
 
 ## Overview
 
-Shows a AppLovin ad which was previously loaded via [applovin.load()][plugin.applovin.load].
+Shows a AppLovin ad which was previously loaded via [applovinMax.load()][plugin.applovinMax.load].
 
 
 ## Syntax
 
-	applovin.show( adType [, placement] )
+	applovinMax.show( adType [, placement] )
 
 ##### adType ~^(required)^~
 _[String][api.type.String]._ One of the following values:
@@ -45,11 +45,11 @@ _[String][api.type.String]._ Only applicable for banner ads. Valid values: `"top
 <div class="guide-notebox">
 <div class="notebox-title">Notes</div>
 
-* When you use `"interstitial"`, both static interstitial ads and video interstitial ads may be shown. You configure the type of ads to be used in the [AppLovin developer portal](https://www.applovin.com/manage). 
+* When you use `"interstitial"`, both static interstitial ads and video interstitial ads may be shown. You configure the type of ads to be used in the [AppLovin developer portal](https://www.applovin.com/manage).
 
 * You must enable "Rewarded&nbsp;Video" in the [AppLovin developer portal](https://www.applovin.com/manage) to receive rewarded videos in your app.
 
-* Rewarded video offers can be limited to a certain amount in a given day, defined under "frequency&nbsp;capping" in the [AppLovin developer portal](https://www.applovin.com/manage). If you are using frequency capping, we recommend that you check for an [event.phase][plugin.applovin.event.adsRequest.phase] value of `"validationExceededQuota"` to determine if the limit has been reached. When this occurs, you may consider loading/showing an interstitial ad instead.
+* Rewarded video offers can be limited to a certain amount in a given day, defined under "frequency&nbsp;capping" in the [AppLovin developer portal](https://www.applovin.com/manage). 
 
 </div>
 
@@ -57,14 +57,14 @@ _[String][api.type.String]._ Only applicable for banner ads. Valid values: `"top
 ## Example
 
 ``````lua
-local applovin = require( "plugin.applovin" )
+local applovinMax = require( "plugin.applovinMax" )
 
 local function adListener( event )
 
 	if ( event.phase == "init" ) then  -- Successful initialization
 		print( event.isError )
 		-- Load an AppLovin ad
-		applovin.load( "interstitial" )
+		applovinMax.load( "interstitial", {iOSUnitId ="replace with your own", androidUnitId="replace with your own"} )
 
 	elseif ( event.phase == "loaded" ) then  -- The ad was successfully loaded
 		print( event.type )
@@ -86,11 +86,11 @@ local function adListener( event )
 end
 
 -- Initialize the AppLovin plugin
-applovin.init( adListener, { sdkKey="YOUR_SDK_KEY" } )
+applovinMax.init( adListener)
 
 -- Sometime later, show the ad
-local isAdLoaded = applovin.isLoaded( "interstitial" )
+local isAdLoaded = applovinMax.isLoaded( "interstitial" )
 if ( isAdLoaded == true ) then
-	applovin.show( "interstitial" )
+	applovinMax.show( "interstitial" )
 end
 ``````

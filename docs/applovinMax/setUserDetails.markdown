@@ -1,14 +1,14 @@
-# applovin.setUserDetails()
+# applovinMax.setUserDetails()
 
 > --------------------- ------------------------------------------------------------------------------------------
 > __Type__              [Function][api.type.Function]
 > __Return value__      none
 > __Revision__          [REVISION_LABEL](REVISION_URL)
-> __Keywords__          ads, advertising, AppLovin, setUserDetails
-> __See also__          [applovin.init()][plugin.applovin.init]
->						[applovin.load()][plugin.applovin.load]
->						[applovin.isLoaded()][plugin.applovin.isLoaded]
->						[applovin.*][plugin.applovin]
+> __Keywords__          ads, advertising, AppLovin, setUserDetails, Applovin Max
+> __See also__          [applovin.init()][plugin.applovinMax.init]
+>						[applovinMax.load()][plugin.applovinMax.load]
+>						[applovinMax.isLoaded()][plugin.applovinMax.isLoaded]
+>						[applovinMax.*][plugin.applovinMax]
 > --------------------- ------------------------------------------------------------------------------------------
 
 
@@ -26,7 +26,7 @@ This function is completely optional and only applies if you are using [AppLovin
 
 ## Syntax
 
-	applovin.setUserDetails( params )
+	applovinMax.setUserDetails( params )
 
 ##### params ~^(required)^~
 _[Table][api.type.Table]._ Table containing AppLovin user detail values &mdash; see the next section for details.
@@ -43,16 +43,16 @@ _[String][api.type.String]._ The user ID you wish to set for the current user in
 ## Example
 
 ``````lua
-local applovin = require( "plugin.applovin" )
+local applovinMax = require( "plugin.applovinMax" )
 
 local function adListener( event )
 
 	if ( event.phase == "init" ) then  -- Successful initialization
 		-- Set the user details
-		applovin.setUserDetails( { userId="user123" } )
+		applovinMax.setUserDetails( { userId="user123" } )
 	end
 end
 
 -- Initialize the AppLovin plugin
-applovin.init( adListener, { sdkKey="YOUR_SDK_KEY" } )
+applovinMax.init( adListener )
 ``````

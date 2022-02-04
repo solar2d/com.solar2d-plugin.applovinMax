@@ -1,12 +1,12 @@
-# applovin.isLoaded()
+# applovinMax.isLoaded()
 
 > --------------------- ------------------------------------------------------------------------------------------
 > __Type__				[Function][api.type.Function]
 > __Return value__		[Boolean][api.type.Boolean]
 > __Revision__			[REVISION_LABEL](REVISION_URL)
-> __Keywords__			ads, advertising, AppLovin, isLoaded
-> __See also__			[applovin.show()][plugin.applovin.show]
->						[applovin.*][plugin.applovin]
+> __Keywords__			ads, advertising, AppLovin, isLoaded, AppLovin Max
+> __See also__			[applovinMax.show()][plugin.applovinMax.show]
+>						[applovinMax.*][plugin.applovinMax]
 > --------------------- ------------------------------------------------------------------------------------------
 
 
@@ -17,7 +17,7 @@ Checks to see if a AppLovin ad is already loaded. Returns `true` if an ad is loa
 
 ## Syntax
 
-	applovin.isLoaded( adType )
+	applovinMax.isLoaded( adType )
 
 ##### adType ~^(required)^~
 _[String][api.type.String]._ One of the following values:
@@ -37,14 +37,14 @@ You must enable "Rewarded&nbsp;Video" in the [AppLovin developer portal](https:/
 ## Example
 
 ``````lua
-local applovin = require( "plugin.applovin" )
+local applovinMax = require( "plugin.applovinMax" )
 
 local function adListener( event )
 
 	if ( event.phase == "init" ) then  -- Successful initialization
 		print( event.isError )
 		-- Load an AppLovin ad
-		applovin.load( "interstitial" )
+		applovinMax.load( "interstitial",  {iOSUnitId ="replace with your own", androidUnitId="replace with your own"} )
 
 	elseif ( event.phase == "loaded" ) then  -- The ad was successfully loaded
 		print( event.type )
@@ -57,9 +57,9 @@ local function adListener( event )
 end
 
 -- Initialize the AppLovin plugin
-applovin.init( adListener, { sdkKey="YOUR_SDK_KEY" } )
+applovinMax.init( adListener )
 
 -- Sometime later, check if the ad is loaded
-local isAdLoaded = applovin.isLoaded( "interstitial" )
+local isAdLoaded = applovinMax.isLoaded( "interstitial" )
 print( isAdLoaded )
 ``````
