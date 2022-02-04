@@ -86,7 +86,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
     private static final String PHASE_INIT = "init";
     private static final String PHASE_DISPLAYED = "displayed";
     private static final String PHASE_EXPANDED = "expanded";
-    private static final String PHASE_COLLAPSE = "collapse";
+    private static final String PHASE_COLLAPSED = "collapsed";
     private static final String PHASE_LOADED = "loaded";
     private static final String PHASE_FAILED = "failed";
     private static final String PHASE_CLOSED = "hidden"; // using 'hidden' for backwards compatibility with v1.x plugin
@@ -1513,7 +1513,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
         public void onAdCollapsed(final MaxAd ad) {
             // send Corona Lua event
             Map<String, Object> coronaEvent = new HashMap<>();
-            coronaEvent.put(EVENT_PHASE_KEY, PHASE_COLLAPSE);
+            coronaEvent.put(EVENT_PHASE_KEY, PHASE_COLLAPSED);
             coronaEvent.put(EVENT_TYPE_KEY, adType);
             dispatchLuaEvent(coronaEvent);
 

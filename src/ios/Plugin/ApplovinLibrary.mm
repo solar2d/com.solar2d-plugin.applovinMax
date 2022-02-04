@@ -75,7 +75,7 @@ static const NSArray *validBannerPositions = @[
 static NSString * const PHASE_INIT                      = @"init";
 static NSString * const PHASE_DISPLAYED                 = @"displayed";
 static NSString * const PHASE_EXPANDED                  = @"expanded";
-static NSString * const PHASE_COLLAPSE                  = @"collapse";
+static NSString * const PHASE_COLLAPSED                  = @"collapsed";
 static NSString * const PHASE_LOADED                    = @"loaded";
 static NSString * const PHASE_FAILED                    = @"failed";
 static NSString * const PHASE_HIDDEN                    = @"hidden";
@@ -1387,7 +1387,7 @@ ApplovinLibrary::showDebugger(lua_State *L)
 - (void)didCollapseAd:(MAAd *)ad {
     // send Corona Lua event
     NSDictionary *coronaEvent = @{
-      @(CoronaEventPhaseKey()): PHASE_COLLAPSE,
+      @(CoronaEventPhaseKey()): PHASE_COLLAPSED,
       @(CoronaEventTypeKey()): self.adType
     };
     [self dispatchLuaEvent:coronaEvent];
