@@ -4,7 +4,7 @@ Add following to your `build.settings` to use:
 ```lua
 {
     plugins = {
-        "plugin.applovin" = {
+        "plugin.applovinMax" = {
             publisherId = "com.solar2d",
         },
     },
