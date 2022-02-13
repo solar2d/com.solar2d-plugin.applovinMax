@@ -1,0 +1,51 @@
+[submodule "adapters/AdColony"]
+	path = adapters/AdColony
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.AdColony.git
+[submodule "adapters/Chartboost"]
+	path = adapters/Chartboost
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Chartboost.git
+[submodule "adapters/Facebook"]
+	path = adapters/Facebook
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Facebook.git
+[submodule "adapters/Fyber"]
+	path = adapters/Fyber
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Fyber.git
+[submodule "adapters/GoogleAdMob"]
+	path = adapters/GoogleAdMob
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.GoogleAdMob.git
+[submodule "adapters/HyprMX"]
+	path = adapters/HyprMX
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.HyprMX.git
+[submodule "adapters/IronSource"]
+	path = adapters/IronSource
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.IronSource.git
+[submodule "adapters/InMobi"]
+	path = adapters/InMobi
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.InMobi.git
+[submodule "adapters/Maio"]
+	path = adapters/Maio
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Maio.git
+[submodule "adapters/Mintegral"]
+	path = adapters/Mintegral
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Mintegral.git
+[submodule "adapters/MyTarget"]
+	path = adapters/MyTarget
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.MyTarget.git
+[submodule "adapters/Pangle"]
+	path = adapters/Pangle
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Pangle.git
+[submodule "adapters/Ogury"]
+	path = adapters/Ogury
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Ogury.git
+[submodule "adapters/Smaato"]
+	path = adapters/Smaato
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Smaato.git
+[submodule "adapters/Vungle"]
+	path = adapters/Vungle
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Vungle.git
+[submodule "adapters/UnityAds"]
+	path = adapters/UnityAds
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.UnityAds.git
+[submodule "adapters/Tapjoy"]
+	path = adapters/Tapjoy
+	url = https://github.com/solar2d/com.solar2d-plugin.applovinMax.Tapjoy.git
