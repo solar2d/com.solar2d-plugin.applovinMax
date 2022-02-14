@@ -13,7 +13,9 @@ settings =
       {
           -- Array of strings
           [[
-
+					<meta-data
+					android:name="com.google.android.gms.ads.APPLICATION_ID"
+					android:value="ca-app-pub-XXXXXXXXXXXXX~XXXXXXXXXXXXX"/>
           	<meta-data android:name="applovin.sdk.key" android:value="replace with your own"/>
           ]],
       },
@@ -23,9 +25,68 @@ settings =
 		xcassets = "Images.xcassets",
 		plist =
 		{
+						GADApplicationIdentifier = "ca-app-pub-XXXXXXXXXXXXXXXX",
             NSUserTrackingUsageDescription = "This would allow the app to advertise better.",
             AppLovinSdkKey = "replace with your own",
 						UILaunchStoryboardName = "LaunchScreen",
+						NSAppTransportSecurity = { NSAllowsArbitraryLoads=true },
 		},
 	},
+	plugins =
+	 {
+
+		 	["plugin.applovinMax"] =
+			 {
+					 publisherId = "com.solar2d"
+			 },
+			 ["plugin.applovinMax.AdColony"] = {
+ 					 publisherId = "com.solar2d",
+ 			 },
+			["plugin.applovinMax.Chartboost"] = {
+					 publisherId = "com.solar2d",
+			 },
+			 ["plugin.applovinMax.Facebook"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.Fyber"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.GoogleAdMob"] = {
+ 					 publisherId = "com.solar2d",
+ 			 },
+			 ["plugin.applovinMax.HyprMX"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.InMobi"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.IronSource"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.Maio"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.Mintegral"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.MyTarget"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.Ogury"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.Pangle"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.Smaato"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.Tapjoy"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+			 ["plugin.applovinMax.UnityAds"] = {
+				 publisherId = "com.solar2d",
+		 	 },
+
+	 },
 }
