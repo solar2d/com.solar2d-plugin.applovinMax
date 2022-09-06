@@ -6,9 +6,9 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import "MAAdDelegate.h"
-#import "MAReward.h"
-#import "MAAd.h"
+#import <AppLovinSDK/MAAdDelegate.h>
+#import <AppLovinSDK/MAReward.h>
+#import <AppLovinSDK/MAAd.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

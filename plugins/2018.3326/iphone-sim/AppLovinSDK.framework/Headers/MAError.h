@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MAErrorCode.h"
-#import "MAAdWaterfallInfo.h"
+#import <AppLovinSDK/MAErrorCode.h>
+#import <AppLovinSDK/MAAdWaterfallInfo.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,9 +27,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *message;
 
 /**
+ * The mediated network's error code for the error. Available for errors returned in @c -[MAAdDelegate didFailToDisplayAd:withError:] only.
+ */
+@property (nonatomic, assign, readonly) NSInteger mediatedNetworkErrorCode;
+
+/**
+ * The mediated network's error message for the error. Defaults to an empty string. Available for errors returned in @c -[MAAdDelegate didFailToDisplayAd:withError:] only.
+ */
+@property (nonatomic, copy, readonly) NSString *mediatedNetworkErrorMessage;
+
+/**
  * The underlying waterfall of ad responses.
  */
-@property (nonatomic, strong, readonly) MAAdWaterfallInfo *waterfall;
+@property (nonatomic, strong, readonly, nullable) MAAdWaterfallInfo *waterfall;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)new NS_UNAVAILABLE;

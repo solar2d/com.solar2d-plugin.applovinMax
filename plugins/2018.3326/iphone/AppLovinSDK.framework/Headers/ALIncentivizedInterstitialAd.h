@@ -5,11 +5,11 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import "ALInterstitialAd.h"
-#import "ALAdVideoPlaybackDelegate.h"
-#import "ALAdDisplayDelegate.h"
-#import "ALAdLoadDelegate.h"
-#import "ALAdRewardDelegate.h"
+#import <AppLovinSDK/ALInterstitialAd.h>
+#import <AppLovinSDK/ALAdVideoPlaybackDelegate.h>
+#import <AppLovinSDK/ALAdDisplayDelegate.h>
+#import <AppLovinSDK/ALAdLoadDelegate.h>
+#import <AppLovinSDK/ALAdRewardDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

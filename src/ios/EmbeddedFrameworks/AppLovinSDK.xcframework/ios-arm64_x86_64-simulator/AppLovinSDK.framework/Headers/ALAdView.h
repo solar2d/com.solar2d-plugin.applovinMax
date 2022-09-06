@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ALSdk.h"
-#import "ALAdService.h"
-#import "ALAdViewEventDelegate.h"
+#import <AppLovinSDK/ALSdk.h>
+#import <AppLovinSDK/ALAdService.h>
+#import <AppLovinSDK/ALAdViewEventDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

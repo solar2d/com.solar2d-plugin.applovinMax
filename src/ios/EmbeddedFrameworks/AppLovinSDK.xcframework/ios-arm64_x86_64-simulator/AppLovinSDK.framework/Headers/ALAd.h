@@ -5,8 +5,8 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import "ALAdSize.h"
-#import "ALAdType.h"
+#import <AppLovinSDK/ALAdSize.h>
+#import <AppLovinSDK/ALAdType.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

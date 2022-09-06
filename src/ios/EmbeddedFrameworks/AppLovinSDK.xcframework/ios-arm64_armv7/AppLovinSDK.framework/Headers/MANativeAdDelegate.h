@@ -5,9 +5,9 @@
 //  Created by Andrew Tian on 7/14/21.
 //
 
-#import "MAAd.h"
-#import "MANativeAdView.h"
-#import "MAError.h"
+#import <AppLovinSDK/MAAd.h>
+#import <AppLovinSDK/MANativeAdView.h>
+#import <AppLovinSDK/MAError.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,9 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The SDK invokes this method when a new native ad has been loaded.
  *
+ * @param nativeAdView The native ad view that the SDK successfully loaded.
+ *                     May be @c nil if a manual native ad is loaded without a view.
+ *                     You can create and render the native ad view using @code -[MANativeAdLoader renderNativeAdView:withAd:] @endcode.
  * @param ad  The ad that was loaded.
  */
-- (void)didLoadNativeAd:(MANativeAdView *)nativeAdView forAd:(MAAd *)ad;
+- (void)didLoadNativeAd:(nullable MANativeAdView *)nativeAdView forAd:(MAAd *)ad;
 
 /**
  * The SDK invokes this method when a native ad could not be retrieved.

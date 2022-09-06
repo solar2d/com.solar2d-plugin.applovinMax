@@ -5,8 +5,8 @@
 //  Created by Christopher Cong on 10/25/18.
 //
 
-#import "ALMediationAdapter.h"
-#import "MAAdapterDelegate.h"
+#import <AppLovinSDK/ALMediationAdapter.h>
+#import <AppLovinSDK/MAAdapterDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

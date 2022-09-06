@@ -6,8 +6,8 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import "MAAd.h"
-#import "MAError.h"
+#import <AppLovinSDK/MAAd.h>
+#import <AppLovinSDK/MAError.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

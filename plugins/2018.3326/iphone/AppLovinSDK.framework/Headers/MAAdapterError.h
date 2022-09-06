@@ -5,7 +5,7 @@
 //  Created by Thomas So on 11/13/18.
 //
 
-#import "MAError.h"
+#import <AppLovinSDK/MAError.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -123,23 +123,36 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, class, readonly) MAAdapterError *missingRequiredNativeAdAssets;
 
 /**
- * The error code provided by the third party SDK.
+ * The mediation ad failed to load because an Activity context was required, but missing.
  */
-@property (nonatomic, assign, readonly) NSInteger thirdPartySdkErrorCode;
+@property (nonatomic, class, readonly) NSInteger errorCodeMissingViewController;
+@property (nonatomic, class, readonly) MAAdapterError *missingViewController;
 
-/**
- * The error message provided by the third party SDK.
+/*
+ * The mediation adapter failed to display the ad.
  */
-@property (nonatomic, copy, readonly) NSString *thirdPartySdkErrorMessage;
+@property (nonatomic, class, readonly) NSInteger errorCodeAdDisplayFailedError;
+@property (nonatomic, class, readonly) MAAdapterError *adDisplayFailedError;
 
 + (instancetype)errorWithCode:(NSInteger)code;
-+ (instancetype)errorWithCode:(NSInteger)code adapterErrorCode:(NSInteger)adapterErrorCode;
 + (instancetype)errorWithCode:(NSInteger)code errorString:(NSString *)errorString;
 + (instancetype)errorWithNSError:(NSError *)error;
-+ (instancetype)errorWithAdapterError:(MAAdapterError *)error thirdPartySdkErrorCode:(NSInteger)thirdPartySdkErrorCode thirdPartySdkErrorMessage:(NSString *)thirdPartySdkErrorMessage;
-+ (instancetype)errorWithCode:(NSInteger)code errorString:(NSString *)errorString thirdPartySdkErrorCode:(NSInteger)thirdPartySdkErrorCode thirdPartySdkErrorMessage:(NSString *)thirdPartySdkErrorMessage;
++ (instancetype)errorWithAdapterError:(MAAdapterError *)error
+             mediatedNetworkErrorCode:(NSInteger)mediatedNetworkErrorCode
+          mediatedNetworkErrorMessage:(NSString *)mediatedNetworkErrorMessage;
++ (instancetype)errorWithCode:(NSInteger)code
+                  errorString:(NSString *)errorString
+     mediatedNetworkErrorCode:(NSInteger)mediatedNetworkErrorCode
+  mediatedNetworkErrorMessage:(NSString *)mediatedNetworkErrorMessage;
 - (instancetype)init NS_UNAVAILABLE;
 
+@end
+
+@interface MAAdapterError(ALDeprecated)
++ (instancetype)errorWithAdapterError:(MAAdapterError *)error thirdPartySdkErrorCode:(NSInteger)thirdPartySdkErrorCode thirdPartySdkErrorMessage:(NSString *)thirdPartySdkErrorMessage
+__deprecated_msg("This method has been deprecated in v11.4.0 and will be removed in a future SDK version. Please use -[MAAdapterError errorWithAdapterError:mediatedNetworkErrorCode:mediatedNetworkErrorMessage:] instead.");
++ (instancetype)errorWithCode:(NSInteger)code errorString:(NSString *)errorString thirdPartySdkErrorCode:(NSInteger)thirdPartySdkErrorCode thirdPartySdkErrorMessage:(NSString *)thirdPartySdkErrorMessage
+__deprecated_msg("This method has been deprecated in v11.4.0 and will be removed in a future SDK version. Please use -[MAAdapterError errorWithCode:errorString:mediatedNetworkErrorCode:mediatedNetworkErrorMessage:] instead.");
 @end
 
 NS_ASSUME_NONNULL_END

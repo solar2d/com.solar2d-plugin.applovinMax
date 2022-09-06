@@ -5,7 +5,7 @@
 //  Created by Thomas So on 5/5/20.
 //
 
-#import "MAAdFormat.h"
+#import <AppLovinSDK/MAAdFormat.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,14 +17,16 @@ typedef void (^MANativeAdBuilderBlock) (MANativeAdBuilder *builder);
 
 @interface MANativeAdBuilder : NSObject
 
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy,   nullable) NSString *title;
 @property (nonatomic, copy,   nullable) NSString *advertiser;
 @property (nonatomic, copy,   nullable) NSString *body;
 @property (nonatomic, copy,   nullable) NSString *callToAction;
 @property (nonatomic, strong, nullable) MANativeAdImage *icon;
+@property (nonatomic, strong, nullable) MANativeAdImage *mainImage;
 @property (nonatomic, strong, nullable) UIView *iconView;
 @property (nonatomic, strong, nullable) UIView *optionsView;
 @property (nonatomic, strong, nullable) UIView *mediaView;
+@property (nonatomic, assign) CGFloat mediaContentAspectRatio;
 
 @end
 
@@ -38,7 +40,7 @@ typedef void (^MANativeAdBuilderBlock) (MANativeAdBuilder *builder);
 /**
  * The native ad image URL.
  */
-@property (nonatomic, copy,   readonly, nullable) NSURL *URL;
+@property (nonatomic, copy, readonly, nullable) NSURL *URL;
 
 - (instancetype)initWithImage:(UIImage *)image;
 - (instancetype)initWithURL:(NSURL *)URL;
@@ -80,6 +82,7 @@ typedef void (^MANativeAdBuilderBlock) (MANativeAdBuilder *builder);
 
 /**
  * The native ad icon image view.
+ * Note: This is only used for banners using native APIs. Native ads must provide a `MANativeAdImage` instead.
  */
 @property (nonatomic, strong, readonly, nullable) UIView *iconView;
 
@@ -92,6 +95,34 @@ typedef void (^MANativeAdBuilderBlock) (MANativeAdBuilder *builder);
  * The native ad media view.
  */
 @property (nonatomic, strong, readonly, nullable) UIView *mediaView;
+
+/**
+ * The native ad main image (cover image). May or may not be a locally cached file:// resource file.
+ *
+ * Please make sure you continue to render your native ad using @c MANativeAdLoader so impression tracking is not affected.
+ *
+ * Supported adapter versions:
+ *
+ * BidMachine  v1.9.4.1.1
+ * Google Ad Manager  v9.6.0.1
+ * Google AdMob  v9.6.0.2
+ * Mintegral  v7.1.7.0.2
+ * myTarget  v5.15.2.1
+ * Pangle  v4.5.2.4.1
+ * Smaato  v21.7.6.1
+ * VerizonAds  v2.0.0.4
+ */
+@property (nonatomic, strong, readonly, nullable) MANativeAdImage *mainImage;
+
+/**
+ * The aspect ratio for the media view if provided by the network. Otherwise returns 0.0f.
+ */
+@property (nonatomic, assign, readonly) CGFloat mediaContentAspectRatio;
+
+/**
+ * For internal use only.
+ */
+- (void)performClick;
 
 /**
  * This method is called before the ad view is returned to the publisher.

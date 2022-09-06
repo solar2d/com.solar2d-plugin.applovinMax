@@ -6,10 +6,10 @@
 //  Copyright © 2019 AppLovin Corporation. All rights reserved.
 //
 
-#import "MAAdapter.h"
-#import "MAAdapterResponseParameters.h"
-#import "MAAdViewAdapterDelegate.h"
-#import "MAAdFormat.h"
+#import <AppLovinSDK/MAAdapter.h>
+#import <AppLovinSDK/MAAdapterResponseParameters.h>
+#import <AppLovinSDK/MAAdViewAdapterDelegate.h>
+#import <AppLovinSDK/MAAdFormat.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

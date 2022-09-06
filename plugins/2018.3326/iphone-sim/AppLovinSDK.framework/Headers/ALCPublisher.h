@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ALCEntity.h"
+#import <AppLovinSDK/ALCEntity.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

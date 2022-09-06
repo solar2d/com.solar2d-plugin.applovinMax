@@ -99,6 +99,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, getter=isLocationCollectionEnabled) BOOL locationCollectionEnabled;
 
+/**
+ * A copy of the extra parameters that are currently set.
+ */
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> *extraParameters;
+
+/**
+ * Set an extra parameter to pass to the AppLovin server.
+ *
+ * @param key   Parameter key. Must not be nil.
+ * @param value Parameter value. May be nil.
+ */
+- (void)setExtraParameterForKey:(NSString *)key value:(nullable NSString *)value;
+
 @end
 
 NS_ASSUME_NONNULL_END

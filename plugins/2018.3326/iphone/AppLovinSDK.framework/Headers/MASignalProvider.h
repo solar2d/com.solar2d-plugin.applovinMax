@@ -6,8 +6,8 @@
 //  Copyright © 2019 AppLovin Corporation. All rights reserved.
 //
 
-#import "MASignalCollectionParameters.h"
-#import "MASignalCollectionDelegate.h"
+#import <AppLovinSDK/MASignalCollectionParameters.h>
+#import <AppLovinSDK/MASignalCollectionDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -59,7 +59,9 @@
 #import <AppLovinSDK/MAAd.h>
 #import <AppLovinSDK/MAAdDelegate.h>
 #import <AppLovinSDK/MAAdFormat.h>
+#import <AppLovinSDK/MAAdRequestDelegate.h>
 #import <AppLovinSDK/MAAdRevenueDelegate.h>
+#import <AppLovinSDK/MAAdReviewDelegate.h>
 #import <AppLovinSDK/MAAdView.h>
 #import <AppLovinSDK/MAAdViewAdDelegate.h>
 #import <AppLovinSDK/MAAdWaterfallInfo.h>
@@ -77,6 +79,16 @@
 #import <AppLovinSDK/MARewardedAd.h>
 #import <AppLovinSDK/MARewardedAdDelegate.h>
 #import <AppLovinSDK/MARewardedInterstitialAd.h>
+
+#import <AppLovinSDK/MAAdPlacer.h>
+#import <AppLovinSDK/MAAdPlacerSettings.h>
+#import <AppLovinSDK/MACustomAdPlacer.h>
+#import <AppLovinSDK/MATableViewAdPlacer.h>
+#import <AppLovinSDK/MATableViewAdPlacerCell.h>
+#import <AppLovinSDK/UITableView+MATableViewAdPlacer.h>
+#import <AppLovinSDK/MACollectionViewAdPlacer.h>
+#import <AppLovinSDK/MACollectionViewAdPlacerCell.h>
+#import <AppLovinSDK/UICollectionView+MACollectionViewAdPlacer.h>
 
 #import <AppLovinSDK/ALCCommunicator.h>
 #import <AppLovinSDK/ALCEntity.h>

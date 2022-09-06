@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MAAdViewAdapter.h"
-#import "MAInterstitialAdapter.h"
-#import "MARewardedAdapter.h"
-#import "MARewardedInterstitialAdapter.h"
-#import "MANativeAdAdapter.h"
-#import "MASignalProvider.h"
-#import "ALSdk.h"
+#import <AppLovinSDK/MAAdViewAdapter.h>
+#import <AppLovinSDK/MAInterstitialAdapter.h>
+#import <AppLovinSDK/MARewardedAdapter.h>
+#import <AppLovinSDK/MARewardedInterstitialAdapter.h>
+#import <AppLovinSDK/MANativeAdAdapter.h>
+#import <AppLovinSDK/MASignalProvider.h>
+#import <AppLovinSDK/ALSdk.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

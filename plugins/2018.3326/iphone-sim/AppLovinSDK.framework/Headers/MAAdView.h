@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ALSdk.h"
-#import "MAAdViewAdDelegate.h"
-#import "MAAdRevenueDelegate.h"
+#import <AppLovinSDK/ALSdk.h>
+#import <AppLovinSDK/MAAdViewAdDelegate.h>
+#import <AppLovinSDK/MAAdRequestDelegate.h>
+#import <AppLovinSDK/MAAdRevenueDelegate.h>
+#import <AppLovinSDK/MAAdReviewDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -69,6 +71,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) IBOutlet id<MAAdRevenueDelegate> revenueDelegate;
 
 /**
+ * A delegate that will be notified about ad request events.
+ */
+@property (nonatomic, weak, nullable) IBOutlet id<MAAdRequestDelegate> requestDelegate;
+
+/**
+ * A delegate that will be notified about Ad Review events.
+ */
+@property (nonatomic, weak, nullable) IBOutlet id<MAAdReviewDelegate> adReviewDelegate;
+
+/**
  * Loads the ad for the current ad view. Set @code [MAAdView delegate] @endcode to assign a delegate that should be notified about ad load state.
  *
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/banners#loading-a-banner">MAX Integration Guide ⇒ iOS ⇒ Banners ⇒ Loading a Banner</a>
@@ -124,9 +136,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setLocalExtraParameterForKey:(NSString *)key value:(nullable id)value;
 
 /**
- * Set custom data to be set in the ILRD postbacks via the @c {CUSTOM_DATA}  macro.
+ * The custom data to tie the showing ad to, for ILRD and rewarded postbacks via the @c {CUSTOM_DATA}  macro. Maximum size is 8KB.
  */
-@property (nonatomic, copy, nullable) NSString *customPostbackData;
+@property (nonatomic, copy, nullable) NSString *customData;
 
 @end
 

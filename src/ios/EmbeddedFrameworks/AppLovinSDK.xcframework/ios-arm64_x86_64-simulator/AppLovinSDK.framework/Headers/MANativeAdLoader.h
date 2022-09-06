@@ -5,9 +5,9 @@
 //  Created by Andrew Tian on 7/14/21.
 //
 
-#import "ALSdk.h"
-#import "MAAdRevenueDelegate.h"
-#import "MANativeAdDelegate.h"
+#import <AppLovinSDK/ALSdk.h>
+#import <AppLovinSDK/MAAdRevenueDelegate.h>
+#import <AppLovinSDK/MANativeAdDelegate.h>
 #import <UIKit/UIKit.h>
 
 @class MANativeAdView;
@@ -60,6 +60,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadAdIntoAdView:(nullable MANativeAdView *)adView;
 
 /**
+ * Renders the given ad into the given ad view.
+ *
+ * Note: Make sure to only render the ad separately if the native ad view returned in our @code -[MANativeAdDelegate didLoadNativeAd:forAd:] @endcode is @c nil.
+ *
+ * @param adView The ad view into which to render the native ad.
+ * @param ad     The ad to be rendered.
+ *
+ * @return @c YES if the ad view was rendered successfully.
+ */
+- (BOOL)renderNativeAdView:(MANativeAdView *)adView withAd:(MAAd *)ad;
+
+/**
  * The placement name that you assign when you integrate each ad format, for granular reporting in ad events (e.g. "Rewarded_Store", "Rewarded_LevelEnd").
  */
 @property (nonatomic, copy, nullable) NSString *placement;
@@ -91,9 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setLocalExtraParameterForKey:(NSString *)key value:(nullable id)value;
 
 /**
- * Set custom data to be set in the ILRD postbacks via the @c {CUSTOM_DATA}  macro.
+ * The custom data to tie the showing ad to, for ILRD and rewarded postbacks via the @c {CUSTOM_DATA}  macro. Maximum size is 8KB.
  */
-@property (nonatomic, copy, nullable) NSString *customPostbackData;
+@property (nonatomic, copy, nullable) NSString *customData;
 
 @end
 

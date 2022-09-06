@@ -26,6 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (UIInterfaceOrientationMask)currentOrientationMask;
 
+/**
+ * @return If the app is running in an iOS simulator.
+ */
+@property (class, nonatomic, readonly, getter=isSimulator) BOOL simulator;
+
+
 - (instancetype)init NS_UNAVAILABLE;
 
 @end

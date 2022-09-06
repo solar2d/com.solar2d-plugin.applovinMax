@@ -6,7 +6,7 @@
 //  Copyright © 2019 AppLovin Corporation. All rights reserved.
 //
 
-#import "MAAdapterInitializationParameters.h"
+#import <AppLovinSDK/MAAdapterInitializationParameters.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, MAAdapterInitializationStatus)
 {
     /**
-     * The adapter is waiting for @c initializeWithParameters:withCompletionHandler to be called.
+     * The adapter is not initialized. Note: networks need to be enabled for an ad unit id to be initialized.
      */
-    MAAdapterInitializationStatusAdapterWaitingForInit = -4,
+    MAAdapterInitializationStatusAdapterNotInitialized = -4,
     
     /**
      * The 3rd-party SDK does not have an initialization callback with status.

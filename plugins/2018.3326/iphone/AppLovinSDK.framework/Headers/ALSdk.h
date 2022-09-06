@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ALSdkSettings.h"
-#import "ALAdService.h"
-#import "ALEventService.h"
-#import "ALVariableService.h"
-#import "ALSdkConfiguration.h"
-#import "ALErrorCodes.h"
-#import "ALMediationProvider.h"
-#import "ALUserSegment.h"
-#import "ALTargetingData.h"
-#import "MAMediatedNetworkInfo.h"
-#import "MAAdFormat.h"
+#import <AppLovinSDK/ALSdkSettings.h>
+#import <AppLovinSDK/ALAdService.h>
+#import <AppLovinSDK/ALEventService.h>
+#import <AppLovinSDK/ALVariableService.h>
+#import <AppLovinSDK/ALSdkConfiguration.h>
+#import <AppLovinSDK/ALErrorCodes.h>
+#import <AppLovinSDK/ALMediationProvider.h>
+#import <AppLovinSDK/ALUserSegment.h>
+#import <AppLovinSDK/ALTargetingData.h>
+#import <AppLovinSDK/MAMediatedNetworkInfo.h>
+#import <AppLovinSDK/MAAdFormat.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) ALUserSegment *userSegment;
 
 /**
- * Targeting Data allows you to provide user or app data that will improve how we target ads.
+ * A class which allows you to send any demographic or interest-based targeting data.
  */
 @property (nonatomic, strong, readonly) ALTargetingData *targetingData;
 
@@ -124,6 +124,16 @@ NS_ASSUME_NONNULL_BEGIN
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/testing-networks/mediation-debugger">MAX Integration Guide ⇒ iOS ⇒ Testing Networks ⇒ Mediation Debugger</a>
  */
 - (void)showMediationDebugger;
+
+/**
+ * Present the mediation debugger UI.
+ * This debugger tool provides the status of your integration for each third-party ad network.
+ *
+ * @see <a href="https://dash.applovin.com/documentation/mediation/ios/testing-networks/mediation-debugger">MAX Integration Guide ⇒ iOS ⇒ Testing Networks ⇒ Mediation Debugger</a>
+ *
+ * @param amazonAdSizes A map of the MAX Ad Unit ID to Amazon Publisher Services' @c DTBAdSize.
+ */
+- (void)showMediationDebuggerWithAmazonAdSize:(nullable NSDictionary<NSString *, NSArray/*DTBAdSize*/ *> *)amazonAdSizes;
 
 #pragma mark - SDK Initialization
 

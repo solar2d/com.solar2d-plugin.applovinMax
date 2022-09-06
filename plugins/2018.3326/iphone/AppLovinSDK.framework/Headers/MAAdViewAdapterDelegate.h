@@ -6,8 +6,8 @@
 //  Copyright © 2019 AppLovin Corporation. All rights reserved.
 //
 
-#import "MAAdapterDelegate.h"
-#import "MAAdapterError.h"
+#import <AppLovinSDK/MAAdapterDelegate.h>
+#import <AppLovinSDK/MAAdapterError.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -63,9 +63,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didClickAdViewAd;
 
 /**
+ * This method should be called when the user has clicked adapter's ad.
+ */
+- (void)didClickAdViewAdWithExtraInfo:(nullable NSDictionary<NSString *, id> *)extraInfo;
+
+/**
  * This method should be called when adapter's ad has been dismissed.
  */
 - (void)didHideAdViewAd;
+
+/**
+ * This method should be called when adapter's ad has been dismissed.
+ */
+- (void)didHideAdViewAdWithExtraInfo:(nullable NSDictionary<NSString *, id> *)extraInfo;
 
 /**
  * This method should be called when the ad view has expanded full screen.

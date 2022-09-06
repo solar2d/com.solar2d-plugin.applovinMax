@@ -29,7 +29,7 @@
 // ----------------------------------------------------------------------------
 
 #define PLUGIN_NAME        "plugin.applovinMax"
-#define PLUGIN_VERSION     "1.0.0"
+#define PLUGIN_VERSION     "1.1.0"
 #define PLUGIN_SDK_VERSION [ALSdk version]
 
 static const char EVENT_NAME[]    = "adsRequest";
@@ -456,24 +456,14 @@ ApplovinLibrary::init(lua_State *L)
 //  settings.autoPreloadAdTypes = @"NONE";
     [ALSdk shared].settings.isVerboseLogging = verboseLogging;
     [ALSdk shared].settings.muted = startMuted;
-    
+
     [ALSdk shared].mediationProvider = mediationProvider;
 //  settings.isTestAdsEnabled = testMode;
   if([privacyPolicy length]) {
       [ALSdk shared].settings.consentFlowSettings.enabled = YES;
       [ALSdk shared].settings.consentFlowSettings.privacyPolicyURL = [NSURL URLWithString:privacyPolicy];
   }
-  	if([[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSUserTrackingUsageDescription"]) {
-		if (@available(iOS 14, *)) {
-			[ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
-				  initApplovin();
-			}];
-		} else {
-			  initApplovin();
-		}
-	} else {
-		  initApplovin();
-	}
+    initApplovin();
 
   
   return 0;
@@ -1010,13 +1000,17 @@ ApplovinLibrary::show(lua_State *L)
       bannerFrame.origin.x = bannerCenterX;
       
       // set the banner position
+        NSLog(@"run123 %@");
+        
+        
       if (yAlign == NULL) {
+          NSLog(@"run125");
         // convert corona coordinates to device coordinates and set banner position
         CGFloat newBannerY = floor(yOffset * [applovinObjects[Y_RATIO_KEY] floatValue]);
         
         // negative values count from bottom
         if (yOffset < 0) {
-          newBannerY = bannerBottomY + newBannerY;
+          newBannerY = bannerTopY + newBannerY;
         }
         
         // make sure the banner frame is visible.
@@ -1026,9 +1020,9 @@ ApplovinLibrary::show(lua_State *L)
           logMsg(L, WARNING_MSG, @"Banner y position off screen. Adjusting position.");
           ySnap = newBannerY - orientedHeight + bannerFrame.size.height;
         }
-        bannerFrame.origin.y = newBannerY - ySnap;
+        bannerFrame.origin.y = 0;
       }
-      else {
+      else {          
         if (UTF8IsEqual(yAlign, BANNER_ALIGN_TOP)) {
           bannerFrame.origin.y = bannerTopY;
         }

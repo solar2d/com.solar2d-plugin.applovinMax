@@ -6,9 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ALCSubscriber.h"
-#import "ALCMessage.h"
-#import "ALCMessagingService.h"
+#import <AppLovinSDK/ALCSubscriber.h>
+#import <AppLovinSDK/ALCMessage.h>
+#import <AppLovinSDK/ALCMessagingService.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

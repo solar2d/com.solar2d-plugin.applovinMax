@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MARewardedInterstitialAdapterDelegate.h"
+#import <AppLovinSDK/MARewardedInterstitialAdapterDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

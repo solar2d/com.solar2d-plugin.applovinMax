@@ -1021,15 +1021,18 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                         }
                                     }
                                 } else {
+
                                     switch (fYAlign) {
                                         case BANNER_ALIGN_TOP:
                                             params.gravity = Gravity.TOP | Gravity.CENTER;
                                             break;
                                         case BANNER_ALIGN_CENTER:
                                             params.gravity = Gravity.CENTER;
+                                            bannerAd.setVerticalGravity(Gravity.CENTER);
                                             break;
                                         case BANNER_ALIGN_BOTTOM:
                                             params.gravity = Gravity.BOTTOM | Gravity.CENTER;
+                                            bannerAd.setVerticalGravity(Gravity.BOTTOM);
                                             break;
                                     }
                                 }

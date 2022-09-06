@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MANetworkResponseInfo.h"
+#import <AppLovinSDK/MANetworkResponseInfo.h>
 
 @class MAAd;
 
@@ -21,6 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
  * The loaded ad, if any, for this waterfall.
  */
 @property (nonatomic, weak, readonly, nullable) MAAd *loadedAd;
+
+/**
+ * The ad waterfall name.
+ */
+@property (nonatomic, copy, readonly) NSString *name;
+
+/**
+ * The ad waterfall test name.
+ */
+@property (nonatomic, copy, readonly) NSString *testName;
 
 /**
  * The list of @c MAAdapterResponseInfo info objects relating to each ad in the waterfall, ordered by their position.

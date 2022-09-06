@@ -6,8 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MAMediatedNetworkInfo.h"
-#import "MAErrorCode.h"
+#import <AppLovinSDK/MAMediatedNetworkInfo.h>
+#import <AppLovinSDK/MAErrorCode.h>
 
 @class MAError;
 

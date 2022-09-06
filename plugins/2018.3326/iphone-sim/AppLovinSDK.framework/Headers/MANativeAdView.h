@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MANativeAdViewBinder.h"
+#import <AppLovinSDK/MANativeAdViewBinder.h>
 
 @class MANativeAd;
 

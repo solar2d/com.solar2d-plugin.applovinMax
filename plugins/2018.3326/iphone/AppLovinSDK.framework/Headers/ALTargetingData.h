@@ -40,43 +40,43 @@ typedef NS_ENUM(NSInteger, ALGender)
 
 /**
  * The year of birth of the user.
- * Set this property to @c `nil` to clear this value.
+ * Set this property to @c nil to clear this value.
  */
 @property (nonatomic, strong, nullable) NSNumber *yearOfBirth;
 
 /**
  * The gender of the user.
- * Set this property to @c `ALGenderUnknown` to clear this value.
+ * Set this property to @c ALGenderUnknown to clear this value.
  */
 @property (nonatomic, assign) ALGender gender;
 
 /**
  * The maximum ad content rating shown to the user.
- * Set this property to @c `ALAdContentRatingNone` to clear this value.
+ * Set this property to @c ALAdContentRatingNone to clear this value.
  */
 @property (nonatomic, assign) ALAdContentRating maximumAdContentRating;
 
 /**
  * The email of the user.
- * Set this property to @c `nil` to clear this value.
+ * Set this property to @c nil to clear this value.
  */
 @property (nonatomic, copy, nullable) NSString *email;
 
 /**
  * The phone number of the user. Do not include the country calling code.
- * Set this property to @c `nil` to clear this value.
+ * Set this property to @c nil to clear this value.
  */
 @property (nonatomic, copy, nullable) NSString *phoneNumber;
 
 /**
  * The keywords describing the application.
- * Set this property to @c `nil` to clear this value.
+ * Set this property to @c nil to clear this value.
  */
 @property (nonatomic, copy, nullable) NSArray<NSString *> *keywords;
 
 /**
  * The interests of the user.
- * Set this property to @c `nil` to clear this value.
+ * Set this property to @c nil to clear this value.
  */
 @property (nonatomic, copy, nullable) NSArray<NSString *> *interests;
 

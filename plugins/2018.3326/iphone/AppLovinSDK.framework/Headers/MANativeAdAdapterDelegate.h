@@ -5,9 +5,9 @@
 //  Created by Thomas So on 6/15/21.
 //
 
-#import "MAAdapterDelegate.h"
-#import "MAAdapterError.h"
-#import "MANativeAd.h"
+#import <AppLovinSDK/MAAdapterDelegate.h>
+#import <AppLovinSDK/MAAdapterError.h>
+#import <AppLovinSDK/MANativeAd.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

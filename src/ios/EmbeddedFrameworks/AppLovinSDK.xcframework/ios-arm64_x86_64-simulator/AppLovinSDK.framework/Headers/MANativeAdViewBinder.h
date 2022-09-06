@@ -28,42 +28,42 @@ typedef void (^MANativeAdViewBinderBuilderBlock) (MANativeAdViewBinderBuilder *b
 @interface MANativeAdViewBinder : NSObject
 
 /**
- * The tag for the title label view to be rendered.
+ * A non-zero tag for the title label view to be rendered. The maximum length will be 50 characters.
  */
 @property (nonatomic, assign, readonly) NSInteger titleLabelTag;
 
 /**
- * The tag for advertiser label view to be rendered.
+ * A non-zero tag for advertiser label view to be rendered. The maximum length will be 25 characters.
  */
 @property (nonatomic, assign, readonly) NSInteger advertiserLabelTag;
 
 /**
- * The tag for body label view to be rendered.
+ * A non-zero tag for body label view to be rendered. The maximum length will be 150 characters.
  */
 @property (nonatomic, assign, readonly) NSInteger bodyLabelTag;
 
 /**
- * The tag for icon image view to be rendered.
+ * A non-zero tag for icon image view to be rendered.
  */
 @property (nonatomic, assign, readonly) NSInteger iconImageViewTag;
 
 /**
- * The tag for options content view to be rendered.
+ * A non-zero tag for options content view to be rendered.
  */
 @property (nonatomic, assign, readonly) NSInteger optionsContentViewTag;
 
 /**
- * The tag for media content view to be rendered.
+ * A non-zero tag for media content view to be rendered.
  */
 @property (nonatomic, assign, readonly) NSInteger mediaContentViewTag;
 
 /**
- * The tag for call to action button view to be rendered.
+ * A non-zero tag for call to action button view to be rendered. The maximum length will be 15 characters.
  */
 @property (nonatomic, assign, readonly) NSInteger callToActionButtonTag;
 
 /**
- * Instantiates a @c MANativeAdViewBinder
+ * Instantiates a @c MANativeAdViewBinder from a builder.
  */
 - (instancetype)initWithBuilderBlock:(MANativeAdViewBinderBuilderBlock)builder;
 - (instancetype)init NS_UNAVAILABLE;

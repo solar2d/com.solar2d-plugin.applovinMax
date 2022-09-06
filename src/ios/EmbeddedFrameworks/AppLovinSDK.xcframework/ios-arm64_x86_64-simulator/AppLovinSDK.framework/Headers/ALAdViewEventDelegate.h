@@ -6,7 +6,7 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import "ALAd.h"
+#import <AppLovinSDK/ALAd.h>
 
 @class ALAdView;
 

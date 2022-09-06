@@ -5,10 +5,10 @@
 //  Created by Thomas So on 6/16/21.
 //
 
-#import "MAAdapter.h"
-#import "MAAdapterResponseParameters.h"
-#import "MANativeAdAdapterDelegate.h"
-#import "MAAdFormat.h"
+#import <AppLovinSDK/MAAdapter.h>
+#import <AppLovinSDK/MAAdapterResponseParameters.h>
+#import <AppLovinSDK/MANativeAdAdapterDelegate.h>
+#import <AppLovinSDK/MAAdFormat.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -5,7 +5,7 @@
 //  Created by Thomas So on 8/27/18.
 //
 
-#import "MAAdapterParameters.h"
+#import <AppLovinSDK/MAAdapterParameters.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

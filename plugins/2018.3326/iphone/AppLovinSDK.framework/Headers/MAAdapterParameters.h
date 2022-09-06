@@ -42,6 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSDictionary<NSString *, id> *serverParameters;
 
 /**
+ * *********************
+ * AVAILABLE IN v11.1.1+
+ * *********************
+ * <p>
+ * Get custom parameters passed from AppLovin server to the current custom network SDK adapter.
+ *
+ * @return Custom parameters. Guaranteed not to be @c nil.
+ */
+@property (nonatomic, strong, readonly) NSDictionary<NSString *, id> *customParameters;
+
+/**
  * Current state of user consent.
  *
  * @return @c 1 if the user has provided consent for information sharing. @c nil if not set.
@@ -63,11 +74,25 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable, getter=isDoNotSell) NSNumber *doNotSell;
 
 /**
+ * *********************
+ * AVAILABLE IN v11.4.2+
+ * *********************
+ * <p>
+ * The consent string to pass to networks that do not support a binary consent API (i.e. networks that use TCF-only) and do not automatically ingest the string from User Defaults.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *consentString;
+
+/**
  * Check if this request is made for testing.
  *
  * @return @c YES if the ads should be retrieved for testing.
  */
 @property (nonatomic, assign, readonly, getter=isTesting) BOOL testing;
+
+/**
+ * @return The view controller to present the fullscreen ad with.
+ */
+@property (nonatomic, weak, readonly, nullable) UIViewController *presentingViewController;
 
 @end
 

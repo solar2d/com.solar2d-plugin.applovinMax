@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIView.h>
-#import "ALAd.h"
+#import <AppLovinSDK/ALAd.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
