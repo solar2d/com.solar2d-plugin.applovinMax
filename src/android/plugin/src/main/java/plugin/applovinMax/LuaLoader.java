@@ -809,8 +809,10 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                         dispatchLuaEvent(coronaEvent);
 
                         MaxAdView bannerAd = (MaxAdView) applovinObjects.get(USER_BANNER_INSTANCE_KEY);
-                        bannerAd.removeAllViews();
-                        bannerAd.destroy();
+                        if (bannerAd != null) {
+                            bannerAd.removeAllViews();
+                            bannerAd.destroy();
+                        }
                         fAdStatus.dealloc();
                         applovinObjects.remove(TYPE_BANNER);
                         applovinObjects.remove(USER_BANNER_INSTANCE_KEY);
@@ -981,7 +983,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 // set final layout params
                                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                                         FrameLayout.LayoutParams.WRAP_CONTENT,
-                                        FrameLayout.LayoutParams.WRAP_CONTENT
+                                        140
                                 );
 
                                 // set the banner position
