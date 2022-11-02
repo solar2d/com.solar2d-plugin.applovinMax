@@ -451,18 +451,18 @@ ApplovinLibrary::init(lua_State *L)
   }
   
   
-  // create Applovin SDK settings
-//  settings.autoPreloadAdSizes = @"NONE";
-//  settings.autoPreloadAdTypes = @"NONE";
+    // create Applovin SDK settings
+    //  settings.autoPreloadAdSizes = @"NONE";
+    //  settings.autoPreloadAdTypes = @"NONE";
     [ALSdk shared].settings.isVerboseLogging = verboseLogging;
     [ALSdk shared].settings.muted = startMuted;
 
     [ALSdk shared].mediationProvider = mediationProvider;
-//  settings.isTestAdsEnabled = testMode;
-  if([privacyPolicy length]) {
-      [ALSdk shared].settings.consentFlowSettings.enabled = YES;
-      [ALSdk shared].settings.consentFlowSettings.privacyPolicyURL = [NSURL URLWithString:privacyPolicy];
-  }
+
+      if([privacyPolicy length]) {
+          [ALSdk shared].settings.consentFlowSettings.enabled = YES;
+          [ALSdk shared].settings.consentFlowSettings.privacyPolicyURL = [NSURL URLWithString:privacyPolicy];
+      }
     initApplovin();
 
   
@@ -622,7 +622,6 @@ ApplovinLibrary::load(lua_State *L)
     // save extra ad status information not available in ad object
     CoronaApplovinAdStatus *adStatus = [[CoronaApplovinAdStatus alloc] initWithCoronaKey:useCoronaKey];
     applovinObjects[@(TYPE_REWARDEDVIDEO)] = adStatus;
-    
     [rewardedAd loadAd];
   }
   else { // interstitial or banner ad
@@ -740,31 +739,24 @@ ApplovinLibrary::isLoaded(lua_State *L)
     }
     
     if (UTF8IsEqual(adType, TYPE_REWARDEDVIDEO)) {
-        MARewardedAd* rewardVideo = applovinObjects[@(TYPE_REWARDEDVIDEO)];
-        if(rewardVideo){
-            isAdLoaded = [rewardVideo isReady];
-        }
-    }
-    else {
-      rewarded = false;
-    }
-  }
-    if (adType == TYPE_REWARDEDVIDEO) {
-        MARewardedAd* rewardVideo = applovinObjects[@(TYPE_REWARDEDVIDEO)];
+        MARewardedAd* rewardVideo = applovinObjects[USER_REWARDEDVIDEO_INSTANCE_KEY];
         if(rewardVideo){
             isAdLoaded = [rewardVideo isReady];
         }
         
     }
-    else if(adType == TYPE_INTERSTITIAL) {
-        MAInterstitialAd * interstital = applovinObjects[@(TYPE_INTERSTITIAL)];
+    else if(UTF8IsEqual(adType, TYPE_INTERSTITIAL)) {
+        MAInterstitialAd * interstital = applovinObjects[USER_INTERSTITIAL_INSTANCE_KEY];
         if(interstital){
             isAdLoaded = [interstital isReady];
         }
+    } else if(UTF8IsEqual(adType, TYPE_BANNER)) {
+        MAAdView * banner = applovinObjects[USER_BANNER_INSTANCE_KEY];
+        //Don't have a way to check for banners at the momment
     }else {
-        CoronaApplovinAdStatus *adStatus = applovinObjects[@(adType)];
-        isAdLoaded = (adStatus != nil) && (adStatus.ad != nil) && (adStatus.isLoaded || adStatus.bannerIsVisible);
+      rewarded = false;
     }
+  }
   
     
   
@@ -1000,11 +992,10 @@ ApplovinLibrary::show(lua_State *L)
       bannerFrame.origin.x = bannerCenterX;
       
       // set the banner position
-        NSLog(@"run123 %@");
+        
         
         
       if (yAlign == NULL) {
-          NSLog(@"run125");
         // convert corona coordinates to device coordinates and set banner position
         CGFloat newBannerY = floor(yOffset * [applovinObjects[Y_RATIO_KEY] floatValue]);
         
