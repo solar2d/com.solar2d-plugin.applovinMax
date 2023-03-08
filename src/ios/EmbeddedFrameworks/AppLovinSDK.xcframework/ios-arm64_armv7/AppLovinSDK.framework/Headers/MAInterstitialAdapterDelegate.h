@@ -7,14 +7,15 @@
 //
 
 #import <AppLovinSDK/MAAdapterDelegate.h>
-#import <AppLovinSDK/MAAdapterError.h>
+
+@class MAAdapterError;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Protocol for adapters to forward ad load and display events to the MAX SDK for interstitial ads.
  */
-@protocol MAInterstitialAdapterDelegate<MAAdapterDelegate>
+@protocol MAInterstitialAdapterDelegate <MAAdapterDelegate>
 
 /**
  * This method should called when an ad has been loaded.
@@ -54,8 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * This method should be called when the user has clicked adapter's ad.
+ *
+ * @param extraInfo Extra info passed from the adapter.
  */
--(void)didClickInterstitialAdWithExtraInfo:(nullable NSDictionary<NSString *, id> *)extraInfo;
+- (void)didClickInterstitialAdWithExtraInfo:(nullable NSDictionary<NSString *, id> *)extraInfo;
 
 /**
  * This method should be called when adapter's ad has been dismissed.
@@ -64,8 +67,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * This method should be called when adapter's ad has been dismissed.
+ * 
+ * @param extraInfo Extra info passed from the adapter.
  */
--(void)didHideInterstitialAdWithExtraInfo:(nullable NSDictionary<NSString *, id> *)extraInfo;
+- (void)didHideInterstitialAdWithExtraInfo:(nullable NSDictionary<NSString *, id> *)extraInfo;
 
 /**
  * This method is should be called when an ad could not be displayed.
@@ -73,6 +78,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @param adapterError An error object that indicates the cause of the failure.
  */
 - (void)didFailToDisplayInterstitialAdWithError:(MAAdapterError *)adapterError;
+
+/**
+ * This method is should be called when an ad could not be displayed.
+ *
+ * @param adapterError An error object that indicates the cause of the failure.
+ * @param extraInfo Extra info passed from the adapter.
+ */
+- (void)didFailToDisplayInterstitialAdWithError:(MAAdapterError *)adapterError extraInfo:(nullable NSDictionary<NSString *, id> *)extraInfo;
 
 @end
 

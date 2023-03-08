@@ -5,8 +5,15 @@
 //  Created by Christopher Cong on 10/25/18.
 //
 
-#import <AppLovinSDK/ALMediationAdapter.h>
-#import <AppLovinSDK/MAAdapterDelegate.h>
+#import <UIKit/UIKit.h>
+#import <AppLovinSDK/MAAdapter.h>
+#import <AppLovinSDK/MAAdViewAdapterDelegate.h>
+#import <AppLovinSDK/MAAppOpenAdapterDelegate.h>
+#import <AppLovinSDK/MAInterstitialAdapterDelegate.h>
+#import <AppLovinSDK/MARewardedAdapterDelegate.h>
+
+@class MAAdapterError;
+@class MAReward;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,6 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addInterstitialAdapter:(id<MAAdapter>)adapter
                       delegate:(id<MAInterstitialAdapterDelegate>)delegate
         forPlacementIdentifier:(NSString *)placementIdentifier;
+
+/**
+ * Mediation adapters should call this when loading an app open ad.
+ *
+ * @param adapter             Mediation adapter responsible for the mediated ad request.
+ * @param delegate            Delegate that is listening to the mediation adapter events.
+ * @param placementIdentifier Placement identifier requested for the ad load.
+ */
+- (void)addAppOpenAdapter:(id<MAAdapter>)adapter
+                 delegate:(id<MAAppOpenAdapterDelegate>)delegate
+   forPlacementIdentifier:(NSString *)placementIdentifier;
 
 /**
  * Mediation adapters should call this when loading a rewarded ad.

@@ -5,11 +5,13 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import <AppLovinSDK/ALInterstitialAd.h>
-#import <AppLovinSDK/ALAdVideoPlaybackDelegate.h>
 #import <AppLovinSDK/ALAdDisplayDelegate.h>
 #import <AppLovinSDK/ALAdLoadDelegate.h>
 #import <AppLovinSDK/ALAdRewardDelegate.h>
+#import <AppLovinSDK/ALAdVideoPlaybackDelegate.h>
+
+@class ALAd;
+@class ALSdk;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,20 +20,20 @@ NS_ASSUME_NONNULL_BEGIN
  * exchange for watching a video.
  */
 @interface ALIncentivizedInterstitialAd : NSObject
-
+    
 #pragma mark - Ad Delegates
-
+    
 /**
  * An object that conforms to the @c ALAdDisplayDelegate protocol. If you provide a value for @c adDisplayDelegate in your instance, the SDK will
  * notify this delegate of ad show/hide events.
  */
-@property (strong, nonatomic, nullable) id<ALAdDisplayDelegate> adDisplayDelegate;
+@property (nonatomic, strong, nullable) id<ALAdDisplayDelegate> adDisplayDelegate;
 
 /**
  * An object that conforms to the @c ALAdVideoPlaybackDelegate protocol. If you provide a value for @c adVideoPlaybackDelegate in your instance,
  * the SDK will notify this delegate of video start/stop events.
  */
-@property (strong, nonatomic, nullable) id<ALAdVideoPlaybackDelegate> adVideoPlaybackDelegate;
+@property (nonatomic, strong, nullable) id<ALAdVideoPlaybackDelegate> adVideoPlaybackDelegate;
 
 #pragma mark - Integration, Class Methods
 
@@ -130,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The zone identifier this incentivized ad was initialized with and is loading ads for, if any.
  */
-@property (copy, nonatomic, readonly, nullable) NSString *zoneIdentifier;
+@property (nonatomic, copy, readonly, nullable) NSString *zoneIdentifier;
 
 /**
  * Pre-loads an incentivized interstitial, and notifies your provided Ad Load Delegate.
@@ -160,7 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return @c YES if an ad has been loaded into this incentivized interstitial and is ready to display. @c NO otherwise.
  */
-@property (readonly, atomic, getter=isReadyForDisplay) BOOL readyForDisplay;
+@property (atomic, readonly, getter=isReadyForDisplay) BOOL readyForDisplay;
 
 /**
  * Shows an incentivized interstitial over the current key window, by using the most recently pre-loaded ad.
@@ -201,6 +203,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @see <a href="https://dash.applovin.com/documentation/mediation/s2s-rewarded-callback-api">MAX Integration Guide ⇒ MAX S2S Rewarded Callback API</a>
  */
 - (void)showAd:(ALAd *)ad andNotify:(nullable id<ALAdRewardDelegate>)adRewardDelegate;
+
+/**
+ * Sets extra info to pass to the SDK.
+ *
+ * @param key   Parameter key.
+ * @param value Parameter value.
+ */
+- (void)setExtraInfoForKey:(NSString *)key value:(nullable id)value;
 
 - (instancetype)init __attribute__((unavailable("Use initWithSdk:, initWithZoneIdentifier:, or [ALIncentivizedInterstitialAd shared] instead.")));
 + (instancetype)new NS_UNAVAILABLE;

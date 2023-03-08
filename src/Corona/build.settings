@@ -27,7 +27,7 @@ settings =
 		{
 						GADApplicationIdentifier = "ca-app-pub-XXXXXXXXXXXXXXXX",
             NSUserTrackingUsageDescription = "This would allow the app to advertise better.",
-            AppLovinSdkKey = "replace with your own",
+            AppLovinSdkKey = "8QVo7i2GF4SZpHglJPwUblnpMtoqFkwN8QAF7DVNHzx4FcpZ1k2cTqQqgCexwTI3-SJ6fqTxoO020qb1Xee0S3",
 						UILaunchStoryboardName = "LaunchScreen",
 						NSAppTransportSecurity = { NSAllowsArbitraryLoads=true },
 		},

@@ -5,11 +5,9 @@
 //  Created by Santosh Bagadi on 11/26/21.
 //
 
-#import <Foundation/Foundation.h>
+@class MANativeAdViewBinderBuilder;
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class MANativeAdViewBinderBuilder;
 
 typedef void (^MANativeAdViewBinderBuilderBlock) (MANativeAdViewBinderBuilder *builder);
 
@@ -20,6 +18,7 @@ typedef void (^MANativeAdViewBinderBuilderBlock) (MANativeAdViewBinderBuilder *b
 @property (nonatomic, assign) NSInteger bodyLabelTag;
 @property (nonatomic, assign) NSInteger iconImageViewTag;
 @property (nonatomic, assign) NSInteger optionsContentViewTag;
+@property (nonatomic, assign) NSInteger starRatingContentViewTag;
 @property (nonatomic, assign) NSInteger mediaContentViewTag;
 @property (nonatomic, assign) NSInteger callToActionButtonTag;
 
@@ -51,6 +50,11 @@ typedef void (^MANativeAdViewBinderBuilderBlock) (MANativeAdViewBinderBuilder *b
  * A non-zero tag for options content view to be rendered.
  */
 @property (nonatomic, assign, readonly) NSInteger optionsContentViewTag;
+
+/**
+ * A non-zero tag for star rating content view to be rendered.
+ */
+@property (nonatomic, assign, readonly) NSInteger starRatingContentViewTag;
 
 /**
  * A non-zero tag for media content view to be rendered.

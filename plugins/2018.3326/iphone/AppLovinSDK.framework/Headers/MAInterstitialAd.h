@@ -6,11 +6,13 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import <AppLovinSDK/ALSdk.h>
+#import <UIKit/UIKit.h>
 #import <AppLovinSDK/MAAdDelegate.h>
 #import <AppLovinSDK/MAAdRequestDelegate.h>
 #import <AppLovinSDK/MAAdRevenueDelegate.h>
 #import <AppLovinSDK/MAAdReviewDelegate.h>
+
+@class ALSdk;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -60,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<MAAdReviewDelegate> adReviewDelegate;
 
 /**
- * Load the ad for the current interstitial. Set @code [MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about ad load state.
+ * Load the ad for the current interstitial. Set @code -[MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about ad load state.
  *
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/interstitials#loading-an-interstitial-ad">MAX Integration Guide ⇒ iOs ⇒ Interstitials ⇒ Loading an Interstitial Ad</a>
  */
@@ -69,8 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Show the loaded interstitial ad.
  * <ul>
- * <li>Use @code [MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about display events.</li>
- * <li>Use @code [MAInterstitialAd ready] @endcode to check if an ad was successfully loaded.</li>
+ * <li>Use @code -[MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about display events.</li>
+ * <li>Use @code -[MAInterstitialAd ready] @endcode to check if an ad was successfully loaded.</li>
  * </ul>
  *
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/interstitials#showing-an-interstitial-ad">MAX Integration Guide ⇒ iOs ⇒ Interstitials ⇒ Showing an Interstitial Ad</a>
@@ -80,8 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Show the loaded interstitial ad for a given placement to tie ad events to.
  * <ul>
- * <li>Use @code [MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about display events.</li>
- * <li>Use @code [MAInterstitialAd ready] @endcode to check if an ad was successfully loaded.</li>
+ * <li>Use @code -[MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about display events.</li>
+ * <li>Use @code -[MAInterstitialAd ready] @endcode to check if an ad was successfully loaded.</li>
  * </ul>
  *
  * @param placement The placement to tie the showing ad’s events to.
@@ -91,8 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Show the loaded interstitial ad for a given placement and custom data to tie ad events to.
  * <ul>
- * <li>Use @code [MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about display events.</li>
- * <li>Use @code [MAInterstitialAd ready] @endcode to check if an ad was successfully loaded.</li>
+ * <li>Use @code -[MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about display events.</li>
+ * <li>Use @code -[MAInterstitialAd ready] @endcode to check if an ad was successfully loaded.</li>
  * </ul>
  *
  * @param placement The placement to tie the showing ad’s events to.
@@ -103,8 +105,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Show the loaded interstitial ad for a given placement and custom data to tie ad events to, and a view controller to present the ad from.
  * <ul>
- * <li>Use @code [MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about display events.</li>
- * <li>Use @code [MAInterstitialAd ready] @endcode to check if an ad was successfully loaded.</li>
+ * <li>Use @code -[MAInterstitialAd delegate] @endcode to assign a delegate that should be notified about display events.</li>
+ * <li>Use @code -[MAInterstitialAd ready] @endcode to check if an ad was successfully loaded.</li>
  * </ul>
  *
  * @param placement The placement to tie the showing ad’s events to.

@@ -45,6 +45,9 @@ end
 function lib.showDebugger()
     showWarning("applovinMax.showDebugger()")
 end
+function lib.setCreativeDebuggerEnabled()
+    showWarning("applovinMax.setCreativeDebuggerEnabled()")
+end
 
 
 

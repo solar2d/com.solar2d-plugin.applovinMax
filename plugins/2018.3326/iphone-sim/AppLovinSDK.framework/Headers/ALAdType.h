@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, strong, readonly) ALAdType *regular;
 
 /**
+ * Represents a standard advertisement that does not provide a reward to the user and is shown upon opening the app.
+ */
+@property (class, nonatomic, strong, readonly) ALAdType *appOpen;
+
+/**
  * A rewarded ad, which will provide the user virtual currency upon completion.
  */
 @property (class, nonatomic, strong, readonly) ALAdType *incentivized;

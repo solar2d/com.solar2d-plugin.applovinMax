@@ -5,8 +5,6 @@
 //  Created by Thomas So on 1/1/22.
 //
 
-
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,14 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (class, nonatomic, readonly, getter=isSimulator) BOOL simulator;
 
-
 - (instancetype)init NS_UNAVAILABLE;
 
 @end
 
 @interface NSString (ALSdk)
 @property (nonatomic, assign, readonly, getter=al_isValidString) BOOL al_validString;
-@property (readonly, assign, getter=al_isValidURL) BOOL al_validURL;
+@property (nonatomic, assign, readonly, getter=al_isValidURL) BOOL al_validURL;
 - (BOOL)al_isEqualToStringIgnoringCase:(NSString *)otherString;
 @end
 
@@ -68,6 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (ALSdk)
 + (NSTimeInterval)al_timeIntervalNow;
+@end
+
+@interface UIImageView (ALSdk)
+- (void)al_setImageWithURL:(NSURL *)URL;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,47 +11,52 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * This class defines a format of an ad.
  */
-@interface MAAdFormat : NSObject<NSCopying>
+@interface MAAdFormat : NSObject <NSCopying>
 
 /**
  * Represents a 320×50 banner advertisement.
  */
-@property (nonatomic, strong, readonly, class) MAAdFormat *banner;
+@property (class, nonatomic, strong, readonly) MAAdFormat *banner;
 
 /**
  * Represents a 300×250 rectangular advertisement.
  */
-@property (nonatomic, strong, readonly, class) MAAdFormat *mrec;
+@property (class, nonatomic, strong, readonly) MAAdFormat *mrec;
 
 /**
  * Represents a 728×90 leaderboard advertisement (for tablets).
  */
-@property (nonatomic, strong, readonly, class) MAAdFormat *leader;
+@property (class, nonatomic, strong, readonly) MAAdFormat *leader;
 
 /**
  * Represents a cross-promo advertisement.
  */
-@property (nonatomic, strong, readonly, class) MAAdFormat *crossPromo;
+@property (class, nonatomic, strong, readonly) MAAdFormat *crossPromo;
 
 /**
  * Represents a full-screen advertisement.
  */
-@property (nonatomic, strong, readonly, class) MAAdFormat *interstitial;
+@property (class, nonatomic, strong, readonly) MAAdFormat *interstitial;
 
 /**
- * Similar to @code [MAAdFormat interstitial] @endcode except that users are given a reward at the end of the advertisement.
+ * Similar to @code +[MaxAdFormat interstitial] @endcode, except that it is shown upon opening the app.
  */
-@property (nonatomic, strong, readonly, class) MAAdFormat *rewarded;
+@property (class, nonatomic, strong, readonly) MAAdFormat *appOpen;
+
+/**
+ * Similar to @code +[MAAdFormat interstitial] @endcode except that users are given a reward at the end of the advertisement.
+ */
+@property (class, nonatomic, strong, readonly) MAAdFormat *rewarded;
 
 /**
  * Represents a fullscreen ad that the user can skip or be granted a reward upon successful completion of the ad.
  */
-@property (nonatomic, strong, readonly, class) MAAdFormat *rewardedInterstitial;
+@property (class, nonatomic, strong, readonly) MAAdFormat *rewardedInterstitial;
 
 /**
  * Represents a native advertisement.
  */
-@property (nonatomic, strong, readonly, class) MAAdFormat *native;
+@property (class, nonatomic, strong, readonly) MAAdFormat *native;
 
 /**
  * String representing the name of this ad format. Sample values include "BANNER", "MREC", "INTER", "REWARDED", etc.

@@ -3,5 +3,5 @@ android.defaultConfig {
 }
 ext["minSdkVersion"] = Math.max(ext.find("minSdkVersion")?:15, 16)
 dependencies {
-    implementation 'com.applovin:applovin-sdk:11.4.6'
+    implementation 'com.applovin:applovin-sdk:11.8.1'
 }

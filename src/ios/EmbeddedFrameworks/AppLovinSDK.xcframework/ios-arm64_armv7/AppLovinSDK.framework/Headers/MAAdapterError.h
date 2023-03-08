@@ -17,122 +17,122 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The mediation adapter can not load an ad because of no fill.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeNoFill;
-@property (nonatomic, class, readonly) MAAdapterError *noFill;
+@property (class, nonatomic, readonly) NSInteger errorCodeNoFill;
+@property (class, nonatomic, readonly) MAAdapterError *noFill;
 
 /**
  * The mediation adapter failed to load an ad for an unspecified reason.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeUnspecified;
-@property (nonatomic, class, readonly) MAAdapterError *unspecified;
+@property (class, nonatomic, readonly) NSInteger errorCodeUnspecified;
+@property (class, nonatomic, readonly) MAAdapterError *unspecified;
 
 /**
  * The mediation adapter can not load an ad because it is currently in an invalid state.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeInvalidLoadState;
-@property (nonatomic, class, readonly) MAAdapterError *invalidLoadState;
+@property (class, nonatomic, readonly) NSInteger errorCodeInvalidLoadState;
+@property (class, nonatomic, readonly) MAAdapterError *invalidLoadState;
 
 /**
  * The mediation adapter can not load an ad because it is currently not configured correctly.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeInvalidConfiguration;
-@property (nonatomic, class, readonly) MAAdapterError *invalidConfiguration;
+@property (class, nonatomic, readonly) NSInteger errorCodeInvalidConfiguration;
+@property (class, nonatomic, readonly) MAAdapterError *invalidConfiguration;
 
 /**
  * The mediation adapter can not load an ad because of a bad request.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeBadRequest;
-@property (nonatomic, class, readonly) MAAdapterError *badRequest;
+@property (class, nonatomic, readonly) NSInteger errorCodeBadRequest;
+@property (class, nonatomic, readonly) MAAdapterError *badRequest;
 
 /**
  * The mediation adapter can not load an ad because the SDK is not initialized yet.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeNotInitialized;
-@property (nonatomic, class, readonly) MAAdapterError *notInitialized;
+@property (class, nonatomic, readonly) NSInteger errorCodeNotInitialized;
+@property (class, nonatomic, readonly) MAAdapterError *notInitialized;
 
 /**
  * The mediation adapter can not load an ad because of a timeout.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeTimeout;
-@property (nonatomic, class, readonly) MAAdapterError *timeout;
+@property (class, nonatomic, readonly) NSInteger errorCodeTimeout;
+@property (class, nonatomic, readonly) MAAdapterError *timeout;
 
 /**
  * The mediation adapter can not load an ad because it can not detect an active internet connection.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeNoConnection;
-@property (nonatomic, class, readonly) MAAdapterError *noConnection;
+@property (class, nonatomic, readonly) NSInteger errorCodeNoConnection;
+@property (class, nonatomic, readonly) MAAdapterError *noConnection;
 
 /**
  * The mediation adapter did not have an ad ready in time for showing.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeAdNotReady;
-@property (nonatomic, class, readonly) MAAdapterError *adNotReady;
+@property (class, nonatomic, readonly) NSInteger errorCodeAdNotReady;
+@property (class, nonatomic, readonly) MAAdapterError *adNotReady;
 
 /**
  * The mediation adapter ran into a remote server error.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeServerError;
-@property (nonatomic, class, readonly) MAAdapterError *serverError;
+@property (class, nonatomic, readonly) NSInteger errorCodeServerError;
+@property (class, nonatomic, readonly) MAAdapterError *serverError;
 
 /**
  * The mediation adapter ran into an unspecified internal error.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeInternalError;
-@property (nonatomic, class, readonly) MAAdapterError *internalError;
+@property (class, nonatomic, readonly) NSInteger errorCodeInternalError;
+@property (class, nonatomic, readonly) MAAdapterError *internalError;
 
 /**
  * The mediation adapter has timed out while collecting a signal.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeSignalCollectionTimeout;
-@property (nonatomic, class, readonly) MAAdapterError *signalCollectionTimeout;
+@property (class, nonatomic, readonly) NSInteger errorCodeSignalCollectionTimeout;
+@property (class, nonatomic, readonly) MAAdapterError *signalCollectionTimeout;
 
 /**
  * The mediation adapter does not support signal collection.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeSignalCollectionNotSupported;
-@property (nonatomic, class, readonly) MAAdapterError *signalCollectionNotSupported;
+@property (class, nonatomic, readonly) NSInteger errorCodeSignalCollectionNotSupported;
+@property (class, nonatomic, readonly) MAAdapterError *signalCollectionNotSupported;
 
 /**
  * The mediation adapter ran into a WebView-related error.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeWebViewError;
-@property (nonatomic, class, readonly) MAAdapterError *webViewError;
+@property (class, nonatomic, readonly) NSInteger errorCodeWebViewError;
+@property (class, nonatomic, readonly) MAAdapterError *webViewError;
 
 /**
  * The mediation adapter ran into an expired ad.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeAdExpired;
-@property (nonatomic, class, readonly) MAAdapterError *adExpiredError;
+@property (class, nonatomic, readonly) NSInteger errorCodeAdExpired;
+@property (class, nonatomic, readonly) MAAdapterError *adExpiredError;
 
 /**
  * The mediation ad frequency capped.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeAdFrequencyCapped;
-@property (nonatomic, class, readonly) MAAdapterError *adFrequencyCappedError;
+@property (class, nonatomic, readonly) NSInteger errorCodeAdFrequencyCapped;
+@property (class, nonatomic, readonly) MAAdapterError *adFrequencyCappedError;
 
 /**
  * The mediation adapter ran into an error while displaying rewarded ad.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeRewardError;
-@property (nonatomic, class, readonly) MAAdapterError *rewardError;
+@property (class, nonatomic, readonly) NSInteger errorCodeRewardError;
+@property (class, nonatomic, readonly) MAAdapterError *rewardError;
 
 /**
  * The mediation adapter failed to load a native ad because of missing required assets.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeMissingRequiredNativeAdAssets;
-@property (nonatomic, class, readonly) MAAdapterError *missingRequiredNativeAdAssets;
+@property (class, nonatomic, readonly) NSInteger errorCodeMissingRequiredNativeAdAssets;
+@property (class, nonatomic, readonly) MAAdapterError *missingRequiredNativeAdAssets;
 
 /**
  * The mediation ad failed to load because an Activity context was required, but missing.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeMissingViewController;
-@property (nonatomic, class, readonly) MAAdapterError *missingViewController;
+@property (class, nonatomic, readonly) NSInteger errorCodeMissingViewController;
+@property (class, nonatomic, readonly) MAAdapterError *missingViewController;
 
 /*
  * The mediation adapter failed to display the ad.
  */
-@property (nonatomic, class, readonly) NSInteger errorCodeAdDisplayFailedError;
-@property (nonatomic, class, readonly) MAAdapterError *adDisplayFailedError;
+@property (class, nonatomic, readonly) NSInteger errorCodeAdDisplayFailedError;
+@property (class, nonatomic, readonly) MAAdapterError *adDisplayFailedError;
 
 + (instancetype)errorWithCode:(NSInteger)code;
 + (instancetype)errorWithCode:(NSInteger)code errorString:(NSString *)errorString;

@@ -5,11 +5,11 @@
 //  Created by Andrew Tian on 7/14/21.
 //
 
-#import <AppLovinSDK/ALSdk.h>
 #import <AppLovinSDK/MAAdRevenueDelegate.h>
 #import <AppLovinSDK/MANativeAdDelegate.h>
-#import <UIKit/UIKit.h>
 
+@class ALSdk;
+@class MAAd;
 @class MANativeAdView;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -48,12 +48,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<MAAdRevenueDelegate> revenueDelegate;
 
 /**
- * Load a new MAX native ad. Set @code [MANativeAdLoader nativeAdDelegate] @endcode to assign a delegate that should be notified about ad load state.
+ * Load a new MAX native ad. Set @code -[MANativeAdLoader nativeAdDelegate] @endcode to assign a delegate that should be notified about ad load state.
  */
 - (void)loadAd;
 
 /**
- * Load a new MAX native ad into the given native ad view. Set @code [MANativeAdLoader nativeAdDelegate] @endcode to assign a delegate that should be notified about ad load state.
+ * Load a new MAX native ad into the given native ad view. Set @code -[MANativeAdLoader nativeAdDelegate] @endcode to assign a delegate that should be notified about ad load state.
  *
  * @param adView a @c MANativeAdView into which the loaded native ad will be rendered.
  */

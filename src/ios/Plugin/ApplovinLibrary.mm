@@ -29,7 +29,7 @@
 // ----------------------------------------------------------------------------
 
 #define PLUGIN_NAME        "plugin.applovinMax"
-#define PLUGIN_VERSION     "1.1.0"
+#define PLUGIN_VERSION     "1.2.0"
 #define PLUGIN_SDK_VERSION [ALSdk version]
 
 static const char EVENT_NAME[]    = "adsRequest";
@@ -160,6 +160,7 @@ class ApplovinLibrary
     static int setHasUserConsent(lua_State *L);
     static int setIsAgeRestrictedUser(lua_State *L);
     static int showDebugger(lua_State *L);
+    static int setCreativeDebuggerEnabled(lua_State *L);
     
     
   private: // internal helper functions
@@ -274,6 +275,7 @@ ApplovinLibrary::Open(lua_State *L)
       {"setHasUserConsent", setHasUserConsent},
       {"setIsAgeRestrictedUser", setIsAgeRestrictedUser},
       {"showDebugger", showDebugger},
+      {"setCreativeDebuggerEnabled", setCreativeDebuggerEnabled},
         
         
       {NULL, NULL}
@@ -1207,9 +1209,52 @@ ApplovinLibrary::setIsAgeRestrictedUser(lua_State *L)
     return 0;
 }
 
-// [Lua] applovin.showDebugger( bool )
+// [Lua] applovin.showDebugger( )
 int
 ApplovinLibrary::showDebugger(lua_State *L)
+{
+    Self *context = ToLibrary(L);
+
+    if (! context) { // abort if no valid context
+        return 0;
+    }
+
+    Self& library = *context;
+
+    library.functionSignature = @"applovin.showDebugger( bool )";
+
+    if (! isSDKInitialized(L)) {
+        return 0;
+    }
+
+    // check number of arguments
+    int nargs = lua_gettop(L);
+    if (nargs != 1) {
+        logMsg(L, ERROR_MSG, MsgFormat(@"Expected 1 argument, got %d", nargs));
+        return 0;
+    }
+
+    int creativeDebuggerEnabled = NULL;
+
+    // check options
+    if (lua_type(L, 1) == LUA_TBOOLEAN) {
+        creativeDebuggerEnabled = lua_toboolean(L, -1);
+    }
+    else {
+        logMsg(L, ERROR_MSG, MsgFormat(@"showDebugger (bool) expected, got %s", luaL_typename(L, 1)));
+        return 0;
+    }
+
+    [ALSdk shared].settings.creativeDebuggerEnabled = creativeDebuggerEnabled;
+
+
+    return 0;
+}
+
+
+// [Lua] applovin.setCreativeDebuggerEnabled( bool )
+int
+ApplovinLibrary::setCreativeDebuggerEnabled(lua_State *L)
 {
     Self *context = ToLibrary(L);
 
@@ -1230,7 +1275,6 @@ ApplovinLibrary::showDebugger(lua_State *L)
 
     return 0;
 }
-
 // ----------------------------------------------------------------------------
 // delegate implementation
 // ----------------------------------------------------------------------------
@@ -1443,7 +1487,6 @@ ApplovinLibrary::showDebugger(lua_State *L)
 - (void)didRewardUserForAd:(MAAd *)ad withReward:(MAReward *)reward
 {
     
-    
     NSDictionary *data = @{
       @"amount": @(reward.amount),
       @"label": reward.label
@@ -1458,6 +1501,11 @@ ApplovinLibrary::showDebugger(lua_State *L)
 }
 
 
+
+
+- (void)didPayRevenueForAd:(nonnull MAAd *)ad {
+    //To Do add support for this
+}
 
 
 @end

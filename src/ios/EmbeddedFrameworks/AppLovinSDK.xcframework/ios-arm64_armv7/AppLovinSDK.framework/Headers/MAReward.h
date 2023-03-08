@@ -16,23 +16,22 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The label that is used when a label is not given by the third-party network.
  */
-@property (nonatomic, copy, readonly, class) NSString *defaultLabel;
+@property (class, nonatomic, copy, readonly) NSString *defaultLabel;
 
 /**
  * The amount that is used when no amount is given by the third-party network.
  */
-@property (nonatomic, assign, readonly, class) NSInteger defaultAmount;
+@property (class, nonatomic, assign, readonly) NSInteger defaultAmount;
 
 /**
- * The reward label or @code [MAReward defaultLabel] @endcode if none specified.
+ * The reward label or @code +[MAReward defaultLabel] @endcode if none specified.
  */
 @property (nonatomic, copy, readonly) NSString *label;
 
 /**
- * The rewarded amount or @code [MAReward defaultAmount] @endcode if none specified.
+ * The rewarded amount or @code +[MAReward defaultAmount] @endcode if none specified.
  */
 @property (nonatomic, assign, readonly) NSInteger amount;
-
 
 /**
  * Create a reward object.

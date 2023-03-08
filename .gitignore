@@ -1,1 +1,3 @@
 plugins/*.tgz
+.DS_STORE
+.gradle

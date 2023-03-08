@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AppLovinSDK/ALSdk.h>
 #import <AppLovinSDK/MAAdViewAdDelegate.h>
 #import <AppLovinSDK/MAAdRequestDelegate.h>
 #import <AppLovinSDK/MAAdRevenueDelegate.h>
 #import <AppLovinSDK/MAAdReviewDelegate.h>
+
+@class ALSdk;
+@class MAAdFormat;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -81,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) IBOutlet id<MAAdReviewDelegate> adReviewDelegate;
 
 /**
- * Loads the ad for the current ad view. Set @code [MAAdView delegate] @endcode to assign a delegate that should be notified about ad load state.
+ * Loads the ad for the current ad view. Set @code -[MAAdView delegate] @endcode to assign a delegate that should be notified about ad load state.
  *
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/banners#loading-a-banner">MAX Integration Guide ⇒ iOS ⇒ Banners ⇒ Loading a Banner</a>
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/mrecs#loading-an-mrec">MAX Integration Guide ⇒ iOS ⇒ MRECs ⇒ Loading an MREC</a>

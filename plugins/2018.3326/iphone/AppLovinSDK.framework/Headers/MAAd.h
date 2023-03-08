@@ -6,10 +6,11 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import <AppLovinSDK/MAAdFormat.h>
-#import <AppLovinSDK/MAMediatedNetworkInfo.h>
-#import <AppLovinSDK/MAAdWaterfallInfo.h>
-#import <AppLovinSDK/MANativeAd.h>
+#import <CoreGraphics/CoreGraphics.h>
+
+@class MAAdFormat;
+@class MAAdWaterfallInfo;
+@class MANativeAd;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -66,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly, nullable) NSString *adReviewCreativeIdentifier;
 
 /**
- * The ad’s revenue amount, or 0 if no revenue amount exists.
+ * The ad’s revenue amount. In the case where no revenue amount exists, or it is not available yet, will return a value of 0.
  */
 @property (nonatomic, assign, readonly) double revenue;
 
@@ -78,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
  * - "exact" - If the revenue is the resulting price of a real-time auction.
  * - "estimated" - If the revenue is the price obtained by auto-CPM.
  * - "undefined" - If we do not have permission from the ad network to share impression-level data.
+ * - "" - An empty string, if revenue and precision are not valid (for example, in test mode).
  */
 @property (nonatomic, copy, readonly) NSString *revenuePrecision;
 
@@ -90,6 +92,11 @@ NS_ASSUME_NONNULL_BEGIN
  * The underlying waterfall of ad responses.
  */
 @property (nonatomic, strong, readonly) MAAdWaterfallInfo *waterfall;
+
+/**
+ * The latency of the mediation ad load request in seconds.
+ */
+@property (nonatomic, assign, readonly) NSTimeInterval requestLatency;
 
 /**
  * For Native ads only. Get an instance of the @c MANativeAd containing the assets used to render the native ad view.

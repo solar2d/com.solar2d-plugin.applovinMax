@@ -5,8 +5,6 @@
 //  Copyright © 2020 AppLovin Corporation. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -62,21 +60,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/advanced-settings#enable-verbose-logging">MAX Integration Guide ⇒ iOS ⇒ Advanced Settings ⇒ Enable Verbose Logging</a>
  */
-@property (nonatomic, assign) BOOL isVerboseLogging;
+@property (nonatomic, assign, getter=isVerboseLoggingEnabled) BOOL verboseLoggingEnabled;
 
 /**
  * Whether to begin video ads in a muted state or not. Defaults to @c NO unless you change this in the dashboard.
  *
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/advanced-settings#mute-audio">MAX Integration Guide ⇒ iOS ⇒ Advanced Settings ⇒ Mute Audio</a>
  */
-@property (nonatomic, assign) BOOL muted;
+@property (nonatomic, assign, getter=isMuted) BOOL muted;
 
 /**
- * Whether the creative debugger will be displayed on fullscreen ads after flipping the device screen down twice. Defaults to @c YES.
+ * Whether the Creative Debugger will be displayed after flipping the device screen down twice. Defaults to @c YES.
  *
  * @see <a href="https://dash.applovin.com/documentation/mediation/ios/testing-networks/creative-debugger">MAX Integration Guide ⇒ iOS ⇒ Testing Networks ⇒ Creative Debugger</a>
  */
-@property (nonatomic, assign) BOOL creativeDebuggerEnabled;
+@property (nonatomic, assign, getter=isCreativeDebuggerEnabled) BOOL creativeDebuggerEnabled;
 
 /**
  * Enable devices to receive test ads by passing in the advertising identifier (IDFA) of each test device.
@@ -112,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setExtraParameterForKey:(NSString *)key value:(nullable NSString *)value;
 
+@end
+
+@interface ALSdkSettings (ALDeprecated)
+@property (nonatomic, assign) BOOL isVerboseLogging __deprecated_msg("This property is deprecated and will be removed in a future SDK version. Please use `-[ALSdkSettings isVerboseLoggingEnabled]` instead.");
 @end
 
 NS_ASSUME_NONNULL_END
