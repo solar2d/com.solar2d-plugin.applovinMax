@@ -1221,6 +1221,30 @@ ApplovinLibrary::showDebugger(lua_State *L)
 
     Self& library = *context;
 
+    library.functionSignature = @"applovin.showDebugger()";
+
+    if (! isSDKInitialized(L)) {
+        return 0;
+    }
+    [[ALSdk shared] showMediationDebugger];
+
+
+    return 0;
+}
+
+
+// [Lua] applovin.setCreativeDebuggerEnabled( bool )
+int
+ApplovinLibrary::setCreativeDebuggerEnabled(lua_State *L)
+{
+    Self *context = ToLibrary(L);
+
+    if (! context) { // abort if no valid context
+        return 0;
+    }
+
+    Self& library = *context;
+
     library.functionSignature = @"applovin.showDebugger( bool )";
 
     if (! isSDKInitialized(L)) {
@@ -1246,30 +1270,6 @@ ApplovinLibrary::showDebugger(lua_State *L)
     }
 
     [ALSdk shared].settings.creativeDebuggerEnabled = creativeDebuggerEnabled;
-
-
-    return 0;
-}
-
-
-// [Lua] applovin.setCreativeDebuggerEnabled( bool )
-int
-ApplovinLibrary::setCreativeDebuggerEnabled(lua_State *L)
-{
-    Self *context = ToLibrary(L);
-
-    if (! context) { // abort if no valid context
-        return 0;
-    }
-
-    Self& library = *context;
-
-    library.functionSignature = @"applovin.showDebugger()";
-
-    if (! isSDKInitialized(L)) {
-        return 0;
-    }
-    [[ALSdk shared] showMediationDebugger];
 
     
 
