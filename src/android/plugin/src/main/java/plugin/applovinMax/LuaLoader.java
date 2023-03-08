@@ -1234,12 +1234,12 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
     private class SetCreativeDebuggerEnabled implements NamedJavaFunction {
         @Override
         public String getName() {
-            return "setIsAgeRestrictedUser";
+            return "setCreativeDebuggerEnabled";
         }
 
         @Override
         public int invoke(LuaState L) {
-            functionSignature = "applovinMax.setIsAgeRestrictedUser( bool )";
+            functionSignature = "applovinMax.setCreativeDebuggerEnabled( bool )";
 
             if (!isSDKInitialized()) {
                 return 0;
@@ -1258,7 +1258,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             if (L.type(1) == LuaType.BOOLEAN) {
                 creativeDebugger = L.toBoolean(1);
             } else {
-                logMsg(ERROR_MSG, "setIsAgeRestrictedUser (bool) expected, got " + L.typeName(1));
+                logMsg(ERROR_MSG, "setCreativeDebuggerEnabled (bool) expected, got " + L.typeName(1));
                 return 0;
             }
             AppLovinSdk.getInstance(CoronaEnvironment.getApplicationContext()).getSettings().setCreativeDebuggerEnabled( creativeDebugger );

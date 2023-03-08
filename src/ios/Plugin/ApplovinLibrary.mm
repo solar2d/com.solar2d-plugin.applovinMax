@@ -1245,7 +1245,7 @@ ApplovinLibrary::setCreativeDebuggerEnabled(lua_State *L)
 
     Self& library = *context;
 
-    library.functionSignature = @"applovin.showDebugger( bool )";
+    library.functionSignature = @"applovin.setCreativeDebuggerEnabled( bool )";
 
     if (! isSDKInitialized(L)) {
         return 0;
@@ -1265,7 +1265,7 @@ ApplovinLibrary::setCreativeDebuggerEnabled(lua_State *L)
         creativeDebuggerEnabled = lua_toboolean(L, -1);
     }
     else {
-        logMsg(L, ERROR_MSG, MsgFormat(@"showDebugger (bool) expected, got %s", luaL_typename(L, 1)));
+        logMsg(L, ERROR_MSG, MsgFormat(@"setCreativeDebuggerEnabled (bool) expected, got %s", luaL_typename(L, 1)));
         return 0;
     }
 
