@@ -83,6 +83,7 @@ static NSString * const PHASE_CLICKED                   = @"clicked";
 static NSString * const PHASE_PLAYBACK_BEGAN            = @"playbackBegan";
 static NSString * const PHASE_PLAYBACK_ENDED            = @"playbackEnded";
 static NSString * const PHASE_RECEIVED_REWARD           = @"userReceivedReward";
+static NSString * const PHASE_RECEIVED_IMPRESSION_DATA  = @"impressionData";
 
 // message constants
 static NSString * const ERROR_MSG   = @"ERROR: ";
@@ -102,6 +103,16 @@ static NSString * const USER_INTERSTITIAL_INSTANCE_KEY    = @"userInterstitial";
 static NSString * const USER_REWARDEDVIDEO_INSTANCE_KEY   = @"userRewardedVideo";
 static NSString * const USER_BANNER_INSTANCE_KEY          = @"userBanner";
 static NSString * const Y_RATIO_KEY                       = @"yRatio";    // used to calculate Corona -> UIKit coordinate ratio
+
+// ad revenue field keys
+static const char EVENT_REVENUE_AD_SOURCE_KEY[] = "adSource";
+static const char EVENT_REVENUE_AD_FORMAT_KEY[] = "adFormat";
+static const char EVENT_REVENUE_AD_UNIT_NAME_KEY[] = "adUnitName";
+static const char EVENT_REVENUE_AD_REVENUE_VALUE_KEY[] = "value";
+static const char EVENT_REVENUE_AD_IMPRESSION_ID_KEY[] = "impressionID";
+static const char EVENT_REVENUE_AD_PLACEMENT_NAME_KEY[] = "placementName";
+static const char EVENT_REVENUE_AD_COUNTRY_CODE_KEY[] = "countryCode";
+static const char EVENT_REVENUE_AD_REV_PRECISION_KEY[] = "revenuePrecision";
 
 // ----------------------------------------------------------------------------
 // plugin class and delegate definitions
@@ -1401,6 +1412,42 @@ ApplovinLibrary::setCreativeDebuggerEnabled(lua_State *L)
 }
 
 
+
+#pragma mark - MAAdRevenueDelegate Protocol
+
+- (void)didPayRevenueForAd:(nonnull MAAd *)ad {
+        
+    double revenue = ad.revenue; // In USD
+        
+    // Miscellaneous data
+    NSString *countryCode = [ALSdk shared].configuration.countryCode; // "US" for the United States, etc - Note: Do not confuse this with currency code which is "USD" in most cases!
+    NSString *networkName = ad.networkName; // Display name of the network that showed the ad (e.g. "AdColony")
+    NSString *adUnitId = ad.adUnitIdentifier; // The MAX Ad Unit ID
+    MAAdFormat *adFormat = ad.format; // The ad format of the ad (e.g. BANNER, MREC, INTERSTITIAL, REWARDED)
+    NSString *placement =  ([ad.placement length] == 0) ? @"unknown" : ad.placement; //may be null
+    NSString *networkPlacement = ad.networkPlacement; // The placement ID from the network that showed the ad
+    NSString *revenuePrecision = ad.revenuePrecision;
+
+    NSDictionary *coronaEvent = @{
+      @(CoronaEventPhaseKey()): PHASE_RECEIVED_IMPRESSION_DATA,
+      @(CoronaEventIsErrorKey()): @(false),
+      @(CoronaEventTypeKey()): self.adType,
+      @(EVENT_REVENUE_AD_REVENUE_VALUE_KEY): [NSNumber numberWithDouble:revenue],
+      @(EVENT_REVENUE_AD_SOURCE_KEY): networkName,
+      @(EVENT_REVENUE_AD_FORMAT_KEY): self.adType,
+      @(EVENT_REVENUE_AD_UNIT_NAME_KEY): adUnitId,
+      @(EVENT_REVENUE_AD_PLACEMENT_NAME_KEY): placement,
+      @(EVENT_REVENUE_AD_IMPRESSION_ID_KEY): networkPlacement,
+      @(EVENT_REVENUE_AD_COUNTRY_CODE_KEY): countryCode,
+      @(EVENT_REVENUE_AD_REV_PRECISION_KEY): revenuePrecision
+    };
+        
+    [self dispatchLuaEvent:coronaEvent];
+    
+                
+}
+
+
 #pragma mark - MAAdViewAdDelegate Protocol
 
 - (void)didExpandAd:(MAAd *)ad {
@@ -1500,12 +1547,6 @@ ApplovinLibrary::setCreativeDebuggerEnabled(lua_State *L)
     [self dispatchLuaEvent:coronaEvent];
 }
 
-
-
-
-- (void)didPayRevenueForAd:(nonnull MAAd *)ad {
-    //To Do add support for this
-}
 
 
 @end
