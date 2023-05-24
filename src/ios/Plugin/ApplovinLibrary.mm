@@ -456,7 +456,7 @@ ApplovinLibrary::init(lua_State *L)
     // create Applovin SDK settings
     //  settings.autoPreloadAdSizes = @"NONE";
     //  settings.autoPreloadAdTypes = @"NONE";
-    [ALSdk shared].settings.isVerboseLogging = verboseLogging;
+    [ALSdk shared].settings.verboseLoggingEnabled = verboseLogging;
     [ALSdk shared].settings.muted = startMuted;
 
     [ALSdk shared].mediationProvider = mediationProvider;
