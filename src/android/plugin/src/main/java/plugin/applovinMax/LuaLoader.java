@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import com.applovin.mediation.MaxAd;
 import com.applovin.mediation.MaxAdFormat;
 import com.applovin.mediation.MaxAdListener;
+import com.applovin.mediation.MaxAdRevenueListener;
 import com.applovin.mediation.MaxAdViewAdListener;
 import com.applovin.mediation.MaxError;
 import com.applovin.mediation.MaxReward;
@@ -94,6 +95,18 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
     private static final String PHASE_PLAYBACK_BEGAN = "playbackBegan";
     private static final String PHASE_PLAYBACK_ENDED = "playbackEnded";
     private static final String PHASE_RECEIVED_REWARD = "userReceivedReward";
+    private static final String PHASE_RECEIVED_IMPRESSION_DATA = "impressionData";
+
+
+    // ad revenue field keys
+    private static final String EVENT_REVENUE_AD_SOURCE_KEY = "adSource";
+    private static final String EVENT_REVENUE_AD_FORMAT_KEY = "adFormat";
+    private static final String EVENT_REVENUE_AD_UNIT_NAME_KEY = "adUnitName";
+    private static final String EVENT_REVENUE_AD_REVENUE_VALUE_KEY = "value";
+    private static final String EVENT_REVENUE_AD_IMPRESSION_ID_KEY = "impressionID";
+    private static final String EVENT_REVENUE_AD_PLACEMENT_NAME_KEY = "placementName";
+    private static final String EVENT_REVENUE_AD_COUNTRY_CODE_KEY = "countryCode";
+    private static final String EVENT_REVENUE_AD_REV_PRECISION_KEY = "revenuePrecision";
 
 
     // message constants
@@ -122,6 +135,10 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
     private final MaxActivityInter delInter = new MaxActivityInter();
     private final MaxActivityReward delReward = new MaxActivityReward();
     private final MaxActivityBanner delBanner = new MaxActivityBanner();
+
+    private final MaxAdRevListenerInter revInter = new MaxAdRevListenerInter();
+    private final MaxAdRevListenerReward revReward = new MaxAdRevListenerReward();
+    private final MaxAdRevListenerBanner revBanner = new MaxAdRevListenerBanner();
 
     private static String functionSignature = "";
 
@@ -614,6 +631,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                             applovinObjects.put(TYPE_REWARDEDVIDEO, adStatus);
 
                             rewardedAd.setListener(delReward);
+                            rewardedAd.setRevenueListener(revReward);
                             rewardedAd.loadAd();
 
                         }else if (fAdType.equals(TYPE_BANNER)) {
@@ -647,6 +665,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                             bannerAd = new MaxAdView( fAdUnitId, applovinBannerSize, CoronaEnvironment.getCoronaActivity() );
                             bannerAd.setListener(delBanner);
+                            bannerAd.setRevenueListener(revBanner);
 
                             applovinObjects.put(USER_BANNER_INSTANCE_KEY, bannerAd);
 
@@ -666,6 +685,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                             if (interstitialAd == null) {
                                 interstitialAd = new MaxInterstitialAd(fAdUnitId, CoronaEnvironment.getCoronaActivity());
                                 interstitialAd.setListener(delInter);
+                                interstitialAd.setRevenueListener(revInter);
                                 applovinObjects.put(USER_INTERSTITIAL_INSTANCE_KEY, interstitialAd);
                             }
                             interstitialAd.loadAd();
@@ -949,6 +969,8 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                             }
 
                             MaxRewardedAd rewardedAd = (MaxRewardedAd) applovinObjects.get(USER_REWARDEDVIDEO_INSTANCE_KEY);
+                            rewardedAd.setListener(delReward);
+                            rewardedAd.setRevenueListener(revReward);
 
                             Map<String, Object> coronaEvent = new HashMap<>();
                             coronaEvent.put(EVENT_PHASE_KEY, PHASE_DISPLAYED);
@@ -975,6 +997,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                                 MaxAdView bannerAd = (MaxAdView) applovinObjects.get(USER_BANNER_INSTANCE_KEY);
                                 bannerAd.setListener(delBanner);
+                                bannerAd.setRevenueListener(revBanner);
 
                                 // remove old layout
                                 if (bannerAd.getParent() != null) {
@@ -1057,6 +1080,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                                 MaxInterstitialAd interstitialAd = (MaxInterstitialAd) applovinObjects.get(USER_INTERSTITIAL_INSTANCE_KEY);
                                 interstitialAd.setListener(delInter);
+                                interstitialAd.setRevenueListener(revInter);
 
 
 
@@ -1564,4 +1588,99 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
         }
     }
 
+    class MaxAdRevListenerInter implements MaxAdRevenueListener {
+
+        String adType = TYPE_INTERSTITIAL;
+
+        @Override
+        public void onAdRevenuePaid(final MaxAd ad)
+        {
+
+            final Context coronaContext = CoronaEnvironment.getApplicationContext();
+
+            double revenue = ad.getRevenue(); // In USD
+
+            String revenuePrecision = ad.getRevenuePrecision();
+
+            String countryCode = AppLovinSdk.getInstance( coronaContext ).getConfiguration().getCountryCode(); // "US" for the United States, etc - Note: Do not confuse this with currency code which is "USD" in most cases!
+
+            Map<String, Object> coronaEvent = new HashMap<>();
+            coronaEvent.put(EVENT_PHASE_KEY, PHASE_RECEIVED_IMPRESSION_DATA);
+            coronaEvent.put(EVENT_REVENUE_AD_REVENUE_VALUE_KEY, revenue);
+            coronaEvent.put(EVENT_REVENUE_AD_SOURCE_KEY, ad.getNetworkName());
+            coronaEvent.put(EVENT_REVENUE_AD_FORMAT_KEY, adType);
+            coronaEvent.put(EVENT_REVENUE_AD_UNIT_NAME_KEY, ad.getAdUnitId());
+            coronaEvent.put(EVENT_REVENUE_AD_PLACEMENT_NAME_KEY, ad.getPlacement());
+            coronaEvent.put(EVENT_REVENUE_AD_IMPRESSION_ID_KEY, ad.getNetworkPlacement());
+            coronaEvent.put(EVENT_REVENUE_AD_COUNTRY_CODE_KEY, countryCode);
+            coronaEvent.put(EVENT_REVENUE_AD_REV_PRECISION_KEY, revenuePrecision);
+            dispatchLuaEvent(coronaEvent);
+
+
+        }
+    }
+
+    class MaxAdRevListenerReward implements MaxAdRevenueListener {
+
+        String adType = TYPE_REWARDEDVIDEO;
+
+        @Override
+        public void onAdRevenuePaid(final MaxAd ad)
+        {
+
+            final Context coronaContext = CoronaEnvironment.getApplicationContext();
+
+            double revenue = ad.getRevenue(); // In USD
+
+            String revenuePrecision = ad.getRevenuePrecision();
+
+            String countryCode = AppLovinSdk.getInstance( coronaContext ).getConfiguration().getCountryCode(); // "US" for the United States, etc - Note: Do not confuse this with currency code which is "USD" in most cases!
+
+            Map<String, Object> coronaEvent = new HashMap<>();
+            coronaEvent.put(EVENT_PHASE_KEY, PHASE_RECEIVED_IMPRESSION_DATA);
+            coronaEvent.put(EVENT_REVENUE_AD_REVENUE_VALUE_KEY, revenue);
+            coronaEvent.put(EVENT_REVENUE_AD_SOURCE_KEY, ad.getNetworkName());
+            coronaEvent.put(EVENT_REVENUE_AD_FORMAT_KEY, adType);
+            coronaEvent.put(EVENT_REVENUE_AD_UNIT_NAME_KEY, ad.getAdUnitId());
+            coronaEvent.put(EVENT_REVENUE_AD_PLACEMENT_NAME_KEY, ad.getPlacement());
+            coronaEvent.put(EVENT_REVENUE_AD_IMPRESSION_ID_KEY, ad.getNetworkPlacement());
+            coronaEvent.put(EVENT_REVENUE_AD_COUNTRY_CODE_KEY, countryCode);
+            coronaEvent.put(EVENT_REVENUE_AD_REV_PRECISION_KEY, revenuePrecision);
+            dispatchLuaEvent(coronaEvent);
+
+
+        }
+    }
+
+    class MaxAdRevListenerBanner implements MaxAdRevenueListener {
+
+        String adType = TYPE_BANNER;
+
+        @Override
+        public void onAdRevenuePaid(final MaxAd ad)
+        {
+
+            final Context coronaContext = CoronaEnvironment.getApplicationContext();
+
+            double revenue = ad.getRevenue(); // In USD
+
+            String revenuePrecision = ad.getRevenuePrecision();
+
+            String countryCode = AppLovinSdk.getInstance( coronaContext ).getConfiguration().getCountryCode(); // "US" for the United States, etc - Note: Do not confuse this with currency code which is "USD" in most cases!
+
+            Map<String, Object> coronaEvent = new HashMap<>();
+            coronaEvent.put(EVENT_PHASE_KEY, PHASE_RECEIVED_IMPRESSION_DATA);
+            coronaEvent.put(EVENT_REVENUE_AD_REVENUE_VALUE_KEY, revenue);
+            coronaEvent.put(EVENT_REVENUE_AD_SOURCE_KEY, ad.getNetworkName());
+            coronaEvent.put(EVENT_REVENUE_AD_FORMAT_KEY, adType);
+            coronaEvent.put(EVENT_REVENUE_AD_UNIT_NAME_KEY, ad.getAdUnitId());
+            coronaEvent.put(EVENT_REVENUE_AD_PLACEMENT_NAME_KEY, ad.getPlacement());
+            coronaEvent.put(EVENT_REVENUE_AD_IMPRESSION_ID_KEY, ad.getNetworkPlacement());
+            coronaEvent.put(EVENT_REVENUE_AD_COUNTRY_CODE_KEY, countryCode);
+            coronaEvent.put(EVENT_REVENUE_AD_REV_PRECISION_KEY, revenuePrecision);
+            dispatchLuaEvent(coronaEvent);
+
+
+        }
+    }
 }

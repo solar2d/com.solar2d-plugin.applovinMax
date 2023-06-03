@@ -3,7 +3,7 @@ local metadata =
 	plugin =
 	{
 		format = "staticLibrary",
-		staticLibs = { "plugin_applovin", "z" },
+		staticLibs = { "plugin_applovinMax", "z" },
 		frameworks = { "AdSupport", "StoreKit", "AppLovinSDK", "CoreTelephony" },
 		frameworksOptional = { "WebKit", "AppTrackingTransparency" }
 	}
