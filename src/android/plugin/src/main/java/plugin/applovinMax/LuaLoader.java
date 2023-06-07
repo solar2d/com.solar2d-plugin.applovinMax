@@ -12,10 +12,13 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.os.Build;
 import android.util.Log;
 import android.view.Display;
+import android.view.DisplayCutout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowInsets;
 import android.widget.FrameLayout;
 
 import com.applovin.mediation.MaxAd;
@@ -1009,6 +1012,14 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                         FrameLayout.LayoutParams.WRAP_CONTENT,
                                         140
                                 );
+                                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                    WindowInsets windowInsets = coronaActivity.getWindow().getDecorView().getRootView().getRootWindowInsets();
+                                    DisplayCutout displayCutout = windowInsets.getDisplayCutout();
+                                    //check displayCutout actually exists
+                                    if (displayCutout != null && displayCutout.getBoundingRects().size() > 0) {
+                                        params.topMargin = (int) displayCutout.getSafeInsetTop();
+                                    }
+                                }
 
                                 // set the banner position
                                 if (fYAlign == null) {

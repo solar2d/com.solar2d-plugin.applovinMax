@@ -184,7 +184,6 @@ android {
     lintOptions {
         isCheckReleaseBuilds = false
     }
-    buildToolsVersion("29.0.3")
     compileSdkVersion(29)
     defaultConfig {
         applicationId = coronaAppPackage
