@@ -116,7 +116,6 @@ typedef void (^MANativeAdBuilderBlock) (MANativeAdBuilder *builder);
  * myTarget  v5.15.2.1
  * Pangle  v4.5.2.4.1
  * Smaato  v21.7.6.1
- * VerizonAds  v2.0.0.4
  */
 @property (nonatomic, strong, readonly, nullable) MANativeAdImage *mainImage;
 

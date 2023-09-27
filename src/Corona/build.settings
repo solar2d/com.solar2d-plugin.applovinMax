@@ -25,7 +25,7 @@ settings =
 		xcassets = "Images.xcassets",
 		plist =
 		{
-						GADApplicationIdentifier = "ca-app-pub-XXXXXXXXXXXXXXXX",
+						GADApplicationIdentifier = "ca-app-pub-2432073266441412~7804937829",
             NSUserTrackingUsageDescription = "This would allow the app to advertise better.",
             AppLovinSdkKey = "8QVo7i2GF4SZpHglJPwUblnpMtoqFkwN8QAF7DVNHzx4FcpZ1k2cTqQqgCexwTI3-SJ6fqTxoO020qb1Xee0S3",
 						UILaunchStoryboardName = "LaunchScreen",
@@ -34,7 +34,11 @@ settings =
 	},
 	plugins =
 	 {
-
+	 	["plugin.notifications.v2.firebase"] =
+        {
+            publisherId = "com.coronalabs"
+        },
+				['plugin.att'] = { publisherId = 'com.solar2d' },
 		 	["plugin.applovinMax"] =
 			 {
 					 publisherId = "com.solar2d"

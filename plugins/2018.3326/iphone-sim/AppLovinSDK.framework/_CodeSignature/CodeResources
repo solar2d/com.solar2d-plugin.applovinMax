@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/ALAd.h</key>
 		<data>
-		qEqIB+b4SrZYPQ98WrzQOB3iNYM=
+		8pEoTqP3JSyx/PifZtsZr9etU0Y=
 		</data>
 		<key>Headers/ALAdDisplayDelegate.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/ALAdVideoPlaybackDelegate.h</key>
 		<data>
-		yzJCkjDB5+K5/fb60703W2gS4vI=
+		8EudQZraGAJWl54uaOeth2iFY9Q=
 		</data>
 		<key>Headers/ALAdView.h</key>
 		<data>
@@ -55,6 +55,14 @@
 		<key>Headers/ALCEntity.h</key>
 		<data>
 		nPoiF7OhVSHAdFWjHgJO5xUiHxg=
+		</data>
+		<key>Headers/ALCFError.h</key>
+		<data>
+		ftbGwsfhqdg2BfX5uSb20mXWPMY=
+		</data>
+		<key>Headers/ALCFService.h</key>
+		<data>
+		m/kyg9lvRprkSUYqKCIOIQutSeU=
 		</data>
 		<key>Headers/ALCMessage.h</key>
 		<data>
@@ -118,15 +126,15 @@
 		</data>
 		<key>Headers/ALSdk.h</key>
 		<data>
-		maIP8hBNpkLGSHc/ZDsqyK5oQpY=
+		qlf/6GFpUXN3igVFc7xezC4jbzA=
 		</data>
 		<key>Headers/ALSdkConfiguration.h</key>
 		<data>
-		Y+aF7evl16Ya0NIfx1XCaZ3t5eY=
+		DqILRVceCpu/X6UvLuRzES8kbZ8=
 		</data>
 		<key>Headers/ALSdkSettings.h</key>
 		<data>
-		YFrR6boUq5SNJ179imZtBLwKpek=
+		QI5+PIGH6dopgz4YbO1eCAPCzzo=
 		</data>
 		<key>Headers/ALTargetingData.h</key>
 		<data>
@@ -138,7 +146,7 @@
 		</data>
 		<key>Headers/ALUtils.h</key>
 		<data>
-		PcmqSvPfEIYsMtYmQE9sCH4mCww=
+		efcGTSk1ItIxvZrkzeuuMudXKGo=
 		</data>
 		<key>Headers/ALVariableService.h</key>
 		<data>
@@ -146,7 +154,7 @@
 		</data>
 		<key>Headers/AppLovinSDK.h</key>
 		<data>
-		kMK1HRQjeVD/mHG3fz7QxBo19Z4=
+		b7Jswt/u1U1/PhEmMLGyMFsVu8E=
 		</data>
 		<key>Headers/MAAd.h</key>
 		<data>
@@ -166,7 +174,7 @@
 		</data>
 		<key>Headers/MAAdPlacerSettings.h</key>
 		<data>
-		Jl6YgO6Fdvuc50x4ZUDoUU2DPS4=
+		v1jcm/5d7yrgS2K8cGDzF/fbe/k=
 		</data>
 		<key>Headers/MAAdRequestDelegate.h</key>
 		<data>
@@ -202,7 +210,7 @@
 		</data>
 		<key>Headers/MAAdapter.h</key>
 		<data>
-		+dmI91U0VzIyGCRad11RBbU+ukc=
+		agDVNHdFpq08fAz4i21grn68P7E=
 		</data>
 		<key>Headers/MAAdapterDelegate.h</key>
 		<data>
@@ -238,7 +246,7 @@
 		</data>
 		<key>Headers/MACollectionViewAdPlacer.h</key>
 		<data>
-		m8xK48h2y7A6Hgbs4MY1WAkIWy4=
+		mOCRH9bBetT2brlvTPqfyhkHwBU=
 		</data>
 		<key>Headers/MACollectionViewAdPlacerCell.h</key>
 		<data>
@@ -254,7 +262,7 @@
 		</data>
 		<key>Headers/MAErrorCode.h</key>
 		<data>
-		aSH8ZYxCTsjJ27sSEpu/k1wCTp4=
+		J1FWDXYrASXqUfLIWDtBF8ppTj8=
 		</data>
 		<key>Headers/MAErrorCodes.h</key>
 		<data>
@@ -278,7 +286,7 @@
 		</data>
 		<key>Headers/MANativeAd.h</key>
 		<data>
-		d4Q/vjCuO0hLl3uftg+3nGEdu9Q=
+		vcPLlo+kKJM/FahwG7dZhOcHwSI=
 		</data>
 		<key>Headers/MANativeAdAdapter.h</key>
 		<data>
@@ -294,11 +302,11 @@
 		</data>
 		<key>Headers/MANativeAdLoader.h</key>
 		<data>
-		93gfMGjNPGgPtb7MzdXalQNZlo8=
+		JgkB2WgZ1lqv101UJezkJYUyr+k=
 		</data>
 		<key>Headers/MANativeAdView.h</key>
 		<data>
-		Ke6LeTdn1PUvvHIrColMij3mJ3U=
+		IWAuhRBXhU3MeQGUTtXjaVnx+1M=
 		</data>
 		<key>Headers/MANativeAdViewBinder.h</key>
 		<data>
@@ -306,7 +314,7 @@
 		</data>
 		<key>Headers/MANetworkResponseInfo.h</key>
 		<data>
-		j4WqbDc6rMYM9nhwYOVcfo56KXA=
+		Tti7FH2Jz4qLYtG8FxyPbn3513M=
 		</data>
 		<key>Headers/MAReward.h</key>
 		<data>
@@ -370,7 +378,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		50nVIdxLek+Jozr/00ks+eg8wvQ=
+		kmPfBS/KKcluEPQux8DMWdK+ZZo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -383,11 +391,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qEqIB+b4SrZYPQ98WrzQOB3iNYM=
+			8pEoTqP3JSyx/PifZtsZr9etU0Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			/Y4HOFHFajutVSSvTPpL+4UvFfsH12QlhxvfacrSXh8=
+			2L9PWIiVtTQWn6FIJTpIGeHHtY47SdOJTlYI9D4esfQ=
 			</data>
 		</dict>
 		<key>Headers/ALAdDisplayDelegate.h</key>
@@ -460,11 +468,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yzJCkjDB5+K5/fb60703W2gS4vI=
+			8EudQZraGAJWl54uaOeth2iFY9Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			fnq5Er4UzCamR5bLXc6xiIUwUddUpWH0yN3pOnkPhoc=
+			Tv2UPNrnpMeR1n5tWp5o/elxi6IVyBh/pi16caja/uU=
 			</data>
 		</dict>
 		<key>Headers/ALAdView.h</key>
@@ -520,6 +528,28 @@
 			<key>hash2</key>
 			<data>
 			d72nbJGVjD1YdfTQBVvRjN0KTv06CMY7gc+KdjxefZc=
+			</data>
+		</dict>
+		<key>Headers/ALCFError.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ftbGwsfhqdg2BfX5uSb20mXWPMY=
+			</data>
+			<key>hash2</key>
+			<data>
+			wkv3WyZUhLDw/cQMkMXMQSETKAepUjHuHmEx9L+mryw=
+			</data>
+		</dict>
+		<key>Headers/ALCFService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			m/kyg9lvRprkSUYqKCIOIQutSeU=
+			</data>
+			<key>hash2</key>
+			<data>
+			7IZo0Yw+JKStUfNE4SbZnp9kxBNkwwvxeJXn5DCu94w=
 			</data>
 		</dict>
 		<key>Headers/ALCMessage.h</key>
@@ -691,33 +721,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			maIP8hBNpkLGSHc/ZDsqyK5oQpY=
+			qlf/6GFpUXN3igVFc7xezC4jbzA=
 			</data>
 			<key>hash2</key>
 			<data>
-			ORNoW1F/IFXJzeY8T9zIOKY4L6KX8ROcjwGpFnw/LJY=
+			aAFT1PI2SMNjGFN1tclnCTJlg/biLETmAePyV4NdjSo=
 			</data>
 		</dict>
 		<key>Headers/ALSdkConfiguration.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Y+aF7evl16Ya0NIfx1XCaZ3t5eY=
+			DqILRVceCpu/X6UvLuRzES8kbZ8=
 			</data>
 			<key>hash2</key>
 			<data>
-			qhv/tW3w30o+jI9yoYrM6xjrOc0FOhWGQNty2bwqiYY=
+			3+TsoYF4jfs7ohKiEF9+jYcGGqoWwdwD0HhF/lTe0yk=
 			</data>
 		</dict>
 		<key>Headers/ALSdkSettings.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			YFrR6boUq5SNJ179imZtBLwKpek=
+			QI5+PIGH6dopgz4YbO1eCAPCzzo=
 			</data>
 			<key>hash2</key>
 			<data>
-			yJNOEYkozx0U84pP8e0Lny7FS5WsqjKOYzBhdj6I6QE=
+			dSEUT0t+bQ01CAbAx02ffckAZTB17h0ig0R+zisOUhg=
 			</data>
 		</dict>
 		<key>Headers/ALTargetingData.h</key>
@@ -746,11 +776,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PcmqSvPfEIYsMtYmQE9sCH4mCww=
+			efcGTSk1ItIxvZrkzeuuMudXKGo=
 			</data>
 			<key>hash2</key>
 			<data>
-			p6GYp8+VwDgeC73L+s/uplho/K0rtBa+r6jKNYdfmcA=
+			I00Vvou9jNxOZL69DTwQsdTuC3XdjYamPcxf08rRqQg=
 			</data>
 		</dict>
 		<key>Headers/ALVariableService.h</key>
@@ -768,11 +798,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kMK1HRQjeVD/mHG3fz7QxBo19Z4=
+			b7Jswt/u1U1/PhEmMLGyMFsVu8E=
 			</data>
 			<key>hash2</key>
 			<data>
-			UGttejOKZy8KicfTgulu85K9hOkLq2xGRAdM8X3CmXQ=
+			N0aNwgAh3HzGQl+mj761aDmSq+KYnMm3hA1M48Xa6cw=
 			</data>
 		</dict>
 		<key>Headers/MAAd.h</key>
@@ -823,11 +853,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Jl6YgO6Fdvuc50x4ZUDoUU2DPS4=
+			v1jcm/5d7yrgS2K8cGDzF/fbe/k=
 			</data>
 			<key>hash2</key>
 			<data>
-			1200okuLgZwrQbMBPH7vgFCUWtYUT56Gbw4/wKUY63c=
+			Jmf0lA33VCTxOlENnfEInYqGGZRiBWqj5B2W1GqQolw=
 			</data>
 		</dict>
 		<key>Headers/MAAdRequestDelegate.h</key>
@@ -922,11 +952,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+dmI91U0VzIyGCRad11RBbU+ukc=
+			agDVNHdFpq08fAz4i21grn68P7E=
 			</data>
 			<key>hash2</key>
 			<data>
-			XHAXBBXzs13Q5RQrD2BQ6HdWB+c1ftAETuqMX34oAu4=
+			9vI3ZKda2XvKFoWnhz5Z/Wu9liOaY/H4ehNRoKRAY6A=
 			</data>
 		</dict>
 		<key>Headers/MAAdapterDelegate.h</key>
@@ -1021,11 +1051,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			m8xK48h2y7A6Hgbs4MY1WAkIWy4=
+			mOCRH9bBetT2brlvTPqfyhkHwBU=
 			</data>
 			<key>hash2</key>
 			<data>
-			soJzrsVqK27kdrT9BI+Tgx0Fv7Q7QBCnyOeSLMfc2So=
+			XT8HzoJI60nPcbbMrSyfcCkbu9XyHVWLlx5KkBTbZZw=
 			</data>
 		</dict>
 		<key>Headers/MACollectionViewAdPlacerCell.h</key>
@@ -1065,11 +1095,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aSH8ZYxCTsjJ27sSEpu/k1wCTp4=
+			J1FWDXYrASXqUfLIWDtBF8ppTj8=
 			</data>
 			<key>hash2</key>
 			<data>
-			3mopuEYR9w5Qh53TxrODQjjwS/umNyA1HmzuautSgHI=
+			GVlzvmTSrZRJ5FxqEktbQmFD8NbJKLwX1OVlJ08+6yE=
 			</data>
 		</dict>
 		<key>Headers/MAErrorCodes.h</key>
@@ -1131,11 +1161,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			d4Q/vjCuO0hLl3uftg+3nGEdu9Q=
+			vcPLlo+kKJM/FahwG7dZhOcHwSI=
 			</data>
 			<key>hash2</key>
 			<data>
-			jX5gpG8Mxas7FGP0c8TSAwQ1nMkzjnXRN1Et6qqsgP4=
+			aOXb1dAeb4zQ2LmbQmUXFlMhj5ryjeYdaRYq8xXchxQ=
 			</data>
 		</dict>
 		<key>Headers/MANativeAdAdapter.h</key>
@@ -1175,22 +1205,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			93gfMGjNPGgPtb7MzdXalQNZlo8=
+			JgkB2WgZ1lqv101UJezkJYUyr+k=
 			</data>
 			<key>hash2</key>
 			<data>
-			NKPQl/TopQTSJolDOw7JvnkUj390gIvjiZjWOrfxBSg=
+			Vl1bICtniFVdfadDXHUkznqfcL0dxdxOj8wVggWAFr0=
 			</data>
 		</dict>
 		<key>Headers/MANativeAdView.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Ke6LeTdn1PUvvHIrColMij3mJ3U=
+			IWAuhRBXhU3MeQGUTtXjaVnx+1M=
 			</data>
 			<key>hash2</key>
 			<data>
-			frFHf+5+O7DaCo9v1AThTnH+Tz2lDTvCUN+yalPjgIA=
+			Zx7/e92FVjYyW3ii/a0lkn92k5+ow9J/EgOwKaMVB2g=
 			</data>
 		</dict>
 		<key>Headers/MANativeAdViewBinder.h</key>
@@ -1208,11 +1238,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			j4WqbDc6rMYM9nhwYOVcfo56KXA=
+			Tti7FH2Jz4qLYtG8FxyPbn3513M=
 			</data>
 			<key>hash2</key>
 			<data>
-			WZh8hoUzJtC/M2idxJYNuehYXMqPeQMY8Z9psuwaq7Q=
+			m+9pvwfzMMMxHONxd6V9512znBkCcqDBla5ypSKjT/0=
 			</data>
 		</dict>
 		<key>Headers/MAReward.h</key>
