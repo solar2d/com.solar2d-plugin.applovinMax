@@ -968,7 +968,12 @@ ApplovinLibrary::show(lua_State *L)
     
       MARewardedAd *rewardedAd = applovinObjects[USER_REWARDEDVIDEO_INSTANCE_KEY];
       rewardedAd.delegate =applovinRewardedDelegate;
-      [rewardedAd showAd];
+      if(placement){
+          [rewardedAd showAdForPlacement:[NSString stringWithUTF8String:placement]];
+      }else{
+          [rewardedAd showAd];
+      }
+      
       
   }
   else {
@@ -1042,7 +1047,10 @@ ApplovinLibrary::show(lua_State *L)
         [library.coronaViewController.view addSubview:bannerAd];
         [bannerAd startAutoRefresh];
         [bannerAd setHidden:NO];
-      adStatus.bannerIsVisible = YES;
+        adStatus.bannerIsVisible = YES;
+        if(placement){
+            bannerAd.placement = [NSString stringWithUTF8String:placement];
+        }
       
       // the SDK automatically sends a 'displayed' event after load which doesn't follow Corona standards.
       // therefore we must manually send a 'displayed' event since the SDK was prevented to do so.

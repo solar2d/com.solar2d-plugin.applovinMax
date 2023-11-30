@@ -1001,6 +1001,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 MaxAdView bannerAd = (MaxAdView) applovinObjects.get(USER_BANNER_INSTANCE_KEY);
                                 bannerAd.setListener(delBanner);
                                 bannerAd.setRevenueListener(revBanner);
+                                if(fPlacement != null) bannerAd.setPlacement(fPlacement);
 
                                 // remove old layout
                                 if (bannerAd.getParent() != null) {
