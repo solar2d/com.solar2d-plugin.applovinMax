@@ -6,4 +6,4 @@
 
 // To use Metal rather than 'classic' change -lplayer to -lplayer-angle
 // And make sure to drag Native/Corona/ios/lib/MetalANGLE.framework into App's framework list
-OTHER_LDFLAGS = $(inherited) $(CORONA_CUSTOM_LDFLAGS) -all_load -lplayer
+OTHER_LDFLAGS = $(inherited) $(CORONA_CUSTOM_LDFLAGS) -all_load -lplayer -ld_classic

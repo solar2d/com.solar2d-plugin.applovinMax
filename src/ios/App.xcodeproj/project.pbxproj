@@ -67,6 +67,7 @@
 		DB3573722AC2A71900AD5B58 /* UserMessagingPlatform.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB35736A2AC2A71900AD5B58 /* UserMessagingPlatform.xcframework */; };
 		DB3573732AC2A71900AD5B58 /* GoogleMobileAds.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB35736B2AC2A71900AD5B58 /* GoogleMobileAds.xcframework */; };
 		DB69EF3127A2529600D99C94 /* AppLovinSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB69EF3027A2529600D99C94 /* AppLovinSDK.xcframework */; };
+		DB8CEAF32B44330C00BEE0B7 /* Blank.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8CEAF22B44330C00BEE0B7 /* Blank.swift */; };
 		E640B2F21BFC00B00031FAE9 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E640B2F11BFC00B00031FAE9 /* AssetsLibrary.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E640B2F41BFC00BA0031FAE9 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E640B2F31BFC00BA0031FAE9 /* Photos.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F51C66D61EE0D3B20040E4BE /* libplugin_applovinMax.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4E253E2166DE7C800DCDC2C /* libplugin_applovinMax.a */; };
@@ -166,6 +167,8 @@
 		DB35736A2AC2A71900AD5B58 /* UserMessagingPlatform.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = UserMessagingPlatform.xcframework; path = EmbeddedFrameworks/UserMessagingPlatform.xcframework; sourceTree = "<group>"; };
 		DB35736B2AC2A71900AD5B58 /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMobileAds.xcframework; path = EmbeddedFrameworks/GoogleMobileAds.xcframework; sourceTree = "<group>"; };
 		DB69EF3027A2529600D99C94 /* AppLovinSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppLovinSDK.xcframework; path = EmbeddedFrameworks/AppLovinSDK.xcframework; sourceTree = "<group>"; };
+		DB8CEAF12B44330B00BEE0B7 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
+		DB8CEAF22B44330C00BEE0B7 /* Blank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blank.swift; sourceTree = "<group>"; };
 		E640B2F11BFC00B00031FAE9 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E640B2F31BFC00BA0031FAE9 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		F54A40BD1EE07F9100AF417D /* build.settings */ = {isa = PBXFileReference; lastKnownFileType = text; name = build.settings; path = ../Corona/build.settings; sourceTree = "<group>"; };
@@ -265,6 +268,7 @@
 		A484110E15114F700074BD57 = {
 			isa = PBXGroup;
 			children = (
+				DB8CEAF22B44330C00BEE0B7 /* Blank.swift */,
 				DB3573662AC2A71900AD5B58 /* AppLovinMediationGoogleAdapter.xcframework */,
 				DB3573652AC2A71900AD5B58 /* FBLPromises.xcframework */,
 				DB3573672AC2A71900AD5B58 /* GoogleAppMeasurement.xcframework */,
@@ -281,6 +285,7 @@
 				A447B66F16670015009EA762 /* CoronaNative */,
 				A484111C15114F700074BD57 /* Frameworks */,
 				A484111A15114F700074BD57 /* Products */,
+				DB8CEAF12B44330B00BEE0B7 /* App-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -406,6 +411,9 @@
 			attributes = {
 				LastUpgradeCheck = 0820;
 				TargetAttributes = {
+					A484111815114F700074BD57 = {
+						LastSwiftMigration = 1510;
+					};
 					F597AC6E1ED8CA3E0085F5E5 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = BG2J43EA88;
@@ -536,6 +544,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB8CEAF32B44330C00BEE0B7 /* Blank.swift in Sources */,
 				A484112E15114F700074BD57 /* main.mm in Sources */,
 				A447B610165D72FB009EA762 /* AppCoronaDelegate.mm in Sources */,
 			);
@@ -649,6 +658,7 @@
 			baseConfigurationReference = F55829801ED23E1200E5808C /* CoronaApp.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = A6QFRGXX8S;
@@ -666,6 +676,9 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
+				SWIFT_OBJC_BRIDGING_HEADER = "App-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -675,6 +688,7 @@
 			baseConfigurationReference = F55829801ED23E1200E5808C /* CoronaApp.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = A6QFRGXX8S;
@@ -692,6 +706,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
+				SWIFT_OBJC_BRIDGING_HEADER = "App-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
