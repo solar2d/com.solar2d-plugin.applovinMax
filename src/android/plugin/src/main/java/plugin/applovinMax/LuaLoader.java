@@ -145,6 +145,9 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
     private static String functionSignature = "";
 
+    private int bannerWidth = 320;
+    private int bannerHeight = 50;
+
     // ----------------------------------------------------------------------------------
     // Helper classes to keep track of information not available in the SDK base classes
     // ----------------------------------------------------------------------------------
@@ -657,16 +660,27 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                             MaxAdFormat applovinBannerSize = MaxAdFormat.BANNER;
 
+
                             if ((fBannerSize == null) || (fBannerSize.equals(BANNER_STANDARD))) {
                                 applovinBannerSize = MaxAdFormat.BANNER;
                             } else if (fBannerSize.equals(BANNER_LEADER)) {
+
+                                bannerWidth = 768;
+                                bannerHeight = 90;
+
                                 applovinBannerSize = MaxAdFormat.LEADER;
                             } else if (fBannerSize.equals(BANNER_MREC)) {
+
+                                bannerWidth = 320;
+                                bannerHeight = 250;
+
                                 applovinBannerSize = MaxAdFormat.MREC;
                             }
 
 
                             bannerAd = new MaxAdView( fAdUnitId, applovinBannerSize, CoronaEnvironment.getCoronaActivity() );
+                            bannerAd.setLayoutParams( new FrameLayout.LayoutParams( bannerWidth, bannerHeight ) );
+
                             bannerAd.setListener(delBanner);
                             bannerAd.setRevenueListener(revBanner);
 
@@ -1010,8 +1024,8 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                                 // set final layout params
                                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                                        140
+                                        bannerWidth,
+                                        bannerHeight
                                 );
                                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                                     WindowInsets windowInsets = coronaActivity.getWindow().getDecorView().getRootView().getRootWindowInsets();
