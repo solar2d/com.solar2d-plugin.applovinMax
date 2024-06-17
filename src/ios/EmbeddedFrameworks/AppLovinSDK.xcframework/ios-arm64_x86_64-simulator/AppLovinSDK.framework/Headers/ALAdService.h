@@ -21,6 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ALAdService : NSObject
 
 /**
+ * @param bidToken The bid token that was collected.
+ * @param errorMessage The reason for failure to collect the bid token.
+ */
+typedef void (^ALBidTokenCollectionCompletionHandler)(NSString *_Nullable bidToken, NSString *_Nullable errorMessage);
+
+/**
  * Fetches a new ad, of a given size, and notifies a supplied delegate on completion.
  *
  * @param adSize    Size of an ad to load.
@@ -42,26 +48,23 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *bidToken;
 
 /**
+ * Asynchronously generates a token used for advanced header bidding.
+ *
+ * @param completion A completion handler to notify whether or not the bid token collection was successful.
+ *                  This will be called on the main thread. Must not be null.
+ */
+- (void)collectBidTokenWithCompletion:(ALBidTokenCollectionCompletionHandler)completion;
+
+/**
  * Fetches a new ad for the given ad token. The provided ad token must be one that was received from AppLovin S2S API.
  *
- * @warning This method is designed to be called by SDK mediation providers. Use @code -[ALAdService loadNextAdForZoneIdentifiers:andNotify:] @endcode for
+ * @warning This method is designed to be called by SDK mediation providers. Use @code -[ALAdService loadNextAdForZoneIdentifier:andNotify:] @endcode for
  *          regular integrations.
  *
  * @param adToken   Ad token returned from AppLovin S2S API.
  * @param delegate  A callback that @c loadNextAdForAdToken calls to notify that the ad has been loaded.
  */
 - (void)loadNextAdForAdToken:(NSString *)adToken andNotify:(id<ALAdLoadDelegate>)delegate;
-
-/**
- * Fetch a new ad for any of the provided zone identifiers.
- *
- * @warning This method is designed to be called by SDK mediation providers. Use @code -[ALAdService loadNextAdForZoneIdentifiers:andNotify:] @endcode for
- *          regular integrations.
- *
- * @param zoneIdentifiers  An array of zone identifiers for which an ad should be loaded.
- * @param delegate         A callback that @c loadNextAdForZoneIdentifiers calls to notify that the ad has been loaded.
- */
-- (void)loadNextAdForZoneIdentifiers:(NSArray<NSString *> *)zoneIdentifiers andNotify:(id<ALAdLoadDelegate>)delegate;
 
 - (instancetype)init __attribute__((unavailable("Access ALAdService through ALSdk's adService property.")));
 + (instancetype)new NS_UNAVAILABLE;

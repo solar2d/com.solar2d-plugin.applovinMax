@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name AppLovinSDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 @_exported import AppLovinSDK
@@ -7,11 +7,12 @@ import Foundation
 import Swift
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 @_hasMissingDesignatedInitializers open class AdapterDelegate<T, U> : ObjectiveC.NSObject where T : AppLovinSDK.ALMediationAdapter, U : AppLovinSDK.MAAdapterDelegate {
   unowned final public let adapter: T
   weak public var delegate: U?
   final public let adFormat: AppLovinSDK.MAAdFormat
-  final public let parameters: AppLovinSDK.MAAdapterResponseParameters
+  final public let parameters: any AppLovinSDK.MAAdapterResponseParameters
   final public let adIdentifier: Swift.String
   public func log(adEvent: AppLovinSDK.LogEvent.Ad, id: Swift.String?, appending suffix: Swift.String = "")
   public func log(adEvent: AppLovinSDK.LogEvent.Ad, appending suffix: Swift.String = "")
@@ -22,30 +23,35 @@ import _StringProcessing
   public func logUserError(_ message: Swift.String)
   @objc deinit
 }
-@_hasMissingDesignatedInitializers open class InterstitialAdapterDelegate<T> : AppLovinSDK.AdapterDelegate<T, AppLovinSDK.MAInterstitialAdapterDelegate> where T : AppLovinSDK.ALMediationAdapter {
-  public init(adapter: T, delegate: AppLovinSDK.MAInterstitialAdapterDelegate, parameters: AppLovinSDK.MAAdapterResponseParameters)
+@_hasMissingDesignatedInitializers open class InterstitialAdapterDelegate<T> : AppLovinSDK.AdapterDelegate<T, any AppLovinSDK.MAInterstitialAdapterDelegate> where T : AppLovinSDK.ALMediationAdapter {
+  public init(adapter: T, delegate: any AppLovinSDK.MAInterstitialAdapterDelegate, parameters: any AppLovinSDK.MAAdapterResponseParameters)
   @objc deinit
 }
-@_hasMissingDesignatedInitializers open class RewardedAdapterDelegate<T> : AppLovinSDK.AdapterDelegate<T, AppLovinSDK.MARewardedAdapterDelegate> where T : AppLovinSDK.ALMediationAdapter {
+@_hasMissingDesignatedInitializers open class RewardedAdapterDelegate<T> : AppLovinSDK.AdapterDelegate<T, any AppLovinSDK.MARewardedAdapterDelegate> where T : AppLovinSDK.ALMediationAdapter {
   public var hasGrantedReward: Swift.Bool {
     get
   }
-  public init(adapter: T, delegate: AppLovinSDK.MARewardedAdapterDelegate, parameters: AppLovinSDK.MAAdapterResponseParameters)
+  public init(adapter: T, delegate: any AppLovinSDK.MARewardedAdapterDelegate, parameters: any AppLovinSDK.MAAdapterResponseParameters)
   public func setGrantedReward()
   @objc deinit
 }
-@_inheritsConvenienceInitializers open class AdViewAdapterDelegate<T> : AppLovinSDK.AdapterDelegate<T, AppLovinSDK.MAAdViewAdapterDelegate> where T : AppLovinSDK.ALMediationAdapter {
-  public init(adapter: T, delegate: AppLovinSDK.MAAdViewAdapterDelegate, adFormat: AppLovinSDK.MAAdFormat, parameters: AppLovinSDK.MAAdapterResponseParameters)
+@_inheritsConvenienceInitializers open class AdViewAdapterDelegate<T> : AppLovinSDK.AdapterDelegate<T, any AppLovinSDK.MAAdViewAdapterDelegate> where T : AppLovinSDK.ALMediationAdapter {
+  public init(adapter: T, delegate: any AppLovinSDK.MAAdViewAdapterDelegate, adFormat: AppLovinSDK.MAAdFormat, parameters: any AppLovinSDK.MAAdapterResponseParameters)
   @objc deinit
 }
-@_hasMissingDesignatedInitializers open class NativeAdAdapterDelegate<T> : AppLovinSDK.AdapterDelegate<T, AppLovinSDK.MANativeAdAdapterDelegate> where T : AppLovinSDK.ALMediationAdapter {
+@_inheritsConvenienceInitializers open class NativeAdViewAdapterDelegate<T> : AppLovinSDK.AdViewAdapterDelegate<T> where T : AppLovinSDK.ALMediationAdapter {
   final public let templateName: Swift.String?
-  public init(adapter: T, delegate: AppLovinSDK.MANativeAdAdapterDelegate, parameters: AppLovinSDK.MAAdapterResponseParameters)
+  override public init(adapter: T, delegate: any AppLovinSDK.MAAdViewAdapterDelegate, adFormat: AppLovinSDK.MAAdFormat, parameters: any AppLovinSDK.MAAdapterResponseParameters)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers open class NativeAdAdapterDelegate<T> : AppLovinSDK.AdapterDelegate<T, any AppLovinSDK.MANativeAdAdapterDelegate> where T : AppLovinSDK.ALMediationAdapter {
+  final public let templateName: Swift.String?
+  public init(adapter: T, delegate: any AppLovinSDK.MANativeAdAdapterDelegate, parameters: any AppLovinSDK.MAAdapterResponseParameters)
   @objc deinit
 }
 extension AppLovinSDK.ALMediationAdapter {
   public typealias MAAdapterInitializationCompletionHandler = (AppLovinSDK.MAAdapterInitializationStatus, Swift.String?) -> ()
-  public func presentingViewController(for parameters: AppLovinSDK.MAAdapterResponseParameters) -> UIKit.UIViewController
+  public func presentingViewController(for parameters: any AppLovinSDK.MAAdapterResponseParameters) -> UIKit.UIViewController
 }
 public struct LogEvent {
   public enum Lifecycle {

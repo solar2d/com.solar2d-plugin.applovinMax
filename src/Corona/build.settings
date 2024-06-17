@@ -15,7 +15,7 @@ settings =
           [[
 					<meta-data
 					android:name="com.google.android.gms.ads.APPLICATION_ID"
-					android:value="ca-app-pub-XXXXXXXXXXXXX~XXXXXXXXXXXXX"/>
+					android:value="ca-app-pub-3940256099942544~3347511713"/>
           	<meta-data android:name="applovin.sdk.key" android:value="replace with your own"/>
           ]],
       },
@@ -67,28 +67,19 @@ settings =
 			 ["plugin.applovinMax.IronSource"] = {
 				 publisherId = "com.solar2d",
 		 	 },
-			 ["plugin.applovinMax.Maio"] = {
-				 publisherId = "com.solar2d",
-		 	 },
 			 ["plugin.applovinMax.Mintegral"] = {
-				 publisherId = "com.solar2d",
-		 	 },
-			 ["plugin.applovinMax.MyTarget"] = {
 				 publisherId = "com.solar2d",
 		 	 },
 			 ["plugin.applovinMax.Ogury"] = {
 				 publisherId = "com.solar2d",
 		 	 },
-			 ["plugin.applovinMax.Pangle"] = {
-				 publisherId = "com.solar2d",
-		 	 },
 			 ["plugin.applovinMax.Smaato"] = {
 				 publisherId = "com.solar2d",
 		 	 },
-			 ["plugin.applovinMax.Tapjoy"] = {
+			 ["plugin.applovinMax.UnityAds"] = {
 				 publisherId = "com.solar2d",
 		 	 },
-			 ["plugin.applovinMax.UnityAds"] = {
+			 ["plugin.applovinMax.Vungle"] = {
 				 publisherId = "com.solar2d",
 		 	 },
 

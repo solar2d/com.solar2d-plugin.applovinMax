@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * This delegate is notified when a user watches a rewarded video and of whether a reward was granted or rejected.
  *
- * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/rewarded-ads">MAX Integration Guide ⇒ iOS ⇒ Rewarded Ads</a>
+ * @see <a href="https://developers.applovin.com/en/ios/ad-formats/rewarded-ads">MAX Integration Guide ⇒ iOS ⇒ Ad Foramts ⇒ Rewarded Ads</a>
  */
 @protocol MARewardedAdDelegate <MAAdDelegate>
 
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 __deprecated_msg("This API is deprecated because not all adapters support this callback. Please use -[MAAdDelegate didDisplayAd:] instead");
 
 - (void)didCompleteRewardedVideoForAd:(MAAd *)ad
-__deprecated_msg("This function is deprecated because not all adapters support this callback. Please use -[MAAdDelegate didHideAd:] instead");
+__deprecated_msg("This API is deprecated because not all adapters support this callback. Please use -[MAAdDelegate didHideAd:] instead");
 
 @end
 

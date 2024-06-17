@@ -1,0 +1,6 @@
+framework module SmaatoSDKUnifiedBidding {
+  umbrella header "SmaatoSDKUnifiedBidding.h"
+  export *
+
+  module * { export * }
+}

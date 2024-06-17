@@ -29,11 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, strong, readonly) MAAdFormat *leader;
 
 /**
- * Represents a cross-promo advertisement.
- */
-@property (class, nonatomic, strong, readonly) MAAdFormat *crossPromo;
-
-/**
  * Represents a full-screen advertisement.
  */
 @property (class, nonatomic, strong, readonly) MAAdFormat *interstitial;
@@ -75,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * <b>Note:</b> Only AdMob / Google Ad Manager currently has support for adaptive banners and the maximum height is 15% the height of the screen.
  *
- * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/banners#adaptive-banners">MAX Integration Guide ⇒ iOS ⇒ Banners ⇒ Adaptive Banners</a>
+ * @see <a href="https://developers.applovin.com/en/ios/ad-formats/banner-and-mrec-ads#adaptive-banners">MAX Integration Guide ⇒ iOS ⇒ Banner & MREC Ads ⇒ Adaptive Banners</a>
  */
 @property (nonatomic, assign, readonly) CGSize adaptiveSize;
 
@@ -90,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return The adaptive banner size for the current orientation and width.
  *
- * @see <a href="https://dash.applovin.com/documentation/mediation/ios/getting-started/banners#adaptive-banners">MAX Integration Guide ⇒ iOS ⇒ Banners ⇒ Adaptive Banners</a>
+ * @see <a href="https://developers.applovin.com/en/ios/ad-formats/banner-and-mrec-ads#adaptive-banners">MAX Integration Guide ⇒ iOS ⇒ Banner & MREC Ads ⇒ Adaptive Banners</a>
  */
 - (CGSize)adaptiveSizeForWidth:(CGFloat)width;
 
