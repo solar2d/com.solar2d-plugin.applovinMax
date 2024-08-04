@@ -4,7 +4,7 @@ local metadata =
 	{
 		format = "staticLibrary",
 		staticLibs = { "plugin_applovinMax", "z" },
-		frameworks = { "AdSupport", "StoreKit", "AppLovinSDK", "CoreTelephony" },
+		frameworks = { "AdSupport", "StoreKit", "CoreTelephony", "AppLovinSDK" },
 		frameworksOptional = { "WebKit", "AppTrackingTransparency" },
 		usesSwift = true
 	}

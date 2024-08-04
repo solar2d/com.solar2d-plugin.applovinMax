@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param adRewardDelegate The reward delegate to notify upon validating reward authenticity with AppLovin.
  *
- * @see <a href="https://dash.applovin.com/documentation/mediation/s2s-rewarded-callback-api">MAX Integration Guide ⇒ MAX S2S Rewarded Callback API</a>
+ * @see <a href="https://developers.applovin.com/en/advanced-features/s2s-rewarded-callback-api">MAX Integration Guide ⇒ S2S Rewarded Callback API</a>
  */
 + (void)showAndNotify:(nullable id<ALAdRewardDelegate>)adRewardDelegate;
 
@@ -183,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param adRewardDelegate The reward delegate to notify upon validating reward authenticity with AppLovin.
  *
- * @see <a href="https://dash.applovin.com/documentation/mediation/s2s-rewarded-callback-api">MAX Integration Guide ⇒ MAX S2S Rewarded Callback API</a>
+ * @see <a href="https://developers.applovin.com/en/advanced-features/s2s-rewarded-callback-api">MAX Integration Guide ⇒ S2S Rewarded Callback API</a>
  */
 - (void)showAndNotify:(nullable id<ALAdRewardDelegate>)adRewardDelegate;
 
@@ -200,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param ad               The ad to render into this incentivized ad.
  * @param adRewardDelegate The reward delegate to notify upon validating reward authenticity with AppLovin.
  *
- * @see <a href="https://dash.applovin.com/documentation/mediation/s2s-rewarded-callback-api">MAX Integration Guide ⇒ MAX S2S Rewarded Callback API</a>
+ * @see <a href="https://developers.applovin.com/en/advanced-features/s2s-rewarded-callback-api">MAX Integration Guide ⇒ S2S Rewarded Callback API</a>
  */
 - (void)showAd:(ALAd *)ad andNotify:(nullable id<ALAdRewardDelegate>)adRewardDelegate;
 

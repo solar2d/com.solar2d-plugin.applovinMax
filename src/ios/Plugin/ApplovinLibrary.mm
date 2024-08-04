@@ -29,7 +29,7 @@
 // ----------------------------------------------------------------------------
 
 #define PLUGIN_NAME        "plugin.applovinMax"
-#define PLUGIN_VERSION     "1.2.0"
+#define PLUGIN_VERSION     "1.3.0"
 #define PLUGIN_SDK_VERSION [ALSdk version]
 
 static const char EVENT_NAME[]    = "adsRequest";
