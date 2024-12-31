@@ -11,7 +11,7 @@ android {
 
 dependencies {
     implementation ':Corona@aar'
-    implementation 'com.applovin:applovin-sdk:12.0.0'
+    implementation 'com.applovin:applovin-sdk:13.0.1'
 }
 
 task extractPluginJar() {
