@@ -18,6 +18,7 @@ import android.view.Display;
 import android.view.DisplayCutout;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.widget.FrameLayout;
 
@@ -144,6 +145,9 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
     private final MaxAdRevListenerBanner revBanner = new MaxAdRevListenerBanner();
 
     private static String functionSignature = "";
+
+    private int bannerWidth = 320;
+    private int bannerHeight = 50;
 
     // ----------------------------------------------------------------------------------
     // Helper classes to keep track of information not available in the SDK base classes
@@ -621,7 +625,8 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                             // initialize rewarded object
                             if (rewardedAd == null) {
-                                rewardedAd = MaxRewardedAd.getInstance(fAdUnitId, CoronaEnvironment.getCoronaActivity());
+                                Context context = CoronaEnvironment.getCoronaActivity();
+                                rewardedAd = MaxRewardedAd.getInstance(fAdUnitId, AppLovinSdk.getInstance(context), context);
                                 applovinObjects.put(activeInstanceKey, rewardedAd);
                             }
 
@@ -657,14 +662,14 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                             MaxAdFormat applovinBannerSize = MaxAdFormat.BANNER;
 
-                            if ((fBannerSize == null) || (fBannerSize.equals(BANNER_STANDARD))) {
-                                applovinBannerSize = MaxAdFormat.BANNER;
-                            } else if (fBannerSize.equals(BANNER_LEADER)) {
-                                applovinBannerSize = MaxAdFormat.LEADER;
-                            } else if (fBannerSize.equals(BANNER_MREC)) {
-                                applovinBannerSize = MaxAdFormat.MREC;
-                            }
+                            if (fBannerSize != null) {
+                                if (fBannerSize.equals(BANNER_LEADER)) {
+                                    applovinBannerSize = MaxAdFormat.LEADER;
+                                } else if (fBannerSize.equals(BANNER_MREC)) {
+                                    applovinBannerSize = MaxAdFormat.MREC;
+                                }
 
+                            }
 
                             bannerAd = new MaxAdView( fAdUnitId, applovinBannerSize, CoronaEnvironment.getCoronaActivity() );
                             bannerAd.setListener(delBanner);
@@ -1010,8 +1015,8 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                                 // set final layout params
                                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                                        140
+                                        bannerWidth,
+                                        bannerHeight
                                 );
                                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                                     WindowInsets windowInsets = coronaActivity.getWindow().getDecorView().getRootView().getRootWindowInsets();
@@ -1224,24 +1229,10 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                 return 0;
             }
 
-            // check number of arguments
-            int nargs = L.getTop();
-            if (nargs != 1) {
-                logMsg(ERROR_MSG, "Expected 1 argument, got " + nargs);
-                return 0;
-            }
+            logMsg(ERROR_MSG, "setIsAgeRestrictedUser should not be used. Applovin should not be initialized if user is underage.");
 
-            boolean isAgeRestrictedUser;
+            //AppLovinPrivacySettings.setIsAgeRestrictedUser( isAgeRestrictedUser, CoronaEnvironment.getApplicationContext() );
 
-            // check options
-            if (L.type(1) == LuaType.BOOLEAN) {
-                isAgeRestrictedUser = L.toBoolean(1);
-            } else {
-                logMsg(ERROR_MSG, "setIsAgeRestrictedUser (bool) expected, got " + L.typeName(1));
-                return 0;
-            }
-
-            AppLovinPrivacySettings.setIsAgeRestrictedUser( isAgeRestrictedUser, CoronaEnvironment.getApplicationContext() );
             return 0;
         }
     }
@@ -1471,7 +1462,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             coronaEvent.put(EVENT_TYPE_KEY, adType);
             dispatchLuaEvent(coronaEvent);
         }
-
+        /* Not part of the interface.
         @Override
         public void onRewardedVideoStarted(final MaxAd ad) {
             Map<String, Object> coronaEvent = new HashMap<>();
@@ -1487,7 +1478,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             coronaEvent.put(EVENT_TYPE_KEY, adType);
             dispatchLuaEvent(coronaEvent);
         }
-
+        */
         @Override
         public void onUserRewarded(final MaxAd ad, final MaxReward reward)
         {
