@@ -29,8 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, weak, readonly) ALSdk *sdk;
 @property (atomic, copy, readonly) NSString *tag;
 
-- (instancetype)initWithSdk:(ALSdk *)sdk;
-- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithSdk:(ALSdk *)sdk
+__deprecated_msg("This API is deprecated and will be removed in a future SDK version. Please use `-[ALMediationAdapter init] instead.");
+- (instancetype)init;
 
 @end
 
@@ -54,6 +55,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface ALMediationAdapter (AdaptiveAdViewUtils)
+
+/**
+ * Whether or not the requested ad is an adaptive ad view format.
+ */
+- (BOOL)isAdaptiveAdViewFormat:(MAAdFormat *)adFormat forParameters:(id<MAAdapterParameters>)parameters;
+
+/**
+ * Whether or not the requested ad is an inline adaptive ad view.
+ */
+- (BOOL)isInlineAdaptiveAdViewForParameters:(id<MAAdapterParameters>)parameters;
+
+/**
+ * Gets the custom maximum height, in points, for an inline adaptive ad view. Returns @c -1 if the creator of the adaptive ad view did not set a maximum height, in which case the maximum height is equal to the device height.
+ */
+- (CGFloat)inlineAdaptiveAdViewMaximumHeightFromParameters:(id<MAAdapterParameters>)parameters;
+
+/**
+ * Gets the custom width, in points, for an adaptive ad view. Returns the application window width if the creator of the adaptive ad view did not set a custom width.
+ */
+- (CGFloat)adaptiveAdViewWidthFromParameters:(id<MAAdapterParameters>)parameters;
+
+@end
+
 @interface ALMediationAdapter (Logging)
 
 - (void)d:(NSString *)format, ...;
@@ -73,10 +98,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)logError:(NSString *)message;
 - (void)logUserError:(NSString *)message;
 
-@end
-
-@interface ALMediationAdapter (ALDeprecated)
-extern NSString *const kMAConfigKeyMuted __deprecated_msg("Adapters no longer support mute APIs.");
 @end
 
 NS_ASSUME_NONNULL_END

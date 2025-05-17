@@ -38,25 +38,25 @@ settings =
         {
             publisherId = "com.coronalabs"
         },
-				['plugin.att'] = { publisherId = 'com.solar2d' },
+			['plugin.att'] = { publisherId = 'com.solar2d' },
 		 	["plugin.applovinMax"] =
-			 {
-					 publisherId = "com.solar2d"
-			 },
-			 ["plugin.applovinMax.AdColony"] = {
- 					 publisherId = "com.solar2d",
- 			 },
+			{
+				publisherId = "com.solar2d"
+			},
+			["plugin.applovinMax.AdColony"] = {
+ 				publisherId = "com.solar2d",
+ 			},
 			["plugin.applovinMax.Chartboost"] = {
-					 publisherId = "com.solar2d",
-			 },
+				publisherId = "com.solar2d",
+			},
 			 ["plugin.applovinMax.Facebook"] = {
-				 publisherId = "com.solar2d",
+				publisherId = "com.solar2d",
 		 	 },
 			 ["plugin.applovinMax.Fyber"] = {
-				 publisherId = "com.solar2d",
+				publisherId = "com.solar2d",
 		 	 },
 			 ["plugin.applovinMax.GoogleAdMob"] = {
- 					 publisherId = "com.solar2d",
+ 				publisherId = "com.solar2d",
  			 },
 			 ["plugin.applovinMax.HyprMX"] = {
 				 publisherId = "com.solar2d",

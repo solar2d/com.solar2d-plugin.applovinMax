@@ -47,11 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, getter=isCreativeDebuggerEnabled) BOOL creativeDebuggerEnabled;
 
 /**
- * Whether or not the AppLovin SDK will collect the device location from `CLLocationManager` if available. Defaults to @c YES.
- */
-@property (nonatomic, assign, getter=isLocationCollectionEnabled) BOOL locationCollectionEnabled;
-
-/**
  * An identifier for the current user. This identifier will be tied to SDK events and AppLovin’s optional S2S postbacks.
  *
  * If you use reward validation, you can optionally set an identifier that AppLovin will include with its currency validation postbacks (for example, a username
@@ -74,17 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setExtraParameterForKey:(NSString *)key value:(nullable NSString *)value;
 
-@property (nonatomic, copy) NSArray<NSString *> *testDeviceAdvertisingIdentifiers __deprecated_msg("This property is deprecated and will be removed in a future SDK version. Please use the new ALSdkInitializationConfiguration (see ALSdkInitializationConfiguration.testDeviceAdvertisingIdentifiers)");
-@property (nonatomic, copy) NSArray<NSString *> *initializationAdUnitIdentifiers __deprecated_msg("This property is deprecated and will be removed in a future SDK version. version. Please use the new ALSdkInitializationConfiguration (see ALSdkInitializationConfiguration.initializationAdUnitIdentifiers");
-@property (nonatomic, assign, getter=isExceptionHandlerEnabled) BOOL exceptionHandlerEnabled __deprecated_msg("This property is deprecated and will be removed in a future SDK version. Please use the new ALSdkInitializationConfiguration (see ALSdkInitializationConfiguration.exceptionHandlerEnabled)");
-@end
-
-@interface ALSdkSettings (ALDeprecated)
-@property (nonatomic, assign) BOOL isVerboseLogging __deprecated_msg("This property is deprecated and will be removed in a future SDK version. Please use `-[ALSdkSettings isVerboseLoggingEnabled]` instead.");
-@property (nonatomic, strong, readonly) ALConsentFlowSettings *consentFlowSettings __deprecated_msg("This property is deprecated and will be removed in a future SDK version. Please use the new MAX Terms and Privacy Policy Flow instead (see ALSdkSettings.termsAndPrivacyPolicyFlowSettings)");
-
-- (instancetype)init __deprecated_msg("This method is deprecated and will be removed in a future SDK version. Please use `ALSdk.shared.settings` instead");
-+ (instancetype)new __deprecated_msg("This method is deprecated and will be removed in a future SDK version. Please use ` ALSdk.shared.settings` instead");
 @end
 
 NS_ASSUME_NONNULL_END
