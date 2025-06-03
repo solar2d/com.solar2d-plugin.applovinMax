@@ -463,26 +463,33 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             // create Applovin SDK settings
             final Context coronaContext = CoronaEnvironment.getApplicationContext();
 
-            AppLovinSdkSettings sdkSettings = AppLovinSdk.getInstance( coronaContext ).getSettings();
+            AppLovinSdkSettings sdkSettings = new AppLovinSdkSettings(coronaContext);
             sdkSettings.setVerboseLogging(verboseLogging);
-            sdkSettings.setMuted(startMuted);
+//            sdkSettings.setMuted(stinitializeSdkartMuted);
 
-            AppLovinSdkInitializationConfiguration initConfig = AppLovinSdkInitializationConfiguration.builder( userSdkKey, coronaContext )
-                    .setMediationProvider( AppLovinMediationProvider.MAX )
-                    .build();
+            final CoronaActivity coronaActivity = CoronaEnvironment.getCoronaActivity();
+            final AppLovinSdkSettings fSdkSettings = sdkSettings;
+            AppLovinSdk.getInstance( coronaContext ).setMediationProvider( "max" );
 
+            if (coronaActivity != null) {
+                Runnable runnableActivity = new Runnable() {
+                    public void run() {
+                        AppLovinSdk.initializeSdk( coronaContext, new AppLovinSdk.SdkInitializationListener() {
+                            @Override
+                            public void onSdkInitialized(final AppLovinSdkConfiguration configuration)
+                            {
+                                // send Corona Lua Event
+                                Map<String, Object> coronaEvent = new HashMap<>();
+                                coronaEvent.put(EVENT_PHASE_KEY, PHASE_INIT);
+                                dispatchLuaEvent(coronaEvent);
+                            }
+                        } );
 
-            AppLovinSdk.getInstance( coronaContext ).initialize( initConfig, new AppLovinSdk.SdkInitializationListener()
-            {
-                @Override
-                public void onSdkInitialized(final AppLovinSdkConfiguration sdkConfig)
-                {
-                    // send Corona Lua Event
-                    Map<String, Object> coronaEvent = new HashMap<>();
-                    coronaEvent.put(EVENT_PHASE_KEY, PHASE_INIT);
-                    dispatchLuaEvent(coronaEvent);
-                }
-            } );
+                    }
+                };
+
+                coronaActivity.runOnUiThread(runnableActivity);
+            }
 
             // log the plugin version to device console
             Log.i(CORONA_TAG, PLUGIN_NAME + " (SDK: " + PLUGIN_SDK_VERSION + ")");
@@ -1141,7 +1148,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                     if (key.equals("userId")) {
                         if (L.type(-1) == LuaType.STRING) {
-                            AppLovinSdk.getInstance( CoronaEnvironment.getApplicationContext() ).getSettings().setUserIdentifier(L.toString(-1));
+                            AppLovinSdk.getInstance( CoronaEnvironment.getApplicationContext() ).setUserIdentifier(L.toString(-1));
                         } else {
                             logMsg(ERROR_MSG, "options.userId (string) expected, got: " + L.typeName(-1));
                             return 0;
@@ -1234,7 +1241,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                 return 0;
             }
 
-            logMsg(WARNING_MSG, "This is no longer supported, don't use if user is a child");
+            AppLovinPrivacySettings.setIsAgeRestrictedUser( isAgeRestrictedUser, CoronaEnvironment.getApplicationContext() );
             return 0;
         }
     }
@@ -1461,6 +1468,22 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
         {
             Map<String, Object> coronaEvent = new HashMap<>();
             coronaEvent.put(EVENT_PHASE_KEY, PHASE_CLOSED);
+            coronaEvent.put(EVENT_TYPE_KEY, adType);
+            dispatchLuaEvent(coronaEvent);
+        }
+
+        @Override
+        public void onRewardedVideoStarted(final MaxAd ad) {
+            Map<String, Object> coronaEvent = new HashMap<>();
+            coronaEvent.put(EVENT_PHASE_KEY, PHASE_PLAYBACK_BEGAN);
+            coronaEvent.put(EVENT_TYPE_KEY, adType);
+            dispatchLuaEvent(coronaEvent);
+        }
+
+        @Override
+        public void onRewardedVideoCompleted(final MaxAd ad) {
+            Map<String, Object> coronaEvent = new HashMap<>();
+            coronaEvent.put(EVENT_PHASE_KEY, PHASE_PLAYBACK_ENDED);
             coronaEvent.put(EVENT_TYPE_KEY, adType);
             dispatchLuaEvent(coronaEvent);
         }
