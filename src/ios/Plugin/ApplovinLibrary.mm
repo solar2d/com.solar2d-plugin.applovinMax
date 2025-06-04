@@ -347,19 +347,6 @@ ApplovinLibrary::ToLibrary(lua_State *L)
   return library;
 }
 
-static void initApplovin() {
-	
-	
-	// log the plugin version to device console
-	NSLog(@"%s: %s (SDK: %@)", PLUGIN_NAME, PLUGIN_VERSION, PLUGIN_SDK_VERSION);
-	
-	[[ALSdk shared] initializeSdkWithCompletionHandler:^(ALSdkConfiguration * _Nonnull configuration) {
-		NSDictionary *coronaEvent = @{
-			@(CoronaEventPhaseKey()) : PHASE_INIT
-		};
-		[applovinInterstitialDelegate dispatchLuaEvent:coronaEvent];
-	}];
-}
 
 // [Lua] applovinMax.init(listener, options)
 int
@@ -433,7 +420,15 @@ ApplovinLibrary::init(lua_State *L)
           logMsg(L, ERROR_MSG, MsgFormat(@"options.verboseLogging (boolean) expected, got: %s", luaL_typename(L, -1)));
           return 0;
         }
-      }
+      }else if (UTF8IsEqual(key, "verboseLogging")) {
+          if (lua_type(L, -1) == LUA_TBOOLEAN) {
+            verboseLogging = lua_toboolean(L, -1);
+          }
+          else {
+            logMsg(L, ERROR_MSG, MsgFormat(@"options.verboseLogging (boolean) expected, got: %s", luaL_typename(L, -1)));
+            return 0;
+          }
+        }
       else if (UTF8IsEqual(key, "testMode")) {
         if (lua_type(L, -1) == LUA_TBOOLEAN) {
 			logMsg(L, WARNING_MSG, @"options.testMode (boolean) does not have effect anymore");
@@ -443,9 +438,9 @@ ApplovinLibrary::init(lua_State *L)
           logMsg(L, ERROR_MSG, MsgFormat(@"options.testMode (boolean) expected, got: %s", luaL_typename(L, -1)));
           return 0;
         }
-      } else if (UTF8IsEqual(key, "mediationProvider")) {
-          if (lua_type(L, -1) == LUA_TSTRING) {
-              mediationProvider = [NSString stringWithUTF8String:lua_tostring(L, -1)];
+      } else if (UTF8IsEqual(key, "startMuted")) {
+          if (lua_type(L, -1) == LUA_TBOOLEAN) {
+              startMuted = [NSString stringWithUTF8String:lua_tostring(L, -1)];
           }
           else {
             logMsg(L, ERROR_MSG, MsgFormat(@"options.mediationProvider (string) expected, got: %s", luaL_typename(L, -1)));
@@ -469,14 +464,19 @@ ApplovinLibrary::init(lua_State *L)
     //  settings.autoPreloadAdTypes = @"NONE";
     [ALSdk shared].settings.verboseLoggingEnabled = verboseLogging;
     [ALSdk shared].settings.muted = startMuted;
+    NSString *sdkKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppLovinSdkKey"];
+    ALSdkInitializationConfiguration *initConfig = [ALSdkInitializationConfiguration configurationWithSdkKey: sdkKey builderBlock:^(ALSdkInitializationConfigurationBuilder *builder) {
 
-    [ALSdk shared].mediationProvider = mediationProvider;
-
-      if([privacyPolicy length]) {
-          [ALSdk shared].settings.consentFlowSettings.enabled = YES;
-          [ALSdk shared].settings.consentFlowSettings.privacyPolicyURL = [NSURL URLWithString:privacyPolicy];
-      }
-    initApplovin();
+        builder.mediationProvider = ALMediationProviderMAX;
+        
+    }];
+    [[ALSdk shared] initializeWithConfiguration: initConfig completionHandler:^(ALSdkConfiguration *sdkConfig) {
+        NSDictionary *coronaEvent = @{
+            @(CoronaEventPhaseKey()) : PHASE_INIT
+        };
+        [applovinInterstitialDelegate dispatchLuaEvent:coronaEvent];
+    }];
+    
 
   
   return 0;
@@ -1139,7 +1139,7 @@ ApplovinLibrary::setUserDetails(lua_State *L)
     return 0;
   }
     if(userId){
-        [ALSdk shared].userIdentifier = @(userId);
+        [ALSdk shared].settings.userIdentifier = @(userId);
     }
     
   
@@ -1223,7 +1223,7 @@ ApplovinLibrary::setIsAgeRestrictedUser(lua_State *L)
         return 0;
     }
 
-    [ALPrivacySettings setIsAgeRestrictedUser:isAgeRestrictedUser];
+    //[ALPrivacySettings setIsAgeRestrictedUser:isAgeRestrictedUser];
 
     return 0;
 }

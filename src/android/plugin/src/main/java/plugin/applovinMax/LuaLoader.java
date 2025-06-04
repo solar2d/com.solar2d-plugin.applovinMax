@@ -450,6 +450,14 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 return 0;
                             }
                             break;
+                        case "startMuted":
+                            if (L.type(-1) == LuaType.BOOLEAN) {
+                                startMuted = L.toBoolean(-1);
+                            } else {
+                                logMsg(ERROR_MSG, "options.startMuted (boolean) expected, got: " + L.typeName(-1));
+                                return 0;
+                            }
+                            break;
                         default:
                             logMsg(ERROR_MSG, "Invalid option '" + key + "'");
                             return 0;
