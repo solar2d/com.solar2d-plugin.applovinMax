@@ -377,6 +377,7 @@ ApplovinLibrary::init(lua_State *L)
   
   NSString* privacyPolicy = nil;
     NSString* mediationProvider = @"max";
+    NSString *sdkKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppLovinSdkKey"];
   bool verboseLogging = false;
 //  bool testMode = false;
   bool startMuted = false;
@@ -428,8 +429,15 @@ ApplovinLibrary::init(lua_State *L)
             logMsg(L, ERROR_MSG, MsgFormat(@"options.verboseLogging (boolean) expected, got: %s", luaL_typename(L, -1)));
             return 0;
           }
-        }
-      else if (UTF8IsEqual(key, "testMode")) {
+      }else if (UTF8IsEqual(key, "sdkKey")) {
+          if (lua_type(L, -1) == LUA_TSTRING) {
+              sdkKey = [NSString stringWithUTF8String:lua_tostring(L, -1)];
+          }
+          else {
+            logMsg(L, ERROR_MSG, MsgFormat(@"options.sdkKey (string) expected, got: %s", luaL_typename(L, -1)));
+            return 0;
+          }
+      }else if (UTF8IsEqual(key, "testMode")) {
         if (lua_type(L, -1) == LUA_TBOOLEAN) {
 			logMsg(L, WARNING_MSG, @"options.testMode (boolean) does not have effect anymore");
 //          testMode = lua_toboolean(L, -1);
@@ -440,10 +448,10 @@ ApplovinLibrary::init(lua_State *L)
         }
       } else if (UTF8IsEqual(key, "startMuted")) {
           if (lua_type(L, -1) == LUA_TBOOLEAN) {
-              startMuted = [NSString stringWithUTF8String:lua_tostring(L, -1)];
+              startMuted = lua_toboolean(L, 1);
           }
           else {
-            logMsg(L, ERROR_MSG, MsgFormat(@"options.mediationProvider (string) expected, got: %s", luaL_typename(L, -1)));
+            logMsg(L, ERROR_MSG, MsgFormat(@"options.startMuted (boolean) expected, got: %s", luaL_typename(L, -1)));
             return 0;
           }
         }
@@ -464,7 +472,7 @@ ApplovinLibrary::init(lua_State *L)
     //  settings.autoPreloadAdTypes = @"NONE";
     [ALSdk shared].settings.verboseLoggingEnabled = verboseLogging;
     [ALSdk shared].settings.muted = startMuted;
-    NSString *sdkKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppLovinSdkKey"];
+    
     ALSdkInitializationConfiguration *initConfig = [ALSdkInitializationConfiguration configurationWithSdkKey: sdkKey builderBlock:^(ALSdkInitializationConfigurationBuilder *builder) {
 
         builder.mediationProvider = ALMediationProviderMAX;
