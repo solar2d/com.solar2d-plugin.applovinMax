@@ -18,7 +18,7 @@ android {
 
 dependencies {
     implementation ':Corona@aar'
-    implementation 'com.applovin:applovin-sdk:13.2.0'
+    implementation 'com.applovin:applovin-sdk:13.5.0'
 }
 
 def buildDirectory = getLayout().getBuildDirectory().asFile.get()

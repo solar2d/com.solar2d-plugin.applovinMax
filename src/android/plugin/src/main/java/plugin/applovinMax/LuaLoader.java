@@ -450,6 +450,14 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 return 0;
                             }
                             break;
+                        case "androidSdkKey":
+                            if (L.type(-1) == LuaType.STRING) {
+                                userSdkKey = L.toString(-1);
+                            } else {
+                                logMsg(ERROR_MSG, "options.androidSdkKey (string) expected, got: " + L.typeName(-1));
+                                return 0;
+                            }
+                            break;
                         case "testMode":
                             if (L.type(-1) == LuaType.BOOLEAN) {
                                 logMsg(WARNING_MSG, "options.testMode is ignored. Use UI to set test mode");

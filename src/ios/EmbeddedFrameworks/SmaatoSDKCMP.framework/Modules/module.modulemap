@@ -1,6 +1,0 @@
-framework module SmaatoSDKCMP {
-  umbrella header "SmaatoSDKCMP.h"
-  export *
-
-  module * { export * }
-}

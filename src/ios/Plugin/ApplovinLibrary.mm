@@ -29,7 +29,7 @@
 // ----------------------------------------------------------------------------
 
 #define PLUGIN_NAME        "plugin.applovinMax"
-#define PLUGIN_VERSION     "1.3.0"
+#define PLUGIN_VERSION     "1.4.0"
 #define PLUGIN_SDK_VERSION [ALSdk version]
 
 static const char EVENT_NAME[]    = "adsRequest";
@@ -430,6 +430,14 @@ ApplovinLibrary::init(lua_State *L)
             return 0;
           }
       }else if (UTF8IsEqual(key, "sdkKey")) {
+          if (lua_type(L, -1) == LUA_TSTRING) {
+              sdkKey = [NSString stringWithUTF8String:lua_tostring(L, -1)];
+          }
+          else {
+            logMsg(L, ERROR_MSG, MsgFormat(@"options.sdkKey (string) expected, got: %s", luaL_typename(L, -1)));
+            return 0;
+          }
+      }else if (UTF8IsEqual(key, "iOSSdkKey")) {
           if (lua_type(L, -1) == LUA_TSTRING) {
               sdkKey = [NSString stringWithUTF8String:lua_tostring(L, -1)];
           }
