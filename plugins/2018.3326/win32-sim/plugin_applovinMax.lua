@@ -39,6 +39,11 @@ function lib.setUserDetails()
     showWarning("applovinMax.setUserDetails()")
 end
 
+function lib.hide()
+    showWarning("applovinMax.hide()")
+end
+
+
 function lib.setIsAgeRestrictedUser()
     showWarning("applovinMax.setIsAgeRestrictedUser()")
 end
