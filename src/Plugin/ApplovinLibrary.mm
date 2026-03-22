@@ -51,14 +51,12 @@ static const NSArray *validAdTypes = @[
 static const char BANNER_STANDARD[] = "standard";
 static const char BANNER_LEADER[]   = "leader";
 static const char BANNER_MREC[]     = "mrec";
-static const char BANNER_ADAPTIVE[] = "adaptive";
 
 // valid banner ad sizes
 static const NSArray *validBannerSizes = @[
   @(BANNER_STANDARD),
   @(BANNER_LEADER),
-  @(BANNER_MREC),
-  @(BANNER_ADAPTIVE)
+  @(BANNER_MREC)
 ];
 
 // banner alignment
@@ -104,7 +102,6 @@ static NSString * const USER_SDK_KEY                      = @"userSdk";
 static NSString * const USER_INTERSTITIAL_INSTANCE_KEY    = @"userInterstitial";
 static NSString * const USER_REWARDEDVIDEO_INSTANCE_KEY   = @"userRewardedVideo";
 static NSString * const USER_BANNER_INSTANCE_KEY          = @"userBanner";
-static NSString * const USER_BANNER_CONTAINER_KEY         = @"userBannerContainer";
 static NSString * const Y_RATIO_KEY                       = @"yRatio";    // used to calculate Corona -> UIKit coordinate ratio
 
 // ad revenue field keys
@@ -322,9 +319,6 @@ ApplovinLibrary::Finalizer(lua_State *L)
   rewardedAd.delegate = nil;
   rewardedAd.revenueDelegate = nil;
   
-  UIView *bannerContainer = applovinObjects[USER_BANNER_CONTAINER_KEY];
-  [bannerContainer removeFromSuperview];
-
   MAAdView *bannerAd = nil;
   bannerAd = applovinObjects[USER_BANNER_INSTANCE_KEY];
   bannerAd.delegate = nil;
@@ -384,7 +378,6 @@ ApplovinLibrary::init(lua_State *L)
   NSString* privacyPolicy = nil;
     NSString* mediationProvider = @"max";
     NSString *sdkKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AppLovinSdkKey"];
-  NSMutableArray *testDeviceIds = [NSMutableArray array];
   bool verboseLogging = false;
 //  bool testMode = false;
   bool startMuted = false;
@@ -454,27 +447,13 @@ ApplovinLibrary::init(lua_State *L)
           }
       }else if (UTF8IsEqual(key, "testMode")) {
         if (lua_type(L, -1) == LUA_TBOOLEAN) {
-			logMsg(L, WARNING_MSG, @"options.testMode (boolean) does not have effect anymore. Use testDeviceIds instead.");
+			logMsg(L, WARNING_MSG, @"options.testMode (boolean) does not have effect anymore");
+//          testMode = lua_toboolean(L, -1);
         }
         else {
           logMsg(L, ERROR_MSG, MsgFormat(@"options.testMode (boolean) expected, got: %s", luaL_typename(L, -1)));
           return 0;
         }
-      }else if (UTF8IsEqual(key, "testDeviceIds")) {
-          if (lua_type(L, -1) == LUA_TTABLE) {
-              int len = (int)lua_objlen(L, -1);
-              for (int i = 1; i <= len; i++) {
-                  lua_rawgeti(L, -1, i);
-                  if (lua_type(L, -1) == LUA_TSTRING) {
-                      [testDeviceIds addObject:[NSString stringWithUTF8String:lua_tostring(L, -1)]];
-                  }
-                  lua_pop(L, 1);
-              }
-          }
-          else {
-            logMsg(L, ERROR_MSG, MsgFormat(@"options.testDeviceIds (table) expected, got: %s", luaL_typename(L, -1)));
-            return 0;
-          }
       } else if (UTF8IsEqual(key, "startMuted")) {
           if (lua_type(L, -1) == LUA_TBOOLEAN) {
               startMuted = lua_toboolean(L, 1);
@@ -501,13 +480,11 @@ ApplovinLibrary::init(lua_State *L)
     //  settings.autoPreloadAdTypes = @"NONE";
     [ALSdk shared].settings.verboseLoggingEnabled = verboseLogging;
     [ALSdk shared].settings.muted = startMuted;
-
+    
     ALSdkInitializationConfiguration *initConfig = [ALSdkInitializationConfiguration configurationWithSdkKey: sdkKey builderBlock:^(ALSdkInitializationConfigurationBuilder *builder) {
 
         builder.mediationProvider = ALMediationProviderMAX;
-        if (testDeviceIds.count > 0) {
-            builder.testDeviceAdvertisingIdentifiers = testDeviceIds;
-        }
+        
     }];
     [[ALSdk shared] initializeWithConfiguration: initConfig completionHandler:^(ALSdkConfiguration *sdkConfig) {
         NSDictionary *coronaEvent = @{
@@ -690,64 +667,32 @@ ApplovinLibrary::load(lua_State *L)
       applovinObjects[Y_RATIO_KEY] = @(yRatio);
     
         MAAdView *bannerAd = applovinObjects[USER_BANNER_INSTANCE_KEY];
-        UIView *oldContainer = applovinObjects[USER_BANNER_CONTAINER_KEY];
-
+      
       // remove old banner
-      if (oldContainer != nil) {
-        [oldContainer removeFromSuperview];
-      } else if (bannerAd != nil) {
+      if (bannerAd != nil) {
         [bannerAd removeFromSuperview];
       }
-
-      CGFloat screenWidth = library.coronaViewController.view.frame.size.width;
-      CGFloat bannerHeight = 50.0f;
+      
+      CGRect bannerRect;
         MAAdFormat * bannerFormat =MAAdFormat.banner;
-        BOOL useAdaptive = NO;
       if ((bannerSize == NULL) || (UTF8IsEqual(bannerSize, BANNER_STANDARD))) {
-        bannerHeight = 50.0f;
+        bannerRect = CGRectMake(0, 0, 320.0f, 50.0f);
           bannerFormat =MAAdFormat.banner;
       }
       else if (UTF8IsEqual(bannerSize, BANNER_LEADER)) {
-        bannerHeight = 90.0f;
+        bannerRect = CGRectMake(0, 0, 728.0f, 90.0f);
           bannerFormat =MAAdFormat.leader;
       }
       else if (UTF8IsEqual(bannerSize, BANNER_MREC)) {
-        bannerHeight = 250.0f;
-        screenWidth = 320.0f;
+        bannerRect = CGRectMake(0, 0, 320.0f, 250.0f);
           bannerFormat =MAAdFormat.mrec;
       }
-      else if (UTF8IsEqual(bannerSize, BANNER_ADAPTIVE)) {
-          bannerFormat = MAAdFormat.banner;
-          CGSize adaptiveSize = [bannerFormat adaptiveSizeForWidth:screenWidth];
-          bannerHeight = adaptiveSize.height;
-          useAdaptive = YES;
-          NSLog(@"[ApplovinMax] Adaptive banner size: %fx%f", screenWidth, bannerHeight);
-      }
-
-      // Create a container UIView to isolate positioning from SDK's internal constraints
-      UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, -bannerHeight * 2, screenWidth, bannerHeight)];
-      containerView.clipsToBounds = NO;
-      containerView.hidden = YES;
-
-      MAAdViewConfiguration *adViewConfig = nil;
-      if (useAdaptive) {
-          adViewConfig = [MAAdViewConfiguration configurationWithBuilderBlock:^(MAAdViewConfigurationBuilder *builder) {
-              builder.adaptiveType = MAAdViewAdaptiveTypeAnchored;
-          }];
-      }
-
-      bannerAd = [[MAAdView alloc] initWithAdUnitIdentifier:unitId adFormat:bannerFormat configuration:adViewConfig];
-      bannerAd.frame = containerView.bounds;
-      bannerAd.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+      bannerAd = [[MAAdView alloc] initWithAdUnitIdentifier:unitId  adFormat:bannerFormat];
+        bannerAd.frame = bannerRect;
       bannerAd.delegate = applovinBannerDelegate;
       bannerAd.revenueDelegate = applovinBannerDelegate;
-
-      [containerView addSubview:bannerAd];
-      [library.coronaViewController.view addSubview:containerView];
-
       applovinObjects[USER_BANNER_INSTANCE_KEY] = bannerAd;
-      applovinObjects[USER_BANNER_CONTAINER_KEY] = containerView;
-
+      
       // save extra ad status information not available in ad object
       CoronaApplovinAdStatus *adStatus = [[CoronaApplovinAdStatus alloc] initWithCoronaKey:useCoronaKey];
       applovinObjects[@(TYPE_BANNER)] = adStatus;
@@ -835,10 +780,8 @@ ApplovinLibrary::isLoaded(lua_State *L)
             isAdLoaded = [interstital isReady];
         }
     } else if(UTF8IsEqual(adType, TYPE_BANNER)) {
-        CoronaApplovinAdStatus *bannerStatus = applovinObjects[@(TYPE_BANNER)];
-        if (bannerStatus) {
-            isAdLoaded = bannerStatus.isLoaded;
-        }
+        MAAdView * banner = applovinObjects[USER_BANNER_INSTANCE_KEY];
+        //Don't have a way to check for banners at the momment
     }else {
       rewarded = false;
     }
@@ -908,15 +851,9 @@ ApplovinLibrary::hide(lua_State *L)
     };
     [applovinBannerDelegate dispatchLuaEvent:coronaEvent];
 
-  UIView *containerView = applovinObjects[USER_BANNER_CONTAINER_KEY];
-  if (containerView) {
-    [containerView removeFromSuperview];
-  } else {
-    [bannerAd removeFromSuperview];
-  }
+  [bannerAd removeFromSuperview];
   [applovinObjects removeObjectForKey:@(TYPE_BANNER)];
   [applovinObjects removeObjectForKey:USER_BANNER_INSTANCE_KEY];
-  [applovinObjects removeObjectForKey:USER_BANNER_CONTAINER_KEY];
   
   return 0;
 }
@@ -1078,87 +1015,68 @@ ApplovinLibrary::show(lua_State *L)
       }
 
         MAAdView *bannerAd = applovinObjects[USER_BANNER_INSTANCE_KEY];
-        UIView *containerView = applovinObjects[USER_BANNER_CONTAINER_KEY];
-        UIView *parentView = library.coronaViewController.view;
-
+        
       // get screen size
-      CGFloat orientedWidth = parentView.frame.size.width;
-      CGFloat orientedHeight = parentView.frame.size.height;
+      CGFloat orientedWidth = library.coronaViewController.view.frame.size.width;
+      CGFloat orientedHeight = library.coronaViewController.view.frame.size.height;
+      
+      // calculate the size for the ad, and set its frame
+      CGSize bannerSize = bannerAd.bounds.size;
+      
+      CGFloat bannerCenterX = ((orientedWidth - bannerSize.width) / 2);
+      CGFloat bannerCenterY = ((orientedHeight - bannerSize.height) / 2);
+      CGFloat bannerTopY = 0;
+      CGFloat bannerBottomY = (orientedHeight - bannerSize.height);
+        //Add safe area just in case
+        if (useSafeArea && @available(iOS 11.0, *)) {
+            bannerTopY = library.coronaViewController.view.safeAreaInsets.top;
+            bannerBottomY = (orientedHeight - bannerSize.height- library.coronaViewController.view.safeAreaInsets.bottom);
+        }
+      CGRect bannerFrame = bannerAd.frame;
+      bannerFrame.origin.x = bannerCenterX;
+      
+      // set the banner position
+        
+        
+        
+      if (yAlign == NULL) {
+        // convert corona coordinates to device coordinates and set banner position
+        CGFloat newBannerY = floor(yOffset * [applovinObjects[Y_RATIO_KEY] floatValue]);
 
-      // Use the container's height (set during load)
-      CGFloat bannerHeight = containerView.frame.size.height;
-      if (bannerHeight <= 0) {
-          bannerHeight = 50.0f;
+        // negative values count from bottom
+        if (yOffset < 0) {
+          newBannerY = orientedHeight + newBannerY;
+        }
+
+        // make sure the banner frame is visible.
+        // adjust it if the user has specified 'y' which will render it partially off-screen
+        if (newBannerY + bannerFrame.size.height > orientedHeight) {
+          logMsg(L, WARNING_MSG, @"Banner y position off screen. Adjusting position.");
+          newBannerY = orientedHeight - bannerFrame.size.height;
+        }
+        if (newBannerY < 0) {
+          logMsg(L, WARNING_MSG, @"Banner y position off screen. Adjusting position.");
+          newBannerY = 0;
+        }
+        bannerFrame.origin.y = newBannerY;
       }
-      CGFloat bannerWidth = orientedWidth;
-
-      // Calculate Y position
-      CGFloat bannerY = 0;
-      CGFloat safeTop = 0;
-      CGFloat safeBottom = 0;
-      if (@available(iOS 11.0, *)) {
-          safeTop = parentView.safeAreaInsets.top;
-          safeBottom = parentView.safeAreaInsets.bottom;
+      else {          
+        if (UTF8IsEqual(yAlign, BANNER_ALIGN_TOP)) {
+          bannerFrame.origin.y = bannerTopY;
+        }
+        else if (UTF8IsEqual(yAlign, BANNER_ALIGN_CENTER)) {
+          bannerFrame.origin.y = bannerCenterY;
+        }
+        else if (UTF8IsEqual(yAlign, BANNER_ALIGN_BOTTOM)) {
+          bannerFrame.origin.y = bannerBottomY;
+        }
       }
-
-      if (yAlign != NULL && UTF8IsEqual(yAlign, BANNER_ALIGN_BOTTOM)) {
-          if (useSafeArea) {
-              bannerY = orientedHeight - bannerHeight - safeBottom;
-          } else {
-              bannerY = orientedHeight - bannerHeight;
-          }
-      } else if (yAlign != NULL && UTF8IsEqual(yAlign, BANNER_ALIGN_CENTER)) {
-          bannerY = (orientedHeight - bannerHeight) / 2.0f;
-      } else if (yAlign != NULL && UTF8IsEqual(yAlign, BANNER_ALIGN_TOP)) {
-          if (useSafeArea) {
-              bannerY = safeTop;
-          } else {
-              bannerY = 0;
-          }
-      } else if (yAlign == NULL && yOffset != 0) {
-          // Numeric y offset — use Corona's coordinate converter for accurate mapping
-          CGPoint coronaPoint = {0, (CGFloat)yOffset};
-          CGPoint uikitPoint = [applovinBannerDelegate.coronaRuntime coronaPointToUIKitPoint:coronaPoint];
-          bannerY = floor(uikitPoint.y);
-
-          // negative values count from bottom
-          if (yOffset < 0) {
-              bannerY = orientedHeight + bannerY;
-          }
-          if (bannerY + bannerHeight > orientedHeight) {
-              logMsg(L, WARNING_MSG, @"Banner y position off screen. Adjusting position.");
-              bannerY = orientedHeight - bannerHeight;
-          }
-          if (bannerY < 0) {
-              logMsg(L, WARNING_MSG, @"Banner y position off screen. Adjusting position.");
-              bannerY = 0;
-          }
-          NSLog(@"[ApplovinMax] SHOW numeric: coronaY=%f -> uikitY=%f -> bannerY=%f", yOffset, uikitPoint.y, bannerY);
-      } else {
-          // Default: top with safe area
-          if (useSafeArea) {
-              bannerY = safeTop;
-          } else {
-              bannerY = 0;
-          }
-      }
-
-        // Position the container — SDK cannot interfere with a plain UIView's frame
-        containerView.frame = CGRectMake(0, bannerY, bannerWidth, bannerHeight);
-        bannerAd.frame = containerView.bounds;
-        [parentView bringSubviewToFront:containerView];
-        containerView.hidden = NO;
+        bannerAd.frame = bannerFrame;
+        
+        [library.coronaViewController.view addSubview:bannerAd];
         [bannerAd startAutoRefresh];
         [bannerAd setHidden:NO];
-
         adStatus.bannerIsVisible = YES;
-
-        NSLog(@"[ApplovinMax] SHOW yAlign: %s, yOffset: %f, useSafeArea: %d", yAlign ? yAlign : "NULL", yOffset, useSafeArea);
-        NSLog(@"[ApplovinMax] SHOW bannerY: %f, safeTop: %f, safeBottom: %f", bannerY, safeTop, safeBottom);
-        NSLog(@"[ApplovinMax] SHOW orientedHeight: %f, bannerHeight: %f, bannerWidth: %f", orientedHeight, bannerHeight, bannerWidth);
-        NSLog(@"[ApplovinMax] SHOW container.frame: %@", NSStringFromCGRect(containerView.frame));
-        NSLog(@"[ApplovinMax] SHOW container.hidden: %d, container.superview: %@", containerView.hidden, containerView.superview);
-        NSLog(@"[ApplovinMax] SHOW bannerAd.frame: %@, bannerAd.hidden: %d", NSStringFromCGRect(bannerAd.frame), bannerAd.hidden);
         if(placement){
             bannerAd.placement = [NSString stringWithUTF8String:placement];
         }
@@ -1595,16 +1513,15 @@ ApplovinLibrary::setCreativeDebuggerEnabled(lua_State *L)
 
 
 - (void)didDisplayAd:(MAAd *)ad {
-    // Suppress for banner/mrec/leader — the SDK auto-fires this during load
-    // when the view is in the hierarchy. We dispatch "displayed" manually from show() instead.
-    if ([ad format] == MAAdFormat.banner || [ad format] == MAAdFormat.mrec || [ad format] == MAAdFormat.leader) {
-        return;
+    
+    if ([ad format] != MAAdFormat.mrec || [ad format] != MAAdFormat.banner || [ad format] != MAAdFormat.leader) {
+        NSDictionary *coronaEvent = @{
+          @(CoronaEventPhaseKey()): PHASE_DISPLAYED,
+          @(CoronaEventTypeKey()): self.adType
+        };
+        [self dispatchLuaEvent:coronaEvent];
     }
-    NSDictionary *coronaEvent = @{
-      @(CoronaEventPhaseKey()): PHASE_DISPLAYED,
-      @(CoronaEventTypeKey()): self.adType
-    };
-    [self dispatchLuaEvent:coronaEvent];
+    
 }
 
 

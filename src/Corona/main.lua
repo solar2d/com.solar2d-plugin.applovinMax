@@ -87,10 +87,52 @@ end
 
 
 
-applovin.init(applovinListener, {
-  verboseLogging = true,
-  testMode = true
-})
+local applovinInitialized = false
+
+local function initApplovin()
+    if applovinInitialized then return end
+    applovinInitialized = true
+    local sdkKey
+    if system.getInfo("platform") == "android" then
+        sdkKey = "YOUR_ANDROID_SDK_KEY"
+    elseif system.getInfo("platform") == "ios" then
+        sdkKey = "replace with your own"
+    else
+        sdkKey = ""
+    end
+    applovin.init( applovinListener, {
+        verboseLogging=true,
+        sdkKey = sdkKey,
+        testDeviceIds = {"40DA725F-5936-46AF-B6D3-8D17F41E76D7"}
+    } )
+end
+
+-- Request ATT before initializing ads
+if system.getInfo("platform") == "ios" then
+    local att = require("plugin.att")
+
+    local function onATTResponse(event)
+        print("ATT status: " .. tostring(event.status))
+        initApplovin()
+    end
+
+    -- ATT dialog must be shown after app is fully active
+    -- Delay request to next frame to ensure app is in foreground
+    timer.performWithDelay(500, function()
+        local currentStatus = att.status
+        print("ATT current status: " .. tostring(currentStatus))
+        if currentStatus == "notDetermined" then
+            att.request(onATTResponse)
+        else
+            -- Already determined (authorized/denied/restricted), just init
+            print("ATT already determined: " .. tostring(currentStatus))
+            initApplovin()
+        end
+    end)
+else
+    initApplovin()
+end
+
 
 bannerButton = widget.newButton {
   label = "Load banner",
@@ -100,7 +142,7 @@ bannerButton = widget.newButton {
     if bannerButton:getLabel() == "Hide Banner" then
       applovin.hide("banner")
     elseif applovin.isLoaded("banner") then
-      applovin.show("banner", {y="bottom"})
+      applovin.show("banner", {y="top"})
     else
       bannerButton:setLabel("Loading banner...")
       applovin.load("banner", {iOSUnitId ="replace with your own", androidUnitId="replace with your own", bannerSize="standard"})

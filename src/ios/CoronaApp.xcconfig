@@ -4,6 +4,18 @@
 // import Corona native location and basic settings
 #include "CoronaNative.xcconfig"
 
-// To use Metal rather than 'classic' change -lplayer to -lplayer-angle
-// And make sure to drag Native/Corona/ios/lib/MetalANGLE.framework into App's framework list
-OTHER_LDFLAGS = $(inherited) $(CORONA_CUSTOM_LDFLAGS) -all_load -lplayer -ld_classic
+OTHER_LDFLAGS[sdk=iphoneos*] = $(inherited) $(CORONA_CUSTOM_LDFLAGS) -all_load -Xlinker -undefined -Xlinker dynamic_lookup
+OTHER_LDFLAGS[sdk=iphonesimulator*] = $(inherited) $(CORONA_CUSTOM_LDFLAGS) -all_load -Xlinker -undefined -Xlinker dynamic_lookup
+// device entries
+OTHER_LDFLAGS[sdk=iphoneos*] = $(inherited) -lplugin_applovinMax -lz -lsqlite3 -lNotificationsV2Plugin.firebase -lplugin_att -framework AppLovinSDK -framework StoreKit -framework AdSupport -framework FirebaseInstallations -framework FBLPromises -framework GoogleUtilities -framework nanopb -framework GoogleDataTransport -framework FirebaseCore -framework CoreTelephony -framework GoogleAppMeasurementIdentitySupport -framework FirebaseCoreInternal -framework FirebaseMessaging -framework GoogleAppMeasurement -weak_framework AppTrackingTransparency -weak_framework AdSupport -weak_framework UserNotificationsUI -weak_framework WebKit -weak_framework UserNotifications
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES[sdk=iphoneos*] = YES
+LIBRARY_SEARCH_PATHS[sdk=iphoneos*] = $(inherited)  "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone/com.solar2d_plugin.applovinMax" "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone/com.coronalabs_plugin.notifications.v2.firebase" "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone/com.solar2d_plugin.att"
+FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*] = $(inherited)  "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone/com.solar2d_plugin.applovinMax" "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone/com.coronalabs_plugin.notifications.v2.firebase" "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone/com.solar2d_plugin.att"
+CORONA_PLUGIN_RESOURCES[sdk=iphoneos*] =/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone/com.solar2d_plugin.applovinMax/resources
+
+// simulator entries
+OTHER_LDFLAGS[sdk=iphonesimulator*] = $(inherited) -lplugin_applovinMax -lz -lsqlite3 -lNotificationsV2Plugin.firebase -lplugin_att -framework AppLovinSDK -framework StoreKit -framework AdSupport -framework FirebaseInstallations -framework FBLPromises -framework GoogleUtilities -framework nanopb -framework GoogleDataTransport -framework FirebaseCore -framework CoreTelephony -framework GoogleAppMeasurementIdentitySupport -framework FirebaseCoreInternal -framework FirebaseMessaging -framework GoogleAppMeasurement -weak_framework AppTrackingTransparency -weak_framework AdSupport -weak_framework UserNotificationsUI -weak_framework WebKit -weak_framework UserNotifications
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES[sdk=iphonesimulator*] = YES
+LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*] = $(inherited)  "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone-sim/com.coronalabs_plugin.notifications.v2.firebase" "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone-sim/com.solar2d_plugin.applovinMax" "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone-sim/com.solar2d_plugin.att"
+FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*] = $(inherited)  "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone-sim/com.coronalabs_plugin.notifications.v2.firebase" "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone-sim/com.solar2d_plugin.applovinMax" "/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone-sim/com.solar2d_plugin.att"
+CORONA_PLUGIN_RESOURCES[sdk=iphonesimulator*] =/Users/scottharrison/Library/Application Support/Corona/Native Plugins/iphone-sim/com.solar2d_plugin.applovinMax/resources

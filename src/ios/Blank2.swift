@@ -1,6 +1,6 @@
 //
-//  Blank.swift
-//  plugin_applovinMax
+//  Blank2.swift
+//  App
 //
 //  Created by Scott Harrison on 3/22/26.
 //

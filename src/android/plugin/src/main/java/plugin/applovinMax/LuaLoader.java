@@ -74,6 +74,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
     private static final String BANNER_STANDARD = "standard";
     private static final String BANNER_LEADER = "leader";
     private static final String BANNER_MREC = "mrec";
+    private static final String BANNER_ADAPTIVE = "adaptive";
 
     // valid banner sizes
     private static final List<String> validBannerSizes = new ArrayList<>();
@@ -194,6 +195,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             validBannerSizes.add(BANNER_STANDARD);
             validBannerSizes.add(BANNER_LEADER);
             validBannerSizes.add(BANNER_MREC);
+            validBannerSizes.add(BANNER_ADAPTIVE);
 
             validBannerPositions.add(BANNER_ALIGN_TOP);
             validBannerPositions.add(BANNER_ALIGN_CENTER);
@@ -414,6 +416,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             boolean verboseLogging = false;
             boolean testMode = false;
             boolean startMuted = false;
+            java.util.List<String> testDeviceIds = null;
 
             // get listener
             if (CoronaLua.isListener(L, 1, PROVIDER_NAME)) {
@@ -474,6 +477,22 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 return 0;
                             }
                             break;
+                        case "testDeviceIds":
+                            if (L.type(-1) == LuaType.TABLE) {
+                                testDeviceIds = new java.util.ArrayList<>();
+                                int len = L.length(-1);
+                                for (int i = 1; i <= len; i++) {
+                                    L.rawGet(-1, i);
+                                    if (L.type(-1) == LuaType.STRING) {
+                                        testDeviceIds.add(L.toString(-1));
+                                    }
+                                    L.pop(1);
+                                }
+                            } else {
+                                logMsg(ERROR_MSG, "options.testDeviceIds (table) expected, got: " + L.typeName(-1));
+                                return 0;
+                            }
+                            break;
                         default:
                             logMsg(ERROR_MSG, "Invalid option '" + key + "'");
                             return 0;
@@ -491,9 +510,12 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             sdkSettings.setVerboseLogging(verboseLogging);
             sdkSettings.setMuted(startMuted);
 
-            AppLovinSdkInitializationConfiguration initConfig = AppLovinSdkInitializationConfiguration.builder( userSdkKey, coronaContext )
-                    .setMediationProvider( AppLovinMediationProvider.MAX )
-                    .build();
+            AppLovinSdkInitializationConfiguration.Builder initConfigBuilder = AppLovinSdkInitializationConfiguration.builder( userSdkKey, coronaContext )
+                    .setMediationProvider( AppLovinMediationProvider.MAX );
+            if (testDeviceIds != null && !testDeviceIds.isEmpty()) {
+                initConfigBuilder.setTestDeviceAdvertisingIds(testDeviceIds);
+            }
+            AppLovinSdkInitializationConfiguration initConfig = initConfigBuilder.build();
 
 
             AppLovinSdk.getInstance( coronaContext ).initialize( initConfig, new AppLovinSdk.SdkInitializationListener()
@@ -673,6 +695,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                             }
 
                             MaxAdFormat applovinBannerSize = MaxAdFormat.BANNER;
+                            boolean useAdaptive = false;
 
                             if ((fBannerSize == null) || (fBannerSize.equals(BANNER_STANDARD))) {
                                 applovinBannerSize = MaxAdFormat.BANNER;
@@ -680,10 +703,15 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 applovinBannerSize = MaxAdFormat.LEADER;
                             } else if (fBannerSize.equals(BANNER_MREC)) {
                                 applovinBannerSize = MaxAdFormat.MREC;
+                            } else if (fBannerSize.equals(BANNER_ADAPTIVE)) {
+                                applovinBannerSize = MaxAdFormat.BANNER;
+                                useAdaptive = true;
                             }
 
-
                             bannerAd = new MaxAdView( fAdUnitId, applovinBannerSize, CoronaEnvironment.getCoronaActivity() );
+                            if (useAdaptive) {
+                                bannerAd.setExtraParameter("adaptive_banner", "true");
+                            }
                             bannerAd.setListener(delBanner);
                             bannerAd.setRevenueListener(revBanner);
 
@@ -896,6 +924,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             String adType = null;
             String yAlign = null;
             double yOffset = 0;
+            boolean useSafeArea = true;
 
             // check options
             if (!L.isNoneOrNil(1)) {
@@ -939,6 +968,13 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 logMsg(ERROR_MSG, "options.y (string or number) expected, got: " + L.typeName(-1));
                                 return 0;
                             }
+                        } else if (key.equals("safeArea")) {
+                            if (L.type(-1) == LuaType.BOOLEAN) {
+                                useSafeArea = L.toBoolean(-1);
+                            } else {
+                                logMsg(ERROR_MSG, "options.safeArea (boolean) expected, got: " + L.typeName(-1));
+                                return 0;
+                            }
                         } else {
                             logMsg(ERROR_MSG, "Invalid option '" + key + "'");
                             return 0;
@@ -977,6 +1013,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             final String fAdType = adType;
             final String fYAlign = yAlign;
             final double fYOffset = yOffset;
+            final boolean fUseSafeArea = useSafeArea;
 
             if (coronaActivity != null) {
                 Runnable runnableActivity = new Runnable() {
@@ -1030,7 +1067,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                         FrameLayout.LayoutParams.WRAP_CONTENT,
                                         140
                                 );
-                                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                if (fUseSafeArea && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                                     WindowInsets windowInsets = coronaActivity.getWindow().getDecorView().getRootView().getRootWindowInsets();
                                     DisplayCutout displayCutout = windowInsets.getDisplayCutout();
                                     //check displayCutout actually exists
@@ -1054,7 +1091,9 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                         orientedHeight = size.x;
                                     }
 
-                                    double newBannerY = ceil(fYOffset * (double) applovinObjects.get(Y_RATIO_KEY));
+                                    // Use Corona's coordinate converter directly for accurate mapping
+                                    Point coronaPoint = coronaActivity.convertCoronaPointToAndroidPoint(0, (int) fYOffset);
+                                    double newBannerY = coronaPoint.y;
 
                                     // make sure the banner frame is visible.
                                     // adjust it if the user has specified 'y' which will render it partially off-screen
