@@ -58,6 +58,8 @@ import com.applovin.sdk.*;
 public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
     private static final String PLUGIN_NAME = "plugin.applovinMax";
     private static final String PLUGIN_SDK_VERSION = AppLovinSdk.VERSION;
+    // games.flick fork: banner view is attached to the overlay at load time (see Load/Show)
+    private static final String PLUGIN_PATCH = "games.flick banner attach-at-load 2026-09-18";
 
     private static final String EVENT_NAME = "adsRequest";
     private static final String PROVIDER_NAME = "applovinMax";
@@ -283,6 +285,34 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
         }
 
         Log.i(CORONA_TAG, msgType + functionID + errorMsg);
+    }
+
+    // Height of a banner format in device pixels. The SDK reports format sizes in dp,
+    // so convert with the device density instead of hard-coding a pixel value.
+    private int bannerHeightInPixels(Context context, MaxAdFormat format, boolean adaptive) {
+        if (format == null) {
+            format = MaxAdFormat.BANNER;
+        }
+        AppLovinSdkUtils.Size size = adaptive ? format.getAdaptiveSize(context) : format.getSize();
+        int heightDp = (size != null) ? size.getHeight() : 0;
+        if (heightDp <= 0) {
+            heightDp = MaxAdFormat.BANNER.getSize().getHeight();
+        }
+        return AppLovinSdkUtils.dpToPx(context, heightDp);
+    }
+
+    // Detach a banner view from whatever parent holds it, then destroy it.
+    // Upstream destroyed the MaxAdView but left the dead view in the overlay.
+    private void detachAndDestroyBanner(MaxAdView bannerAd) {
+        if (bannerAd == null) {
+            return;
+        }
+        android.view.ViewParent parent = bannerAd.getParent();
+        if (parent instanceof android.view.ViewGroup) {
+            ((android.view.ViewGroup) parent).removeView(bannerAd);
+        }
+        bannerAd.removeAllViews();
+        bannerAd.destroy();
     }
 
     // return true if SDK is properly initialized
@@ -531,7 +561,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
             } );
 
             // log the plugin version to device console
-            Log.i(CORONA_TAG, PLUGIN_NAME + " (SDK: " + PLUGIN_SDK_VERSION + ")");
+            Log.i(CORONA_TAG, PLUGIN_NAME + " (SDK: " + PLUGIN_SDK_VERSION + ", " + PLUGIN_PATCH + ")");
 
             return 0;
         }
@@ -688,11 +718,8 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
 
                             MaxAdView bannerAd = (MaxAdView) applovinObjects.get(USER_BANNER_INSTANCE_KEY);
 
-                            // remove old banner
-                            if (bannerAd != null) {
-                                bannerAd.removeAllViews();
-                                bannerAd.destroy();
-                            }
+                            // remove old banner (detaching it from the overlay as well)
+                            detachAndDestroyBanner(bannerAd);
 
                             MaxAdFormat applovinBannerSize = MaxAdFormat.BANNER;
                             boolean useAdaptive = false;
@@ -724,6 +751,19 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                             }
                             adStatus = new CoronaAdStatus();
                             applovinObjects.put(TYPE_BANNER, adStatus);
+
+                            // Attach the view to the overlay BEFORE loading, invisible and full width,
+                            // mirroring the iOS plugin's hidden container. The MAX Android SDK gates
+                            // banner rendering on the view being in a window, so loading a detached
+                            // view left the creative unrendered until show() attached it.
+                            int bannerHeightPx = bannerHeightInPixels(coronaActivity, applovinBannerSize, useAdaptive);
+                            FrameLayout.LayoutParams loadParams = new FrameLayout.LayoutParams(
+                                    FrameLayout.LayoutParams.MATCH_PARENT,
+                                    bannerHeightPx
+                            );
+                            loadParams.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+                            bannerAd.setVisibility(View.INVISIBLE);
+                            coronaActivity.getOverlayView().addView(bannerAd, loadParams);
 
                             bannerAd.loadAd();
                         } else { // interstitial
@@ -877,11 +917,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                         coronaEvent.put(EVENT_TYPE_KEY, fAdType);
                         dispatchLuaEvent(coronaEvent);
 
-                        MaxAdView bannerAd = (MaxAdView) applovinObjects.get(USER_BANNER_INSTANCE_KEY);
-                        if (bannerAd != null) {
-                            bannerAd.removeAllViews();
-                            bannerAd.destroy();
-                        }
+                        detachAndDestroyBanner((MaxAdView) applovinObjects.get(USER_BANNER_INSTANCE_KEY));
                         fAdStatus.dealloc();
                         applovinObjects.remove(TYPE_BANNER);
                         applovinObjects.remove(USER_BANNER_INSTANCE_KEY);
@@ -1057,15 +1093,24 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 bannerAd.setRevenueListener(revBanner);
                                 if(fPlacement != null) bannerAd.setPlacement(fPlacement);
 
-                                // remove old layout
-                                if (bannerAd.getParent() != null) {
-                                    coronaActivity.getOverlayView().removeView(bannerAd);
+                                // the view was attached (invisible) at load time; re-attach only if something removed it
+                                if (bannerAd.getParent() == null) {
+                                    coronaActivity.getOverlayView().addView(bannerAd);
+                                }
+
+                                // banner height in pixels, fixed at load time from the ad format
+                                int bannerHeightPx = 0;
+                                if (bannerAd.getLayoutParams() != null) {
+                                    bannerHeightPx = bannerAd.getLayoutParams().height;
+                                }
+                                if (bannerHeightPx <= 0) {
+                                    bannerHeightPx = bannerHeightInPixels(coronaActivity, bannerAd.getAdFormat(), false);
                                 }
 
                                 // set final layout params
                                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                                        FrameLayout.LayoutParams.WRAP_CONTENT,
-                                        140
+                                        FrameLayout.LayoutParams.MATCH_PARENT,
+                                        bannerHeightPx
                                 );
                                 if (fUseSafeArea && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                                     WindowInsets windowInsets = coronaActivity.getWindow().getDecorView().getRootView().getRootWindowInsets();
@@ -1098,7 +1143,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                     // make sure the banner frame is visible.
                                     // adjust it if the user has specified 'y' which will render it partially off-screen
                                     if (newBannerY >= 0) { // offset from top
-                                        if (newBannerY + bannerAd.getHeight() > orientedHeight) {
+                                        if (newBannerY + bannerHeightPx > orientedHeight) {
                                             logMsg(WARNING_MSG, "Banner y position off screen. Adjusting position.");
                                             params.gravity = Gravity.BOTTOM | Gravity.CENTER;
                                         } else {
@@ -1106,7 +1151,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                             params.topMargin = (int) newBannerY;
                                         }
                                     } else { // offset from bottom
-                                        if (orientedHeight - bannerAd.getHeight() + newBannerY < 0) {
+                                        if (orientedHeight - bannerHeightPx + newBannerY < 0) {
                                             logMsg(WARNING_MSG, "Banner y position off screen. Adjusting position.");
                                             params.gravity = Gravity.TOP | Gravity.CENTER;
                                         } else {
@@ -1135,7 +1180,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
                                 coronaEvent.put(EVENT_TYPE_KEY, fAdType);
                                 dispatchLuaEvent(coronaEvent);
                                 // display the banner
-                                coronaActivity.getOverlayView().addView(bannerAd, params);
+                                bannerAd.setLayoutParams(params);
                                 bannerAd.setVisibility(View.VISIBLE);
                                 bannerAd.bringToFront();
                                 adStatus.bannerIsVisible = true;
