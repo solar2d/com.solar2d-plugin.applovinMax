@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        // jcenter() is shut down; mavenCentral below covers it
         mavenCentral()
     }
     dependencies {
@@ -14,7 +14,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        // jcenter() is shut down; mavenCentral below covers it
         mavenCentral()
         // maven(url = "https:// some custom repo")
         val nativeDir = if (System.getProperty("os.name").lowercase().contains("windows")) {
