@@ -19,7 +19,9 @@ Hides an applovin ad.
 <div class="guide-notebox">
 <div class="notebox-title">Notes</div>
 
-For now only `"banner"` ads are supported in this method.
+* For now only `"banner"` ads are supported in this method.
+
+* On Android, calling this while a banner is still loading discards that load. The `"hidden"` [event.phase][plugin.applovinMax.event.adsRequest.phase] is only sent when a banner had actually loaded.
 
 </div>
 

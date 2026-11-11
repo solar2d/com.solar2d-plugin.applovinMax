@@ -36,6 +36,8 @@ _[String][api.type.String]._ One of the following values:
 
 * Rewarded video offers can be limited to a certain amount in a given day, defined under "frequency&nbsp;capping" in the [AppLovin developer portal](https://www.applovin.com/manage). If you are using frequency capping, we recommend that you check for an [event.phase][plugin.applovin.event.adsRequest.phase] value of `"validationExceededQuota"` to determine if the limit has been reached. When this occurs, you may consider loading/showing an interstitial ad instead.
 
+* On Android, a `"banner"` load requested while an earlier banner load is still in progress is ignored for up to 30 seconds. Wait for the `"loaded"` or `"failed"` phase of the first request before loading again.
+
 </div>
 
 ##### params ~^(optiional)^~

@@ -320,7 +320,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener {
     }
 
     // Detach a banner view from whatever parent holds it, then destroy it.
-    // Upstream destroyed the MaxAdView but left the dead view in the overlay.
+    // Destroying the MaxAdView alone would leave the dead view in the overlay.
     private void detachAndDestroyBanner(MaxAdView bannerAd) {
         if (bannerAd == null) {
             return;
