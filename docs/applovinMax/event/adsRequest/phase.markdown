@@ -21,11 +21,13 @@
 
 * `"displayed"` &mdash; Indicates that an ad was displayed. For this phase, [event.type][plugin.applovinMax.event.adsRequest.type] can provide additional context.
 
+* `"show"` &mdash; Android only. Applies only to banner ads. Indicates that [applovinMax.show()][plugin.applovinMax.show] could not display the banner, either because no banner is loaded or because one is already visible. For this phase, [event.isError][plugin.applovinMax.event.adsRequest.isError] will be `true` and [event.response][plugin.applovinMax.event.adsRequest.response] states the reason.
+
 * `"expanded"` &mdash; Applies only to banner ads. Indicates that an ad was expanded. For this phase, [event.type][plugin.applovinMax.event.adsRequest.type] can provide additional context.
 
 * `"collapsed"` &mdash; Applies only to banner ads. Indicates that an ad was collapsed. For this phase, [event.type][plugin.applovinMax.event.adsRequest.type] can provide additional context.
 
-* `"hidden"` &mdash; Indicates that an interstitial ad was closed/hidden. For this phase, [event.type][plugin.applovinMax.event.adsRequest.type] can provide additional context.
+* `"hidden"` &mdash; Indicates that an interstitial ad was closed/hidden, or that a loaded banner was removed with [applovinMax.hide()][plugin.applovinMax.hide]. For this phase, [event.type][plugin.applovinMax.event.adsRequest.type] can provide additional context.
 
 * `"playbackBegan"` &mdash; Indicates that a video ad has started playback. For this phase, [event.type][plugin.applovinMax.event.adsRequest.type] can provide additional context.
 
